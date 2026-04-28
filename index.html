@@ -633,11 +633,9 @@
 ══════════════════════════════════════════════ -->
 <nav class="nav-wrapper">
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showSection('flight', this)">✈ 항공</button>
-    <button class="nav-tab" onclick="showSection('accom', this)">🏨 숙소</button>
+    <button class="nav-tab active" onclick="showSection('itinerary', this)">📅 일정</button>
+    <button class="nav-tab" onclick="showSection('booking', this)">📋 예약</button>
     <button class="nav-tab" onclick="showSection('exchange', this)">💱 환율</button>
-    <button class="nav-tab" onclick="showSection('transport', this)">🚌 교통</button>
-    <button class="nav-tab" onclick="showSection('itinerary', this)">📅 일정</button>
     <button class="nav-tab" onclick="showSection('warnings', this)">⚠ 주의</button>
     <button class="nav-tab" onclick="showSection('ledger', this)">📊 가계부</button>
     <button class="nav-tab" onclick="showSection('voucher', this)">🎫 바우처</button>
@@ -645,14 +643,17 @@
 </nav>
 
 <!-- ══════════════════════════════════════════════
-     SECTION 01 · FLIGHT
+     SECTION 01 · BOOKING (항공 + 숙소 + 교통 통합)
 ══════════════════════════════════════════════ -->
-<section class="section active" id="sec-flight">
+<section class="section" id="sec-booking">
   <div class="section-header">
-    <span class="section-num">01</span>
-    <span class="section-title">항공 정보</span>
+    <span class="section-num">BOOKING</span>
+    <span class="section-title">예약 현황</span>
   </div>
   <div class="section-divider"></div>
+
+  <!-- 항공 -->
+  <div style="font-size:16px; font-weight:700; color:var(--olive-dark); margin-bottom:16px;">✈ 항공</div>
   <div class="flight-grid">
     <div class="flight-card">
       <div class="flight-label">가는 편 · OUTBOUND</div>
@@ -681,17 +682,11 @@
       </div>
     </div>
   </div>
-</section>
 
-<!-- ══════════════════════════════════════════════
-     SECTION 02 · ACCOMMODATION
-══════════════════════════════════════════════ -->
-<section class="section" id="sec-accom">
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <span class="section-title">숙소 안내</span>
-  </div>
-  <div class="section-divider"></div>
+  <div style="height:32px;"></div>
+
+  <!-- 숙소 -->
+  <div style="font-size:16px; font-weight:700; color:var(--olive-dark); margin-bottom:16px;">🏨 숙소</div>
   <div class="accom-grid">
 
     <div class="accom-card">
@@ -783,6 +778,91 @@
       <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">체스키 도시세 1인 500 CZK 별도 / 렌트카 보증금 €300 별도</div>
     </div>
   </div>
+
+  <div style="height:32px;"></div>
+
+  <!-- 교통 -->
+  <div style="font-size:16px; font-weight:700; color:var(--olive-dark); margin-bottom:16px;">🚌 교통</div>
+  <div class="card">
+    <div class="scrollable-table-wrap">
+      <table class="transport-table">
+        <thead>
+          <tr>
+            <th>구간</th>
+            <th>교통편</th>
+            <th>상태</th>
+            <th>금액</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="transport-route">프라하 시내</div></td>
+            <td><div>Lítačka 개별 30분권 × ~3회</div><div class="transport-detail">트램 + 메트로 포함</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">36 CZK/회 (~108 CZK/인)<div class="transport-detail">≈7,560원/인</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">프라하 → 체스키</div></td>
+            <td><div>RegioJet 버스</div><div class="transport-detail">10:00 출발, 2h 40m</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">34,994원</td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">체스키 → 린츠</div></td>
+            <td><div>FlixBus</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">€23.46<div class="transport-detail">≈41,055원</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">잘츠캄머구트</div></td>
+            <td><div>렌트카 2박</div><div class="transport-detail" style="color:#c0392b;">⚠ 현장 보증금 €300</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">421,736원<div class="transport-detail">+ 보증금 €300 홀딩</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">린츠 → 빈</div></td>
+            <td><div>OBB 열차</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">66,423원</td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">빈 시내</div></td>
+            <td><div>24시간권 × 2장 (디지털)</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">€9.70 × 2 = €19.40/인<div class="transport-detail">≈33,950원/인</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">빈 → 부다페스트</div></td>
+            <td><div>RegioJet 열차</div><div class="transport-detail">13:27 출발 → 15:58 Budapest-Déli</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">138,324원</td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">부다페스트 시내</div></td>
+            <td><div>개별 1회권 × ~6회</div><div class="transport-detail">힘든 구간만 탑승, 평지는 도보</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">~3,000 HUF/인<div class="transport-detail">≈13,500원/인</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">부다페스트 공항</div></td>
+            <td><div>100E 버스</div><div class="transport-detail" style="color:#c0392b;">⚠ 48h 카드 사용 불가</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">2,200 HUF/인<div class="transport-detail">≈9,900원/인</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:13px;font-weight:700;color:var(--text-muted);">예약 완료 합계 (참고)</span>
+        <span style="font-size:18px;font-weight:800;color:var(--olive-dark);">661,477원 + €23.46</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);">렌트카 421,736 + 빈열차 66,423 + 부다페스트열차 138,324 + 프라하버스 34,994</div>
+    </div>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
@@ -868,101 +948,9 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     SECTION 04 · TRANSPORT
-══════════════════════════════════════════════ -->
-<section class="section" id="sec-transport">
-  <div class="section-header">
-    <span class="section-num">04</span>
-    <span class="section-title">교통 티켓</span>
-  </div>
-  <div class="section-divider"></div>
-
-  <div class="card">
-    <div class="scrollable-table-wrap">
-      <table class="transport-table">
-        <thead>
-          <tr>
-            <th>구간</th>
-            <th>교통편</th>
-            <th>상태</th>
-            <th>금액</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><div class="transport-route">프라하 시내</div></td>
-            <td><div>Lítačka 개별 30분권 × ~3회</div><div class="transport-detail">트램 + 메트로 포함</div></td>
-            <td><span class="status-local">현지 구매</span></td>
-            <td class="transport-amount">36 CZK/회 (~108 CZK/인)<div class="transport-detail">≈7,560원/인</div></td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">프라하 → 체스키</div></td>
-            <td><div>RegioJet 버스</div><div class="transport-detail">10:00 출발, 2h 40m</div></td>
-            <td><span class="status-done">✓ 예약완료</span></td>
-            <td class="transport-amount">34,994원</td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">체스키 → 린츠</div></td>
-            <td><div>FlixBus</div></td>
-            <td><span class="status-done">✓ 예약완료</span></td>
-            <td class="transport-amount">€23.46<div class="transport-detail">≈41,055원</div></td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">잘츠캄머구트</div></td>
-            <td><div>렌트카 2박</div><div class="transport-detail" style="color:#c0392b;">⚠ 현장 보증금 €300</div></td>
-            <td><span class="status-done">✓ 예약완료</span></td>
-            <td class="transport-amount">421,736원<div class="transport-detail">+ 보증금 €300 홀딩</div></td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">린츠 → 빈</div></td>
-            <td><div>OBB 열차</div></td>
-            <td><span class="status-done">✓ 예약완료</span></td>
-            <td class="transport-amount">66,423원</td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">빈 시내</div></td>
-            <td><div>24시간권 × 2장 (디지털)</div></td>
-            <td><span class="status-local">현지 구매</span></td>
-            <td class="transport-amount">€9.70 × 2 = €19.40/인<div class="transport-detail">≈33,950원/인</div></td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">빈 → 부다페스트</div></td>
-            <td><div>RegioJet 열차</div><div class="transport-detail">13:27 출발 → 15:58 Budapest-Déli</div></td>
-            <td><span class="status-done">✓ 예약완료</span></td>
-            <td class="transport-amount">138,324원</td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">부다페스트 시내</div></td>
-            <td><div>개별 1회권 × ~6회</div><div class="transport-detail">힘든 구간만 탑승, 평지는 도보</div></td>
-            <td><span class="status-local">현지 구매</span></td>
-            <td class="transport-amount">~3,000 HUF/인<div class="transport-detail">≈13,500원/인</div></td>
-          </tr>
-          <tr>
-            <td><div class="transport-route">부다페스트 공항</div></td>
-            <td><div>100E 버스</div><div class="transport-detail" style="color:#c0392b;">⚠ 48h 카드 사용 불가</div></td>
-            <td><span class="status-local">현지 구매</span></td>
-            <td class="transport-amount">2,200 HUF/인<div class="transport-detail">≈9,900원/인</div></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:16px;">
-    <div class="card-body">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <span style="font-size:13px;font-weight:700;color:var(--text-muted);">예약 완료 합계 (참고)</span>
-        <span style="font-size:18px;font-weight:800;color:var(--olive-dark);">661,477원 + €23.46</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);">렌트카 421,736 + 빈열차 66,423 + 부다페스트열차 138,324 + 프라하버스 34,994</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
      SECTION 05 · ITINERARY
 ══════════════════════════════════════════════ -->
-<section class="section" id="sec-itinerary">
+<section class="section active" id="sec-itinerary">
   <div class="section-header">
     <span class="section-num">05</span>
     <span class="section-title">일별 여행 플래너</span>
@@ -1609,6 +1597,8 @@
 <script>
 // ── Section navigation ──────────────────────────
 function showSection(id, btn) {
+  // flight, accom, transport는 모두 booking으로 리다이렉트
+  if (id === 'flight' || id === 'accom' || id === 'transport') id = 'booking';
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
