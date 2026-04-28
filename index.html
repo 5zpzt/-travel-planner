@@ -1722,6 +1722,34 @@ const EX_NOTES = {
   EUR: '기준: 1 EUR ≈ 1,750원 (2026.4 기준, 참고용)',
   HUF: '기준: 1 HUF ≈ 4.5원 (2026.4 기준, 참고용)'
 };
+
+// 실시간 환율 업데이트
+async function fetchLiveRates() {
+  try {
+    const res = await fetch('https://api.frankfurter.app/latest?from=KRW&to=CZK,EUR,HUF');
+    const data = await res.json();
+    const krwToCzk = data.rates.CZK;
+    const krwToEur = data.rates.EUR;
+    const krwToHuf = data.rates.HUF;
+    EX_RATES.CZK = Math.round(1 / krwToCzk);
+    EX_RATES.EUR = Math.round(1 / krwToEur);
+    EX_RATES.HUF = +(1 / krwToHuf).toFixed(1);
+    RATES.CZK = EX_RATES.CZK;
+    RATES.EUR = EX_RATES.EUR;
+    RATES.HUF = EX_RATES.HUF;
+    const now = new Date();
+    const ts = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    EX_NOTES.CZK = `실시간: 1 CZK ≈ ${EX_RATES.CZK}원 (${ts} 업데이트)`;
+    EX_NOTES.EUR = `실시간: 1 EUR ≈ ${EX_RATES.EUR}원 (${ts} 업데이트)`;
+    EX_NOTES.HUF = `실시간: 1 HUF ≈ ${EX_RATES.HUF}원 (${ts} 업데이트)`;
+    document.getElementById('exRateNote').textContent = EX_NOTES[currentCurrency];
+    calcExchange();
+    console.log('환율 실시간 업데이트 완료:', EX_RATES);
+  } catch(e) {
+    console.log('환율 API 실패, 기본값 사용:', e);
+  }
+}
+fetchLiveRates();
 let currentCurrency = 'CZK';
 
 function setExCurrency(cur, btn) {
