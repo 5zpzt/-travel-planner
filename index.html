@@ -495,117 +495,91 @@
   .leq-eq { font-size: 24px; color: var(--gold); font-weight: 700; }
   .leq-result { font-size: 22px; font-weight: 800; color: var(--olive-dark); }
 
-  /* ── VOUCHER ── */
-  .voucher-card {
+  /* ── VOUCHER (inline in booking) ── */
+  .voucher-list {}
+  .v-item {
     background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
     border: 1px solid var(--border);
-    margin-bottom: 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
     overflow: hidden;
   }
-  .voucher-header {
-    padding: 14px 18px;
-    background: linear-gradient(135deg, #fdfbf7, #f9f5ed);
-    border-bottom: 1px solid var(--border);
+  .v-item-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.15s;
   }
-  .voucher-category {
-    font-size: 11px;
+  .v-item-header:hover { background: #faf8f4; }
+  .v-cat {
+    font-size: 10px;
     font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
     color: #fff;
     flex-shrink: 0;
   }
-  .voucher-cat-flight { background: #e74c3c; }
-  .voucher-cat-hotel { background: #8e44ad; }
-  .voucher-cat-transport { background: #2980b9; }
-  .voucher-cat-tour { background: #27ae60; }
-  .voucher-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--olive-dark);
-    flex: 1;
+  .v-cat-flight { background: #e74c3c; }
+  .v-cat-hotel { background: #8e44ad; }
+  .v-cat-transport { background: #2980b9; }
+  .v-cat-tour { background: #27ae60; }
+  .v-title { font-size: 13px; font-weight: 600; color: var(--olive-dark); flex: 1; }
+  .v-date { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+  .v-file-count { font-size: 11px; color: var(--gold); font-weight: 700; }
+  .v-chevron { font-size: 10px; color: var(--text-muted); transition: transform 0.2s; }
+  .v-item.open .v-chevron { transform: rotate(90deg); }
+  .v-item-body {
+    padding: 12px 14px;
+    border-top: 1px solid var(--border);
+    background: #fdfbf7;
   }
-  .voucher-date {
-    font-size: 12px;
-    color: var(--text-muted);
-    flex-shrink: 0;
-  }
-  .voucher-body { padding: 16px; }
-  .voucher-preview {
-    min-height: 60px;
-    margin-bottom: 12px;
-  }
-  .voucher-empty {
-    text-align: center;
-    padding: 20px;
-    color: var(--text-muted);
-    font-size: 13px;
-    background: #faf8f4;
-    border-radius: var(--radius-sm);
-    border: 2px dashed var(--border);
-  }
-  .voucher-preview img {
+  .v-preview { min-height: 20px; margin-bottom: 10px; }
+  .v-preview img {
     max-width: 100%;
     border-radius: var(--radius-sm);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     cursor: pointer;
     border: 1px solid var(--border);
     display: block;
   }
-  .voucher-preview img:hover {
-    opacity: 0.9;
-    box-shadow: var(--shadow-lg);
-  }
-  .voucher-pdf-link {
+  .v-preview img:hover { box-shadow: var(--shadow); }
+  .v-pdf-link {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 6px 12px;
     background: #fef9ee;
     border: 1px solid var(--gold);
     border-radius: var(--radius-sm);
     color: var(--olive-dark);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     text-decoration: none;
-    margin-bottom: 8px;
-    cursor: pointer;
+    margin-bottom: 6px;
   }
-  .voucher-pdf-link:hover { background: var(--gold); color: #fff; }
-  .voucher-actions {
-    display: flex;
-    gap: 8px;
-  }
-  .voucher-upload-btn {
-    padding: 8px 16px;
+  .v-empty { text-align: center; color: var(--text-muted); font-size: 12px; padding: 10px; }
+  .v-actions { display: flex; gap: 8px; }
+  .v-upload-btn {
+    padding: 6px 14px;
     background: var(--olive-dark);
     color: #fff;
     border-radius: var(--radius-sm);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     cursor: pointer;
     border: none;
   }
-  .voucher-upload-btn:hover { background: var(--gold); }
-  .voucher-clear-btn {
-    padding: 8px 16px;
+  .v-upload-btn:hover { background: var(--gold); }
+  .v-clear-btn {
+    padding: 6px 14px;
     background: none;
     color: var(--text-muted);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
   }
-  .voucher-clear-btn:hover { background: #fdecea; color: #c0392b; border-color: #c0392b; }
-  .voucher-file-count {
-    font-size: 11px;
-    color: var(--gold);
-    font-weight: 600;
-    margin-left: auto;
-  }
+  .v-clear-btn:hover { background: #fdecea; color: #c0392b; }
 </style>
 </head>
 <body>
@@ -638,7 +612,6 @@
     <button class="nav-tab" onclick="showSection('exchange', this)">💱 환율</button>
     <button class="nav-tab" onclick="showSection('warnings', this)">⚠ 주의</button>
     <button class="nav-tab" onclick="showSection('ledger', this)">📊 가계부</button>
-    <button class="nav-tab" onclick="showSection('voucher', this)">🎫 바우처</button>
   </div>
 </nav>
 
@@ -664,8 +637,8 @@
       </div>
       <div class="flight-date">2026년 5월 14일 (목)</div>
       <div class="flight-detail">
-        인천 → 프라하<br>
-        도착 예정 현지 17:00
+        OZ545 · A350 · 이코노미(T) · 직항<br>
+        인천 10:45 → 프라하 16:45 (현지시간)
       </div>
     </div>
     <div class="flight-card">
@@ -677,8 +650,8 @@
       </div>
       <div class="flight-date">2026년 5월 24일 (일)</div>
       <div class="flight-detail">
-        부다페스트 → 인천<br>
-        100E 버스 공항 이동
+        OZ548 · A350 · 이코노미(T) · 직항<br>
+        부다페스트 20:00 → 인천 13:35+1일
       </div>
     </div>
   </div>
@@ -863,6 +836,10 @@
       <div style="font-size:11px;color:var(--text-muted);">렌트카 421,736 + 빈열차 66,423 + 부다페스트열차 138,324 + 프라하버스 34,994</div>
     </div>
   </div>
+
+  <div style="height:32px;"></div>
+  <div style="font-size:16px; font-weight:700; color:var(--olive-dark); margin-bottom:16px;">🎫 바우처 / 예약확인서</div>
+  <div class="voucher-list"></div>
 </section>
 
 <!-- ══════════════════════════════════════════════
@@ -1306,290 +1283,6 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     SECTION 08 · VOUCHER
-══════════════════════════════════════════════ -->
-<section class="section" id="sec-voucher">
-  <div class="section-header">
-    <span class="section-num">08</span>
-    <span class="section-title">바우처</span>
-  </div>
-  <div class="section-divider"></div>
-
-  <!-- 1. 항공 -->
-  <div class="voucher-card" id="voucher-1">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-flight">항공</div>
-      <div class="voucher-title">아시아나항공 (3인)</div>
-      <div class="voucher-date">5/14~5/24</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-1">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(1, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(1)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. 숙소 리멤버프라하 -->
-  <div class="voucher-card" id="voucher-2">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-hotel">숙소</div>
-      <div class="voucher-title">리멤버프라하 3박</div>
-      <div class="voucher-date">5/14~5/17</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-2">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(2, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(2)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. 숙소 빌라 베티카 -->
-  <div class="voucher-card" id="voucher-3">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-hotel">숙소</div>
-      <div class="voucher-title">빌라 베티카 1박</div>
-      <div class="voucher-date">5/17~5/18</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-3">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(3, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(3)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. 숙소 바트고이저른 에어비앤비 -->
-  <div class="voucher-card" id="voucher-4">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-hotel">숙소</div>
-      <div class="voucher-title">바트고이저른 에어비앤비 2박</div>
-      <div class="voucher-date">5/18~5/20</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-4">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(4, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(4)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. 숙소 아디나 아파트먼트 -->
-  <div class="voucher-card" id="voucher-5">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-hotel">숙소</div>
-      <div class="voucher-title">아디나 아파트먼트 2박</div>
-      <div class="voucher-date">5/20~5/22</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-5">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(5, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(5)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6. 숙소 부다페스트 에어비앤비 -->
-  <div class="voucher-card" id="voucher-6">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-hotel">숙소</div>
-      <div class="voucher-title">부다페스트 에어비앤비 2박</div>
-      <div class="voucher-date">5/22~5/24</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-6">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(6, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(6)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7. 교통 RegioJet 프라하→체스키 -->
-  <div class="voucher-card" id="voucher-7">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-transport">교통</div>
-      <div class="voucher-title">RegioJet 프라하→체스키</div>
-      <div class="voucher-date">5/17</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-7">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(7, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(7)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 8. 교통 FlixBus 체스키→린츠 -->
-  <div class="voucher-card" id="voucher-8">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-transport">교통</div>
-      <div class="voucher-title">FlixBus 체스키→린츠</div>
-      <div class="voucher-date">5/18</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-8">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(8, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(8)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 9. 교통 렌트카 -->
-  <div class="voucher-card" id="voucher-9">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-transport">교통</div>
-      <div class="voucher-title">렌트카 (린츠)</div>
-      <div class="voucher-date">5/18~5/20</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-9">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(9, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(9)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 10. 교통 OBB 린츠→빈 -->
-  <div class="voucher-card" id="voucher-10">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-transport">교통</div>
-      <div class="voucher-title">OBB 린츠→빈</div>
-      <div class="voucher-date">5/20</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-10">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(10, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(10)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 11. 교통 RegioJet 빈→부다페스트 -->
-  <div class="voucher-card" id="voucher-11">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-transport">교통</div>
-      <div class="voucher-title">RegioJet 빈→부다페스트</div>
-      <div class="voucher-date">5/22</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-11">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(11, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(11)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 12. 관광 프라하 성 B코스 -->
-  <div class="voucher-card" id="voucher-12">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-tour">관광</div>
-      <div class="voucher-title">프라하 성 B코스</div>
-      <div class="voucher-date">5/15</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-12">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(12, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(12)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 13. 관광 쇤브룬궁전 -->
-  <div class="voucher-card" id="voucher-13">
-    <div class="voucher-header">
-      <div class="voucher-category voucher-cat-tour">관광</div>
-      <div class="voucher-title">쇤브룬궁전</div>
-      <div class="voucher-date">5/21</div>
-    </div>
-    <div class="voucher-body">
-      <div class="voucher-preview" id="voucher-preview-13">
-        <div class="voucher-empty">파일이 없습니다</div>
-      </div>
-      <div class="voucher-actions">
-        <label class="voucher-upload-btn">
-          📎 파일 첨부
-          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(13, this.files)">
-        </label>
-        <button class="voucher-clear-btn" onclick="clearVoucher(13)">🗑️ 전체 삭제</button>
-      </div>
-    </div>
-  </div>
-
-</section>
 
 <!-- ══════════════════════════════════════════════
      JAVASCRIPT
@@ -1604,7 +1297,6 @@ function showSection(id, btn) {
   document.getElementById('sec-' + id).classList.add('active');
   btn.classList.add('active');
   if (id === 'ledger') updateLedger();
-  if (id === 'voucher') loadAllVouchers();
 }
 
 // ── Ledger (가계부) ──────────────────────────────
@@ -1793,9 +1485,9 @@ const DAYS = [
   {
     day: 1, date: '5/14 (목)', city: '프라하 도착', color: 'prague', cityKey: 'prague',
     schedule: [
-      { time: '17:00', act: '프라하 공항 도착', note: '입국심사', maps: 'https://www.google.com/maps/search/?api=1&query=Prague+Airport+PRG' },
-      { time: '17:40', act: '공항 → 숙소 이동', note: 'Bolt / Uber (약 400~600 CZK)' },
-      { time: '18:30', act: '리멤버프라하 체크인', note: 'Spálená 106/47', maps: 'https://www.google.com/maps/search/?api=1&query=Spálená+106+Prague' },
+      { time: '16:45', act: '프라하 공항 도착 (OZ545)', note: '입국심사 약 30분', maps: 'https://www.google.com/maps/search/?api=1&query=Prague+Airport+PRG' },
+      { time: '17:30', act: '공항 → 숙소 이동', note: 'Bolt / Uber (약 400~600 CZK, 약 30분)' },
+      { time: '18:00', act: '리멤버프라하 체크인', note: 'Spálená 106/47', maps: 'https://www.google.com/maps/search/?api=1&query=Spálená+106+Prague' },
       { time: '19:00', act: '저녁식사', note: 'U Glaubiců or 코즐로브나', maps: 'https://www.google.com/maps/search/?api=1&query=U+Glaubicu+Prague' },
       { time: '20:30', act: '바츨라프 광장 산책', note: '도보 5분', maps: 'https://www.google.com/maps/search/?api=1&query=Wenceslas+Square+Prague' },
       { time: '21:00', act: '숙소 복귀', note: '시차 적응' },
@@ -1951,15 +1643,20 @@ const DAYS = [
     ]
   },
   {
-    day: 11, date: '5/24 (일)', city: '부다페스트 출발', color: 'travel', cityKey: 'travel',
+    day: 11, date: '5/24 (일)', city: '부다페스트 (출발 20:00)', color: 'budapest', cityKey: 'budapest',
     schedule: [
-      { time: '07:00', act: '기상 + 짐 정리' },
-      { time: '07:30', act: '체크아웃' },
-      { time: '--', act: '→ Deák Ferenc tér', note: 'M1/M2/M3 환승역, 100E 버스 탑승점', maps: 'https://www.google.com/maps/search/?api=1&query=Deák+Ferenc+tér+Budapest' },
-      { time: '--', act: '100E 공항버스 탑승', warn: '별도 2,200 HUF (48h 카드 불가)', note: '매 7~10분 간격. 35~40분 소요. BKK 자판기에서 1회권 구매' },
-      { time: '--', act: '공항 이동', note: '35~40분', maps: 'https://www.google.com/maps/search/?api=1&query=Budapest+Airport+BUD' },
-      { time: '--', act: '체크인 & 출국' },
-      { time: '--', act: '인천으로 출발 ✈' },
+      { time: '09:00', act: '기상 + 아침', note: '느긋하게 (저녁 비행기!)' },
+      { time: '10:00', act: '체크아웃 (짐 보관)', note: '숙소에 짐 맡기기' },
+      { time: '10:30', act: '겔레르트 언덕 or 시내 산책', note: '어제 못 본 곳 자유 관광', maps: 'https://www.google.com/maps/search/?api=1&query=Gellért+Hill+Budapest' },
+      { time: '12:00', act: '점심', note: '까마귀 식당 or 레괘스 벤데글뢰' },
+      { time: '13:30', act: '바치 거리 쇼핑', note: '기념품/파프리카 추가 구매', maps: 'https://www.google.com/maps/search/?api=1&query=Váci+Street+Budapest' },
+      { time: '15:00', act: '카페 휴식 or 마지막 산책', note: '젤라또 로사 (장미 젤라또)' },
+      { time: '16:00', act: '숙소에서 짐 찾기' },
+      { time: '16:30', act: '→ Deák Ferenc tér', note: '도보 5분', maps: 'https://www.google.com/maps/search/?api=1&query=Deák+Ferenc+tér+Budapest' },
+      { time: '16:40', act: '100E 공항버스 탑승', warn: '별도 2,200 HUF (48h 카드 불가)', note: '매 7~10분 간격. BKK 자판기에서 1회권 구매' },
+      { time: '17:20', act: '공항 도착', note: '출발 2시간 40분 전', maps: 'https://www.google.com/maps/search/?api=1&query=Budapest+Airport+BUD' },
+      { time: '17:30', act: '체크인 & 출국심사' },
+      { time: '20:00', act: 'OZ548 부다페스트 출발 ✈', note: '→ 인천 13:35+1일 도착' },
     ]
   },
 ];
@@ -2222,102 +1919,163 @@ function updateRunningTotal() {
   document.getElementById('rt-total').textContent = fmt(totalCash + totalCard);
 }
 
-// ── Voucher (IndexedDB) ──────────────────────────
-const VOUCHER_DB_NAME = 'travel2026_vouchers';
-const VOUCHER_STORE = 'files';
+// ── Voucher (localStorage + image compression) ───
+const VOUCHER_ITEMS = [
+  { idx: 1, cat: 'flight', label: '항공', title: '아시아나항공 (3인)', date: '5/14~5/24' },
+  { idx: 2, cat: 'hotel', label: '숙소', title: '리멤버프라하 3박', date: '5/14~5/17' },
+  { idx: 3, cat: 'hotel', label: '숙소', title: '빌라 베티카 1박', date: '5/17~5/18' },
+  { idx: 4, cat: 'hotel', label: '숙소', title: '바트고이저른 에어비앤비 2박', date: '5/18~5/20' },
+  { idx: 5, cat: 'hotel', label: '숙소', title: '아디나 아파트먼트 2박', date: '5/20~5/22' },
+  { idx: 6, cat: 'hotel', label: '숙소', title: '부다페스트 에어비앤비 2박', date: '5/22~5/24' },
+  { idx: 7, cat: 'transport', label: '교통', title: 'RegioJet 프라하→체스키', date: '5/17' },
+  { idx: 8, cat: 'transport', label: '교통', title: 'FlixBus 체스키→린츠', date: '5/18' },
+  { idx: 9, cat: 'transport', label: '교통', title: '렌트카 (린츠)', date: '5/18~5/20' },
+  { idx: 10, cat: 'transport', label: '교통', title: 'OBB 린츠→빈', date: '5/20' },
+  { idx: 11, cat: 'transport', label: '교통', title: 'RegioJet 빈→부다페스트', date: '5/22' },
+  { idx: 12, cat: 'tour', label: '관광', title: '프라하 성 B코스', date: '5/15' },
+  { idx: 13, cat: 'tour', label: '관광', title: '쇤브룬궁전', date: '5/21' }
+];
 
-function openVoucherDB() {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(VOUCHER_DB_NAME, 1);
-    req.onupgradeneeded = (e) => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(VOUCHER_STORE)) {
-        db.createObjectStore(VOUCHER_STORE, { keyPath: 'id' });
-      }
-    };
-    req.onsuccess = (e) => resolve(e.target.result);
-    req.onerror = (e) => reject(e.target.error);
-  });
-}
-
-async function handleVoucherUpload(index, files) {
-  const db = await openVoucherDB();
-  const existing = await getVoucherFiles(index);
-
-  for (const file of files) {
-    const reader = new FileReader();
-    const dataUrl = await new Promise((resolve) => {
-      reader.onload = (e) => resolve(e.target.result);
-      reader.readAsDataURL(file);
-    });
-    existing.push({
-      name: file.name,
-      type: file.type,
-      data: dataUrl,
-      uploadedAt: new Date().toISOString()
-    });
+function toggleVoucherItem(idx) {
+  const item = document.getElementById('v-item-' + idx);
+  const body = document.getElementById('v-body-' + idx);
+  if (item.classList.contains('open')) {
+    item.classList.remove('open');
+    body.style.display = 'none';
+  } else {
+    item.classList.add('open');
+    body.style.display = 'block';
+    renderVPreview(idx);
   }
-
-  const tx = db.transaction(VOUCHER_STORE, 'readwrite');
-  tx.objectStore(VOUCHER_STORE).put({ id: `voucher_${index}`, files: existing });
-  await new Promise((resolve, reject) => {
-    tx.oncomplete = resolve;
-    tx.onerror = reject;
-  });
-
-  renderVoucherPreview(index);
 }
 
-async function getVoucherFiles(index) {
-  const db = await openVoucherDB();
-  return new Promise((resolve) => {
-    const tx = db.transaction(VOUCHER_STORE, 'readonly');
-    const req = tx.objectStore(VOUCHER_STORE).get(`voucher_${index}`);
-    req.onsuccess = (e) => resolve(e.target.result ? e.target.result.files : []);
-    req.onerror = () => resolve([]);
-  });
-}
-
-async function renderVoucherPreview(index) {
-  const files = await getVoucherFiles(index);
-  const container = document.getElementById(`voucher-preview-${index}`);
-  if (!container) return;
-
-  if (files.length === 0) {
-    container.innerHTML = '<div class="voucher-empty">파일이 없습니다</div>';
+async function handleVUpload(idx, input) {
+  const files = input.files;
+  if (!files.length) return;
+  const key = 'travel2026_v_' + idx;
+  let existing = [];
+  try { existing = JSON.parse(localStorage.getItem(key)) || []; } catch(e) {}
+  for (const file of files) {
+    if (file.type.startsWith('image/')) {
+      const dataUrl = await compressImage(file, 800, 0.7);
+      existing.push({ name: file.name, type: file.type, data: dataUrl });
+    } else {
+      const dataUrl = await readFileAsDataURL(file);
+      existing.push({ name: file.name, type: file.type, data: dataUrl });
+    }
+  }
+  try {
+    localStorage.setItem(key, JSON.stringify(existing));
+  } catch(e) {
+    alert('파일 용량이 너무 큽니다. 이미지를 더 작게 찍어주세요.');
+    input.value = '';
     return;
   }
+  input.value = '';
+  renderVPreview(idx);
+  updateVCounts();
+}
 
+function compressImage(file, maxWidth, quality) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function readFileAsDataURL(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderVPreview(idx) {
+  const key = 'travel2026_v_' + idx;
+  const container = document.getElementById('v-preview-' + idx);
+  if (!container) return;
+  let files = [];
+  try { files = JSON.parse(localStorage.getItem(key)) || []; } catch(e) {}
+  if (files.length === 0) {
+    container.innerHTML = '<div class="v-empty">첨부된 파일이 없습니다</div>';
+    return;
+  }
   let html = '';
   files.forEach((f) => {
-    if (f.type.startsWith('image/')) {
-      html += `<img src="${f.data}" alt="${f.name}" onclick="window.open(this.src, '_blank')" title="클릭하면 크게 보기">`;
+    if (f.type && f.type.startsWith('image/')) {
+      html += '<img src="' + f.data + '" alt="' + f.name + '" onclick="window.open(this.src,\'_blank\')" title="클릭하면 크게 보기">';
     } else {
-      html += `<a class="voucher-pdf-link" href="${f.data}" download="${f.name}" target="_blank">📄 ${f.name}</a><br>`;
+      html += '<a class="v-pdf-link" href="' + f.data + '" download="' + f.name + '">📄 ' + f.name + '</a><br>';
     }
   });
-  html += `<div style="font-size:11px; color:var(--text-muted); margin-top:8px;">${files.length}개 파일 저장됨</div>`;
   container.innerHTML = html;
 }
 
-async function clearVoucher(index) {
-  if (!confirm('이 항목의 모든 파일을 삭제하시겠습니까?')) return;
-  const db = await openVoucherDB();
-  const tx = db.transaction(VOUCHER_STORE, 'readwrite');
-  tx.objectStore(VOUCHER_STORE).delete(`voucher_${index}`);
-  await new Promise((resolve) => { tx.oncomplete = resolve; });
-  renderVoucherPreview(index);
+function clearV(idx) {
+  if (!confirm('이 항목의 파일을 모두 삭제하시겠습니까?')) return;
+  localStorage.removeItem('travel2026_v_' + idx);
+  renderVPreview(idx);
+  updateVCounts();
 }
 
-function loadAllVouchers() {
-  for (let i = 1; i <= 13; i++) {
-    renderVoucherPreview(i);
-  }
+function updateVCounts() {
+  VOUCHER_ITEMS.forEach(v => {
+    const key = 'travel2026_v_' + v.idx;
+    let files = [];
+    try { files = JSON.parse(localStorage.getItem(key)) || []; } catch(e) {}
+    const el = document.getElementById('v-count-' + v.idx);
+    if (el) el.textContent = files.length > 0 ? files.length + '개 파일' : '';
+  });
+}
+
+function buildVoucherList() {
+  const container = document.querySelector('.voucher-list');
+  if (!container) return;
+  let html = '';
+  VOUCHER_ITEMS.forEach(v => {
+    html += `
+    <div class="v-item" id="v-item-${v.idx}">
+      <div class="v-item-header" onclick="toggleVoucherItem(${v.idx})">
+        <span class="v-cat v-cat-${v.cat}">${v.label}</span>
+        <span class="v-title">${v.title}</span>
+        <span class="v-date">${v.date}</span>
+        <span class="v-file-count" id="v-count-${v.idx}"></span>
+        <span class="v-chevron" id="v-chev-${v.idx}">▶</span>
+      </div>
+      <div class="v-item-body" id="v-body-${v.idx}" style="display:none;">
+        <div class="v-preview" id="v-preview-${v.idx}"></div>
+        <div class="v-actions">
+          <label class="v-upload-btn">
+            📎 파일 첨부
+            <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVUpload(${v.idx}, this)">
+          </label>
+          <button class="v-clear-btn" onclick="clearV(${v.idx})">삭제</button>
+        </div>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  updateVCounts();
 }
 
 // ── Init ─────────────────────────────────────────
 buildDayCards();
 updateRunningTotal();
+buildVoucherList();
 
 // Re-calc on expense input (event delegation)
 document.getElementById('day-cards-container').addEventListener('input', function(e) {
