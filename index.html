@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동유럽 여행 2026 · Prague · Vienna · Budapest</title>
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --card: #ffffff;
+    --header-dark: #2c3a2a;
+    --header-mid: #3d4f38;
+    --gold: #b8a472;
+    --gold-light: #d4bc8a;
+    --olive: #6b6348;
+    --olive-dark: #3d3b2f;
+    --text: #2d2b22;
+    --text-muted: #7a7565;
+    --border: #e0d9cc;
+    --shadow: 0 2px 12px rgba(60,55,40,0.10);
+    --shadow-lg: 0 8px 32px rgba(60,55,40,0.15);
+    --radius: 14px;
+    --radius-sm: 8px;
+
+    --prague: #c0392b;
+    --cesky: #8e44ad;
+    --salzk: #27ae60;
+    --vienna: #2980b9;
+    --budapest: #e67e22;
+    --travel: #7f8c8d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: linear-gradient(135deg, #1a2a18 0%, #2c3a2a 40%, #3d4f38 70%, #4a5e44 100%);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(184,164,114,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(100,130,80,0.10) 0%, transparent 50%);
+  }
+  .header-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+  .header-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 10px; opacity: 0.85;
+  }
+  .header-title {
+    font-size: clamp(28px, 6vw, 48px); font-weight: 700;
+    color: #fff; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px;
+  }
+  .header-title span { color: var(--gold-light); }
+  .header-cities {
+    font-size: clamp(12px, 2.5vw, 15px); color: rgba(255,255,255,0.70);
+    letter-spacing: 1px; margin-bottom: 20px;
+  }
+  .header-dates {
+    font-size: clamp(13px, 2.5vw, 16px); color: rgba(255,255,255,0.90);
+    margin-bottom: 22px; font-weight: 300;
+  }
+  .header-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── NAV TABS ── */
+  .nav-wrapper {
+    background: #fff; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .nav-tabs {
+    display: flex; gap: 0; overflow-x: auto; max-width: 960px; margin: 0 auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex: 0 0 auto; padding: 14px 20px; font-size: 13px; font-weight: 600;
+    color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent;
+    transition: all 0.2s; white-space: nowrap; border-top: none; border-left: none; border-right: none;
+    background: none;
+  }
+  .nav-tab:hover { color: var(--olive-dark); }
+  .nav-tab.active { color: var(--olive-dark); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { display: none; max-width: 960px; margin: 0 auto; padding: 32px 16px 60px; }
+  .section.active { display: block; }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px;
+  }
+  .section-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--gold);
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-size: 22px; font-weight: 700; color: var(--olive-dark);
+  }
+  .section-divider {
+    height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    margin-bottom: 28px; opacity: 0.4;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+    overflow: hidden; margin-bottom: 16px;
+  }
+  .card-header {
+    padding: 18px 20px 14px; border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #fdfbf7 0%, #f9f5ed 100%);
+  }
+  .card-body { padding: 20px; }
+
+  /* ── FLIGHT ── */
+  .flight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:540px){ .flight-grid { grid-template-columns: 1fr; } }
+  .flight-card {
+    background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+    box-shadow: var(--shadow); padding: 20px; text-align: center;
+  }
+  .flight-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
+  .flight-route { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 8px; }
+  .flight-code { font-size: 26px; font-weight: 800; color: var(--olive-dark); }
+  .flight-arrow { font-size: 20px; color: var(--gold); }
+  .flight-date { font-size: 12px; color: var(--text-muted); }
+  .flight-detail { font-size: 13px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; }
+
+  /* ── ACCOMMODATION ── */
+  .accom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:600px){ .accom-grid { grid-template-columns: 1fr; } }
+  .accom-card {
+    background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .accom-city-bar {
+    height: 5px;
+  }
+  .accom-card-body { padding: 16px; }
+  .accom-name { font-size: 15px; font-weight: 700; color: var(--olive-dark); margin-bottom: 4px; }
+  .accom-nights { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .accom-address { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+  .accom-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; padding: 3px 9px; border-radius: 12px; font-weight: 600;
+  }
+  .tag-green { background: #e8f5e9; color: #27ae60; }
+  .tag-gold { background: #fef9ee; color: #b8860b; }
+  .tag-blue { background: #e3f2fd; color: #1565c0; }
+  .tag-red { background: #fce4ec; color: #c62828; }
+  .tag-orange { background: #fff3e0; color: #e65100; }
+  .accom-price { font-size: 14px; font-weight: 700; color: var(--prague); margin-top: 8px; }
+  .accom-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── EXCHANGE ── */
+  .exchange-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .ex-tab {
+    flex: 1; padding: 10px 8px; border-radius: var(--radius-sm); border: 2px solid var(--border);
+    background: #fff; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center;
+    transition: all 0.2s; color: var(--text-muted);
+  }
+  .ex-tab.active { background: var(--olive-dark); border-color: var(--olive-dark); color: #fff; }
+  .ex-tab:hover:not(.active) { border-color: var(--gold); color: var(--olive-dark); }
+  .ex-currency-name { font-size: 12px; font-weight: 400; display: block; margin-top: 2px; opacity: 0.75; }
+  .exchange-input-wrap { position: relative; margin-bottom: 16px; }
+  .exchange-input-wrap label { font-size: 12px; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 6px; }
+  .exchange-input {
+    width: 100%; padding: 14px 48px 14px 16px; border-radius: var(--radius-sm);
+    border: 2px solid var(--border); font-size: 20px; font-weight: 700; color: var(--olive-dark);
+    background: #fff; outline: none; transition: border-color 0.2s;
+  }
+  .exchange-input:focus { border-color: var(--gold); }
+  .exchange-input-unit {
+    position: absolute; right: 14px; bottom: 14px; font-size: 13px; color: var(--text-muted); font-weight: 600;
+  }
+  .exchange-result {
+    background: linear-gradient(135deg, var(--olive-dark) 0%, #4a5e44 100%);
+    border-radius: var(--radius-sm); padding: 20px; text-align: center; margin-bottom: 16px;
+  }
+  .exchange-result-label { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
+  .exchange-result-amount { font-size: 36px; font-weight: 800; color: var(--gold-light); line-height: 1; }
+  .exchange-result-unit { font-size: 14px; color: rgba(255,255,255,0.75); margin-top: 4px; }
+  .exchange-rate-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 16px; }
+  .quick-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .quick-btn {
+    padding: 10px 4px; border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+    background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center;
+    color: var(--olive-dark); transition: all 0.15s;
+  }
+  .quick-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .quick-btn-label { font-size: 10px; color: var(--text-muted); display: block; margin-top: 2px; }
+
+  /* ── TRANSPORT TABLE ── */
+  .transport-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .transport-table th {
+    text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 700;
+    color: var(--text-muted); border-bottom: 2px solid var(--border); background: #fdf9f2;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .transport-table td { padding: 12px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .transport-table tr:last-child td { border-bottom: none; }
+  .transport-table tr:hover td { background: #fdf9f2; }
+  .status-done { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .status-local { background: #fff3e0; color: #e65100; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .transport-route { font-weight: 700; color: var(--olive-dark); }
+  .transport-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .transport-amount { font-weight: 700; color: var(--olive-dark); }
+  @media(max-width:640px){
+    .transport-table { font-size: 12px; }
+    .transport-table th, .transport-table td { padding: 9px 8px; }
+  }
+
+  /* ── ITINERARY ── */
+  .itinerary-total-bar {
+    background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+    box-shadow: var(--shadow); padding: 16px 20px; margin-bottom: 24px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;
+  }
+  .total-item-label { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+  .total-item-val { font-size: 18px; font-weight: 800; color: var(--olive-dark); }
+  .total-divider { height: 1px; background: var(--border); grid-column: 1/-1; }
+
+  .day-card {
+    background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+    box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden;
+  }
+  .day-card-header {
+    display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer;
+    transition: background 0.15s; user-select: none;
+  }
+  .day-card-header:hover { background: #fdf9f2; }
+  .day-num-badge {
+    width: 42px; height: 42px; border-radius: 12px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; flex-shrink: 0; color: #fff;
+  }
+  .day-num-badge .day-n { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.85; }
+  .day-num-badge .day-v { font-size: 17px; font-weight: 800; line-height: 1; }
+  .day-info { flex: 1; min-width: 0; }
+  .day-title { font-size: 15px; font-weight: 700; color: var(--olive-dark); }
+  .day-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .day-city-tag {
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 10px; color: #fff; flex-shrink: 0;
+  }
+  .day-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.25s; flex-shrink: 0; }
+  .day-card.open .day-chevron { transform: rotate(90deg); }
+
+  .day-card-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .day-card.open .day-card-body { max-height: 9999px; }
+
+  .day-inner { border-top: 1px solid var(--border); }
+
+  /* Day tabs */
+  .day-tabs { display: flex; border-bottom: 1px solid var(--border); }
+  .day-tab {
+    flex: 1; padding: 11px 8px; font-size: 12px; font-weight: 700; text-align: center;
+    cursor: pointer; border-bottom: 3px solid transparent; color: var(--text-muted); transition: all 0.15s;
+    background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .day-tab:hover { color: var(--olive-dark); }
+  .day-tab.active { color: var(--olive-dark); border-bottom-color: var(--gold); }
+  .day-tab-content { display: none; }
+  .day-tab-content.active { display: block; }
+
+  /* Timeline */
+  .timeline { padding: 20px; }
+  .timeline-item { display: flex; gap: 14px; margin-bottom: 16px; position: relative; }
+  .timeline-item:not(:last-child)::after {
+    content: ''; position: absolute; left: 44px; top: 28px; bottom: -10px;
+    width: 1px; background: var(--border);
+  }
+  .timeline-time {
+    width: 52px; flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--text-muted);
+    padding-top: 2px; text-align: right;
+  }
+  .timeline-dot {
+    width: 20px; flex-shrink: 0; display: flex; justify-content: center; padding-top: 3px;
+  }
+  .timeline-dot-inner {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .timeline-content { flex: 1; min-width: 0; }
+  .timeline-activity { font-size: 14px; font-weight: 700; color: var(--olive-dark); }
+  .timeline-note { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+  .booked-badge { display: inline-flex; align-items: center; gap: 3px; background: #e8f5e9; color: #2e7d32; border-radius: 8px; padding: 2px 7px; font-size: 10px; font-weight: 700; margin-top: 4px; }
+  .warn-badge { display: inline-flex; align-items: center; gap: 3px; background: #fff8e1; color: #f57f17; border-radius: 8px; padding: 2px 7px; font-size: 10px; font-weight: 700; margin-top: 4px; }
+
+  /* Expense tab */
+  .expense-section { padding: 20px; }
+  .expense-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  .expense-table th { font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .expense-table td { padding: 6px 4px; vertical-align: middle; }
+  .expense-table input, .expense-table select {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 6px; padding: 6px 8px;
+    font-size: 13px; background: #fdfbf7; outline: none; transition: border-color 0.15s;
+    font-family: inherit;
+  }
+  .expense-table input:focus, .expense-table select:focus { border-color: var(--gold); }
+  .expense-table .del-btn {
+    width: 26px; height: 26px; border-radius: 6px; border: none; background: #fee2e2; color: #dc2626;
+    font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .expense-table .del-btn:hover { background: #dc2626; color: #fff; }
+  .add-expense-btn {
+    padding: 9px 16px; border-radius: var(--radius-sm); border: 2px dashed var(--gold);
+    background: #fef9ee; color: var(--olive); font-size: 12px; font-weight: 700; cursor: pointer;
+    width: 100%; margin-bottom: 16px; transition: all 0.15s;
+  }
+  .add-expense-btn:hover { background: var(--gold); color: #fff; border-style: solid; }
+  .expense-total { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border-radius: var(--radius-sm); padding: 12px 16px; }
+  .expense-total-label { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+  .expense-total-cash { font-size: 15px; font-weight: 800; color: var(--prague); }
+  .expense-total-card { font-size: 15px; font-weight: 800; color: var(--vienna); }
+  .expense-total-sum { font-size: 15px; font-weight: 800; color: var(--olive-dark); }
+  .expense-total-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; background: var(--bg); border-radius: var(--radius-sm); padding: 14px; }
+  .expense-total-item { text-align: center; }
+  .expense-total-item .etl { font-size: 10px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .expense-total-item .etv { font-size: 16px; font-weight: 800; }
+
+  /* ── WARNINGS ── */
+  .warn-list { display: flex; flex-direction: column; gap: 12px; }
+  .warn-item {
+    display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px;
+    border-radius: var(--radius-sm); border: 1px solid;
+  }
+  .warn-item.level-warn { background: #fff8e1; border-color: #ffe082; }
+  .warn-item.level-info { background: #e3f2fd; border-color: #90caf9; }
+  .warn-item.level-crit { background: #fce4ec; border-color: #f48fb1; }
+  .warn-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .warn-text strong { font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px; }
+  .warn-text span { font-size: 13px; color: var(--text-muted); }
+
+  /* ── UTILITIES ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media(max-width:540px){ .two-col { grid-template-columns: 1fr; } }
+  .scrollable-table-wrap { overflow-x: auto; border-radius: var(--radius); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── City stripe helper ── */
+  .stripe-prague { background: var(--prague) !important; }
+  .stripe-cesky { background: var(--cesky) !important; }
+  .stripe-salzk { background: var(--salzk) !important; }
+  .stripe-vienna { background: var(--vienna) !important; }
+  .stripe-budapest { background: var(--budapest) !important; }
+  .stripe-travel { background: var(--travel) !important; }
+
+  .col-prague { color: var(--prague) !important; }
+  .col-cesky { color: var(--cesky) !important; }
+  .col-salzk { color: var(--salzk) !important; }
+  .col-vienna { color: var(--vienna) !important; }
+  .col-budapest { color: var(--budapest) !important; }
+  .col-travel { color: var(--travel) !important; }
+
+  /* Running total bar */
+  .running-total-bar {
+    background: linear-gradient(135deg, var(--olive-dark) 0%, #4a5e44 100%);
+    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 24px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;
+  }
+  .rt-item .rt-label { font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
+  .rt-item .rt-val { font-size: 18px; font-weight: 800; color: var(--gold-light); }
+  .rt-item .rt-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .rt-divider { height: 40px; width: 1px; background: rgba(255,255,255,0.15); margin: auto; }
+
+  @media(max-width:500px){
+    .running-total-bar { grid-template-columns: 1fr; }
+    .rt-divider { display: none; }
+  }
+
+  /* ── City legend chips ── */
+  .city-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .city-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text-muted); }
+  .city-chip-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ── Maps links ── */
+  .timeline-act a { color: inherit; text-decoration: none; }
+  .timeline-act a:hover { color: var(--gold); text-decoration: underline; }
+  .timeline-act a::after { content: ' 📍'; font-size: 10px; opacity: 0.5; }
+
+  /* ── Accommodation name links ── */
+  .accom-name a { color: inherit; text-decoration: none; }
+  .accom-name a:hover { color: var(--gold); }
+  .accom-name a::after { content: ' 📍'; font-size: 11px; opacity: 0.5; }
+
+  /* ── LEDGER (가계부) ── */
+  .ledger-summary-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;
+  }
+  @media(max-width:560px){ .ledger-summary-grid { grid-template-columns: 1fr; } }
+
+  .ledger-summary-card {
+    border-radius: var(--radius); padding: 20px; text-align: center;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .ledger-summary-card.prepaid { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: #86efac; }
+  .ledger-summary-card.onsite { background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); border-color: #fde047; }
+  .ledger-summary-card.grand { background: linear-gradient(135deg, var(--olive-dark) 0%, #4a5e44 100%); border-color: transparent; }
+
+  .lsc-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+  .ledger-summary-card.prepaid .lsc-label { color: #15803d; }
+  .ledger-summary-card.onsite .lsc-label { color: #92400e; }
+  .ledger-summary-card.grand .lsc-label { color: rgba(255,255,255,0.7); }
+
+  .lsc-amount { font-size: 22px; font-weight: 800; line-height: 1.1; }
+  .ledger-summary-card.prepaid .lsc-amount { color: #166534; }
+  .ledger-summary-card.onsite .lsc-amount { color: #78350f; }
+  .ledger-summary-card.grand .lsc-amount { color: var(--gold-light); }
+
+  .lsc-sub { font-size: 11px; margin-top: 4px; }
+  .ledger-summary-card.prepaid .lsc-sub { color: #4ade80; }
+  .ledger-summary-card.onsite .lsc-sub { color: #d97706; }
+  .ledger-summary-card.grand .lsc-sub { color: rgba(255,255,255,0.5); }
+
+  .ledger-section-title {
+    font-size: 13px; font-weight: 700; color: var(--olive-dark);
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .ledger-refresh-btn {
+    padding: 6px 14px; border-radius: var(--radius-sm); border: 1.5px solid var(--gold);
+    background: #fef9ee; color: var(--olive); font-size: 12px; font-weight: 700; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ledger-refresh-btn:hover { background: var(--gold); color: #fff; }
+
+  .ledger-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ledger-table th {
+    text-align: left; padding: 9px 12px; font-size: 11px; font-weight: 700;
+    color: var(--text-muted); border-bottom: 2px solid var(--border);
+    background: #fdf9f2; text-transform: uppercase; letter-spacing: 0.8px;
+  }
+  .ledger-table th.num { text-align: right; }
+  .ledger-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ledger-table td.num { text-align: right; font-weight: 600; }
+  .ledger-table tr:last-child td { border-bottom: none; }
+  .ledger-table tr:hover td { background: #fdf9f2; }
+  .ledger-table tr.total-row td {
+    font-weight: 800; background: var(--bg); border-top: 2px solid var(--border);
+    border-bottom: none; font-size: 14px;
+  }
+  .ledger-table tr.total-row td.num { color: var(--olive-dark); }
+
+  .ledger-city-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle;
+  }
+
+  .prepaid-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .prepaid-table td { padding: 9px 12px; border-bottom: 1px solid #d1fae5; vertical-align: middle; }
+  .prepaid-table td:last-child { text-align: right; font-weight: 700; color: #166534; }
+  .prepaid-table tr:last-child td { border-bottom: none; font-weight: 800; font-size: 14px; background: #dcfce7; }
+  .prepaid-table .item-pending { color: var(--text-muted); font-style: italic; }
+
+  .detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .detail-table th {
+    text-align: left; padding: 8px 10px; font-size: 10px; font-weight: 700;
+    color: var(--text-muted); border-bottom: 2px solid var(--border);
+    background: #fdf9f2; text-transform: uppercase; letter-spacing: 0.8px;
+  }
+  .detail-table th.num { text-align: right; }
+  .detail-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .detail-table td.num { text-align: right; font-weight: 600; }
+  .detail-table tr:last-child td { border-bottom: none; }
+  .detail-table tr:hover td { background: #fdf9f2; }
+
+  .ledger-equation {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 20px; flex-wrap: wrap;
+  }
+  .leq-block { text-align: center; }
+  .leq-label { font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 4px; }
+  .leq-val { font-size: 18px; font-weight: 800; }
+  .leq-op { font-size: 24px; color: var(--text-muted); font-weight: 300; }
+  .leq-eq { font-size: 24px; color: var(--gold); font-weight: 700; }
+  .leq-result { font-size: 22px; font-weight: 800; color: var(--olive-dark); }
+
+  /* ── VOUCHER ── */
+  .voucher-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .voucher-header {
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #fdfbf7, #f9f5ed);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .voucher-category {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .voucher-cat-flight { background: #e74c3c; }
+  .voucher-cat-hotel { background: #8e44ad; }
+  .voucher-cat-transport { background: #2980b9; }
+  .voucher-cat-tour { background: #27ae60; }
+  .voucher-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--olive-dark);
+    flex: 1;
+  }
+  .voucher-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .voucher-body { padding: 16px; }
+  .voucher-preview {
+    min-height: 60px;
+    margin-bottom: 12px;
+  }
+  .voucher-empty {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 13px;
+    background: #faf8f4;
+    border-radius: var(--radius-sm);
+    border: 2px dashed var(--border);
+  }
+  .voucher-preview img {
+    max-width: 100%;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    display: block;
+  }
+  .voucher-preview img:hover {
+    opacity: 0.9;
+    box-shadow: var(--shadow-lg);
+  }
+  .voucher-pdf-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #fef9ee;
+    border: 1px solid var(--gold);
+    border-radius: var(--radius-sm);
+    color: var(--olive-dark);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .voucher-pdf-link:hover { background: var(--gold); color: #fff; }
+  .voucher-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .voucher-upload-btn {
+    padding: 8px 16px;
+    background: var(--olive-dark);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+  }
+  .voucher-upload-btn:hover { background: var(--gold); }
+  .voucher-clear-btn {
+    padding: 8px 16px;
+    background: none;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .voucher-clear-btn:hover { background: #fdecea; color: #c0392b; border-color: #c0392b; }
+  .voucher-file-count {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-left: auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">TRAVEL PLANNER 2026</div>
+    <div class="header-title">동유럽 여행 <span>2026</span></div>
+    <div class="header-cities">Prague · Český Krumlov · Salzkammergut · Vienna · Budapest</div>
+    <div class="header-dates">5월 14일 (목) ~ 5월 24일 (일) &nbsp;|&nbsp; 10박 11일</div>
+    <div class="header-badges">
+      <span class="badge">3인</span>
+      <span class="badge">10박 11일</span>
+      <span class="badge">3개국</span>
+      <span class="badge">승휘 · 은혜 · 엄마</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     NAV
+══════════════════════════════════════════════ -->
+<nav class="nav-wrapper">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('flight', this)">✈ 항공</button>
+    <button class="nav-tab" onclick="showSection('accom', this)">🏨 숙소</button>
+    <button class="nav-tab" onclick="showSection('exchange', this)">💱 환율</button>
+    <button class="nav-tab" onclick="showSection('transport', this)">🚌 교통</button>
+    <button class="nav-tab" onclick="showSection('itinerary', this)">📅 일정</button>
+    <button class="nav-tab" onclick="showSection('warnings', this)">⚠ 주의</button>
+    <button class="nav-tab" onclick="showSection('ledger', this)">📊 가계부</button>
+    <button class="nav-tab" onclick="showSection('voucher', this)">🎫 바우처</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 01 · FLIGHT
+══════════════════════════════════════════════ -->
+<section class="section active" id="sec-flight">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">항공 정보</span>
+  </div>
+  <div class="section-divider"></div>
+  <div class="flight-grid">
+    <div class="flight-card">
+      <div class="flight-label">가는 편 · OUTBOUND</div>
+      <div class="flight-route">
+        <span class="flight-code">ICN</span>
+        <span class="flight-arrow">→</span>
+        <span class="flight-code">PRG</span>
+      </div>
+      <div class="flight-date">2026년 5월 14일 (목)</div>
+      <div class="flight-detail">
+        인천 → 프라하<br>
+        도착 예정 현지 17:00
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-label">오는 편 · RETURN</div>
+      <div class="flight-route">
+        <span class="flight-code">BUD</span>
+        <span class="flight-arrow">→</span>
+        <span class="flight-code">ICN</span>
+      </div>
+      <div class="flight-date">2026년 5월 24일 (일)</div>
+      <div class="flight-detail">
+        부다페스트 → 인천<br>
+        100E 버스 공항 이동
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 02 · ACCOMMODATION
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-accom">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">숙소 안내</span>
+  </div>
+  <div class="section-divider"></div>
+  <div class="accom-grid">
+
+    <div class="accom-card">
+      <div class="accom-city-bar stripe-prague"></div>
+      <div class="accom-card-body">
+        <div class="accom-name"><a href="https://www.google.com/maps/search/?api=1&query=Spálená+106+Prague" target="_blank">리멤버프라하</a></div>
+        <div class="accom-nights">프라하 · 3박 (5/14 ~ 5/17)</div>
+        <div class="accom-address">Spálená 106/47, 110 00 Nové Město, Praha</div>
+        <div class="accom-meta">
+          <span class="tag tag-green">예약완료</span>
+          <span class="tag tag-blue">마이리얼트립</span>
+          <span class="tag tag-green">조식 포함</span>
+          <span class="tag tag-orange">엘베 없음</span>
+        </div>
+        <div class="accom-price">837,720원</div>
+      </div>
+    </div>
+
+    <div class="accom-card">
+      <div class="accom-city-bar stripe-cesky"></div>
+      <div class="accom-card-body">
+        <div class="accom-name"><a href="https://www.google.com/maps/search/?api=1&query=Boutique+Hotel+Villa+Beatika+Cesky+Krumlov" target="_blank">부티크 호텔 빌라 베티카</a></div>
+        <div class="accom-nights">체스키크룸로프 · 1박 (5/17 ~ 5/18)</div>
+        <div class="accom-address">Český Krumlov</div>
+        <div class="accom-meta">
+          <span class="tag tag-green">예약완료</span>
+          <span class="tag tag-gold">평점 4.8</span>
+          <span class="tag tag-green">조식 포함</span>
+        </div>
+        <div class="accom-price">324,378원</div>
+        <div class="accom-note">호텔스닷컴, 환불불가 / 도시세 1인 500 CZK 별도</div>
+      </div>
+    </div>
+
+    <div class="accom-card">
+      <div class="accom-city-bar stripe-salzk"></div>
+      <div class="accom-card-body">
+        <div class="accom-name"><a href="https://www.google.com/maps/search/?api=1&query=Obere+Marktstraße+26+Bad+Goisern" target="_blank">에어비앤비 (바트고이저른)</a></div>
+        <div class="accom-nights">잘츠캄머구트 · 2박 (5/18 ~ 5/20)</div>
+        <div class="accom-address">Obere Marktstraße 26, 4822 Bad Goisern, Austria</div>
+        <div class="accom-meta">
+          <span class="tag tag-green">예약완료</span>
+          <span class="tag tag-orange">조식 없음</span>
+        </div>
+        <div class="accom-price">517,877원</div>
+      </div>
+    </div>
+
+    <div class="accom-card">
+      <div class="accom-city-bar stripe-vienna"></div>
+      <div class="accom-card-body">
+        <div class="accom-name"><a href="https://www.google.com/maps/search/?api=1&query=Adina+Apartment+Hotel+Vienna" target="_blank">아디나 서비스드 아파트먼트</a></div>
+        <div class="accom-nights">비엔나 · 2박 (5/20 ~ 5/22)</div>
+        <div class="accom-address">Vienna, Austria</div>
+        <div class="accom-meta">
+          <span class="tag tag-green">예약완료</span>
+          <span class="tag tag-blue">마이리얼트립</span>
+          <span class="tag tag-orange">조식 없음</span>
+        </div>
+        <div class="accom-price">483,871원</div>
+      </div>
+    </div>
+
+    <div class="accom-card" style="grid-column: span 1;">
+      <div class="accom-city-bar stripe-budapest"></div>
+      <div class="accom-card-body">
+        <div class="accom-name"><a href="https://www.google.com/maps/search/?api=1&query=Rumbach+Sebestyén+utca+7+Budapest" target="_blank">에어비앤비 (부다페스트)</a></div>
+        <div class="accom-nights">부다페스트 · 2박 (5/22 ~ 5/24)</div>
+        <div class="accom-address">Rumbach Sebestyén u. 7, Budapest 1075, Hungary</div>
+        <div class="accom-meta">
+          <span class="tag tag-green">예약완료</span>
+          <span class="tag tag-orange">조식 없음</span>
+          <span class="tag tag-orange">엘베 없음</span>
+        </div>
+        <div class="accom-price">456,829원</div>
+        <div class="accom-note">짐보관 가능</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 숙소 비용 합계 -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:700;color:var(--text-muted);">숙박비 합계</span>
+        <span style="font-size:20px;font-weight:800;color:var(--olive-dark);">2,620,675원</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">체스키 도시세 1인 500 CZK 별도 / 렌트카 보증금 €300 별도</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 03 · EXCHANGE
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-exchange">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">환율 계산기</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="two-col">
+    <div>
+      <div class="exchange-tabs">
+        <button class="ex-tab active" onclick="setExCurrency('CZK', this)">CZK<span class="ex-currency-name">체코 코루나</span></button>
+        <button class="ex-tab" onclick="setExCurrency('EUR', this)">EUR<span class="ex-currency-name">유로</span></button>
+        <button class="ex-tab" onclick="setExCurrency('HUF', this)">HUF<span class="ex-currency-name">헝가리 포린트</span></button>
+      </div>
+
+      <div class="exchange-input-wrap">
+        <label>원화 입력 (KRW)</label>
+        <input class="exchange-input" id="krwInput" type="number" placeholder="10000" oninput="calcExchange()">
+        <span class="exchange-input-unit">원</span>
+      </div>
+
+      <div class="exchange-result">
+        <div class="exchange-result-label">환전 금액</div>
+        <div class="exchange-result-amount" id="exResult">—</div>
+        <div class="exchange-result-unit" id="exUnit">CZK</div>
+      </div>
+      <div class="exchange-rate-note" id="exRateNote">기준: 1 CZK ≈ 70원 (2026.4 기준, 실제 환율과 다를 수 있음)</div>
+
+      <div class="quick-amounts">
+        <button class="quick-btn" onclick="setKrw(10000)">
+          1만원
+          <span class="quick-btn-label" id="q1">—</span>
+        </button>
+        <button class="quick-btn" onclick="setKrw(30000)">
+          3만원
+          <span class="quick-btn-label" id="q2">—</span>
+        </button>
+        <button class="quick-btn" onclick="setKrw(50000)">
+          5만원
+          <span class="quick-btn-label" id="q3">—</span>
+        </button>
+        <button class="quick-btn" onclick="setKrw(100000)">
+          10만원
+          <span class="quick-btn-label" id="q4">—</span>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div style="font-size:13px;font-weight:700;color:var(--olive-dark);">현지 물가 참고</div>
+        </div>
+        <div class="card-body">
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-muted);">항목</th>
+                <th style="text-align:right;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-muted);">현지화폐</th>
+                <th style="text-align:right;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-muted);">원화</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">프라하 트램 24h권</td><td style="text-align:right;font-weight:700;">120 CZK</td><td style="text-align:right;color:var(--text-muted);">≈6,960원</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">프라하 성 B코스</td><td style="text-align:right;font-weight:700;">350 CZK</td><td style="text-align:right;color:var(--text-muted);">≈20,300원</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">스트라호프 도서관</td><td style="text-align:right;font-weight:700;">190 CZK</td><td style="text-align:right;color:var(--text-muted);">≈11,020원</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">빈 City Card 48h</td><td style="text-align:right;font-weight:700;">€19~</td><td style="text-align:right;color:var(--text-muted);">≈28,500원~</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">쇤브룬 궁전</td><td style="text-align:right;font-weight:700;">€22~29</td><td style="text-align:right;color:var(--text-muted);">≈33,000~</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">세체니 온천</td><td style="text-align:right;font-weight:700;">~7,500 HUF</td><td style="text-align:right;color:var(--text-muted);">≈28,500원</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe0;">부다페스트 48h 카드</td><td style="text-align:right;font-weight:700;">4,150 HUF</td><td style="text-align:right;color:var(--text-muted);">≈15,770원</td></tr>
+              <tr><td style="padding:8px 0;">100E 공항버스</td><td style="text-align:right;font-weight:700;">2,200 HUF</td><td style="text-align:right;color:var(--text-muted);">≈8,360원</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 04 · TRANSPORT
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-transport">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">교통 티켓</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <div class="scrollable-table-wrap">
+      <table class="transport-table">
+        <thead>
+          <tr>
+            <th>구간</th>
+            <th>교통편</th>
+            <th>상태</th>
+            <th>금액</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="transport-route">프라하 시내</div></td>
+            <td><div>Lítačka 개별 30분권 × ~3회</div><div class="transport-detail">트램 + 메트로 포함</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">36 CZK/회 (~108 CZK/인)<div class="transport-detail">≈7,560원/인</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">프라하 → 체스키</div></td>
+            <td><div>RegioJet 버스</div><div class="transport-detail">10:00 출발, 2h 40m</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">34,994원</td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">체스키 → 린츠</div></td>
+            <td><div>FlixBus</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">€23.46<div class="transport-detail">≈41,055원</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">잘츠캄머구트</div></td>
+            <td><div>렌트카 2박</div><div class="transport-detail" style="color:#c0392b;">⚠ 현장 보증금 €300</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">421,736원<div class="transport-detail">+ 보증금 €300 홀딩</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">린츠 → 빈</div></td>
+            <td><div>OBB 열차</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">66,423원</td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">빈 시내</div></td>
+            <td><div>24시간권 × 2장 (디지털)</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">€9.70 × 2 = €19.40/인<div class="transport-detail">≈33,950원/인</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">빈 → 부다페스트</div></td>
+            <td><div>RegioJet 열차</div><div class="transport-detail">13:27 출발 → 15:58 Budapest-Déli</div></td>
+            <td><span class="status-done">✓ 예약완료</span></td>
+            <td class="transport-amount">138,324원</td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">부다페스트 시내</div></td>
+            <td><div>개별 1회권 × ~6회</div><div class="transport-detail">힘든 구간만 탑승, 평지는 도보</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">~3,000 HUF/인<div class="transport-detail">≈13,500원/인</div></td>
+          </tr>
+          <tr>
+            <td><div class="transport-route">부다페스트 공항</div></td>
+            <td><div>100E 버스</div><div class="transport-detail" style="color:#c0392b;">⚠ 48h 카드 사용 불가</div></td>
+            <td><span class="status-local">현지 구매</span></td>
+            <td class="transport-amount">2,200 HUF/인<div class="transport-detail">≈9,900원/인</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:13px;font-weight:700;color:var(--text-muted);">예약 완료 합계 (참고)</span>
+        <span style="font-size:18px;font-weight:800;color:var(--olive-dark);">661,477원 + €23.46</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);">렌트카 421,736 + 빈열차 66,423 + 부다페스트열차 138,324 + 프라하버스 34,994</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 05 · ITINERARY
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-itinerary">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">일별 여행 플래너</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- Running total bar -->
+  <div class="running-total-bar">
+    <div class="rt-item">
+      <div class="rt-label">현금 누계</div>
+      <div class="rt-val" id="rt-cash">0원</div>
+      <div class="rt-sub">현장 지출 합계</div>
+    </div>
+    <div class="rt-item">
+      <div class="rt-label">카드 누계</div>
+      <div class="rt-val" id="rt-card">0원</div>
+      <div class="rt-sub">카드 지출 합계</div>
+    </div>
+    <div class="rt-item">
+      <div class="rt-label">총 경비 (현장)</div>
+      <div class="rt-val" id="rt-total">0원</div>
+      <div class="rt-sub">현금 + 카드</div>
+    </div>
+  </div>
+
+  <!-- City legend -->
+  <div class="city-legend">
+    <div class="city-chip"><div class="city-chip-dot" style="background:var(--prague)"></div>프라하</div>
+    <div class="city-chip"><div class="city-chip-dot" style="background:var(--cesky)"></div>체스키크룸로프</div>
+    <div class="city-chip"><div class="city-chip-dot" style="background:var(--salzk)"></div>잘츠캄머구트</div>
+    <div class="city-chip"><div class="city-chip-dot" style="background:var(--vienna)"></div>비엔나</div>
+    <div class="city-chip"><div class="city-chip-dot" style="background:var(--budapest)"></div>부다페스트</div>
+    <div class="city-chip"><div class="city-chip-dot" style="background:var(--travel)"></div>이동</div>
+  </div>
+
+  <!-- Day cards rendered by JS -->
+  <div id="day-cards-container"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 06 · WARNINGS
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-warnings">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">주의사항</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-header">
+      <div style="font-weight:700; font-size:15px; color:var(--olive-dark);">📌 동선 위 추천 장소 (빠뜨리면 아쉬운 곳)</div>
+      <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">일정에 없지만 동선 위에 있어 쉽게 추가 가능한 곳</div>
+    </div>
+    <div class="card-body" style="padding:12px;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">장소</th>
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">도시</th>
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">끼우는 법</th>
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">소요</th>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;"><a href="https://www.google.com/maps/search/?api=1&query=Matthias+Church+Budapest" target="_blank" style="color:inherit; text-decoration:none;">마차시 교회 📍</a></td>
+          <td style="padding:8px;"><span style="color:var(--budapest);">부다페스트</span></td>
+          <td style="padding:8px;">5/23 어부의 요새 직후 (바로 옆 1분)</td>
+          <td style="padding:8px;">30분, 2,500 HUF</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;"><a href="https://www.google.com/maps/search/?api=1&query=Heroes+Square+Budapest" target="_blank" style="color:inherit; text-decoration:none;">영웅 광장 📍</a></td>
+          <td style="padding:8px;"><span style="color:var(--budapest);">부다페스트</span></td>
+          <td style="padding:8px;">5/23 온천 가는 M1 동선 위 (Hősök tere역 하차 → 5분 보고 → 다음역 온천)</td>
+          <td style="padding:8px;">5분, 무료</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;"><a href="https://www.google.com/maps/search/?api=1&query=Naschmarkt+Vienna" target="_blank" style="color:inherit; text-decoration:none;">나슈마르크트 📍</a></td>
+          <td style="padding:8px;"><span style="color:var(--vienna);">빈</span></td>
+          <td style="padding:8px;">5/21 쇤브룬 귀환 후 점심 (U4 Kettenbrückengasse역, 동선 위)</td>
+          <td style="padding:8px;">1시간, 무료입장</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;"><a href="https://www.google.com/maps/search/?api=1&query=Petrin+Tower+Prague" target="_blank" style="color:inherit; text-decoration:none;">페트린 전망대 📍</a></td>
+          <td style="padding:8px;"><span style="color:var(--prague);">프라하</span></td>
+          <td style="padding:8px;">5/16 하벨시장 후 트램+푸니쿨라</td>
+          <td style="padding:8px;">1시간, 150 CZK</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;"><a href="https://www.google.com/maps/search/?api=1&query=Peterskirche+Vienna" target="_blank" style="color:inherit; text-decoration:none;">페터 교회 무료 오르간 📍</a></td>
+          <td style="padding:8px;"><span style="color:var(--vienna);">빈</span></td>
+          <td style="padding:8px;">5/21 슈테판 대성당 후 도보 3분 (평일 15시)</td>
+          <td style="padding:8px;">30분, 무료</td>
+        </tr>
+        <tr>
+          <td style="padding:8px; font-weight:600;">다뉴브 야경 크루즈</td>
+          <td style="padding:8px;"><span style="color:var(--budapest);">부다페스트</span></td>
+          <td style="padding:8px;">5/22 or 5/23 저녁. 사전 예약 필요</td>
+          <td style="padding:8px;">1시간, ~39,000원</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-header">
+      <div style="font-weight:700; font-size:15px; color:var(--olive-dark);">🛍️ 쇼핑 추천 (동선 내 구매 가능)</div>
+    </div>
+    <div class="card-body" style="padding:12px;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">품목</th>
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">도시</th>
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">구매처</th>
+          <th style="text-align:left; padding:8px; font-size:11px; color:var(--text-muted);">언제</th>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;">마뉴팍투라 (맥주 샴푸)</td>
+          <td style="padding:8px;"><span style="color:var(--prague);">프라하</span></td>
+          <td style="padding:8px;">하벨시장 근처</td>
+          <td style="padding:8px;">5/16 하벨시장 동선</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;">보타니쿠스 (장미오일)</td>
+          <td style="padding:8px;"><span style="color:var(--prague);">프라하</span></td>
+          <td style="padding:8px;">틴성당 뒤편 본점</td>
+          <td style="padding:8px;">5/16 구시가 광장 동선</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;">베헤로브카 (허브 리큐르)</td>
+          <td style="padding:8px;"><span style="color:var(--prague);">프라하</span></td>
+          <td style="padding:8px;">Albert/Billa 마트</td>
+          <td style="padding:8px;">5/16 마트 쇼핑 시</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0ebe0;">
+          <td style="padding:8px; font-weight:600;">코로나다 웨하스</td>
+          <td style="padding:8px;"><span style="color:var(--prague);">프라하</span></td>
+          <td style="padding:8px;">마트</td>
+          <td style="padding:8px;">5/16 마트 쇼핑 시</td>
+        </tr>
+        <tr>
+          <td style="padding:8px; font-weight:600;">파프리카 가루</td>
+          <td style="padding:8px;"><span style="color:var(--budapest);">부다페스트</span></td>
+          <td style="padding:8px;">중앙시장 1층</td>
+          <td style="padding:8px;">5/23 중앙시장</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="warn-list">
+    <div class="warn-item level-crit">
+      <div class="warn-icon">⛔</div>
+      <div class="warn-text">
+        <strong>할슈타트 소금광산 폐쇄 (~6/30)</strong>
+        <span>2026년 6월 30일까지 임시 휴업. 소금광산 일정은 대안 코스로 대체.</span>
+      </div>
+    </div>
+    <div class="warn-item level-warn">
+      <div class="warn-icon">⚠️</div>
+      <div class="warn-text">
+        <strong>카페 첸트랄 (빈) 임시 휴업</strong>
+        <span>방문 전 재개업 여부 재확인 필요.</span>
+      </div>
+    </div>
+    <div class="warn-item level-warn">
+      <div class="warn-icon">⚠️</div>
+      <div class="warn-text">
+        <strong>PAUSETERIA (프라하) 임시 휴업</strong>
+        <span>방문 전 SNS/구글맵으로 영업 여부 확인.</span>
+      </div>
+    </div>
+    <div class="warn-item level-warn">
+      <div class="warn-icon">⚠️</div>
+      <div class="warn-text">
+        <strong>프라하 트램 22번 일부 정류장 폐쇄</strong>
+        <span>Pohořelec 정류장은 정상 운행 확인됨. 그 외 구간 사전 확인 권장.</span>
+      </div>
+    </div>
+    <div class="warn-item level-warn">
+      <div class="warn-icon">⏰</div>
+      <div class="warn-text">
+        <strong>부다페스트 중앙시장 토요일 15:00 마감</strong>
+        <span>DAY 10 토요일 방문 시 11:00~12:00에 도착 필수.</span>
+      </div>
+    </div>
+    <div class="warn-item level-crit">
+      <div class="warn-icon">⛔</div>
+      <div class="warn-text">
+        <strong>100E 공항버스 — 48h 트래블카드 사용 불가</strong>
+        <span>공항버스 별도 1회권 구매 필수. 1인당 2,200 HUF 현금/카드 준비.</span>
+      </div>
+    </div>
+    <div class="warn-item level-info">
+      <div class="warn-icon">ℹ️</div>
+      <div class="warn-text">
+        <strong>부다페스트 숙소 — 엘리베이터 없음</strong>
+        <span>Rumbach Sebestyén u. 7, 짐보관은 가능. 캐리어 무게 조절 권장.</span>
+      </div>
+    </div>
+    <div class="warn-item level-info">
+      <div class="warn-icon">ℹ️</div>
+      <div class="warn-text">
+        <strong>체스키크룸로프 성 — 16:30 마감</strong>
+        <span>DAY 4 오후 일정 타이트. 14:00 이전 입장 권장.</span>
+      </div>
+    </div>
+    <div class="warn-item level-warn">
+      <div class="warn-icon">🚗</div>
+      <div class="warn-text">
+        <strong>렌트카 — 현장 보증금 €300</strong>
+        <span>Bad Goisern 렌트카 픽업 시 현금 또는 신용카드 €300 홀딩. 반납 후 해제.</span>
+      </div>
+    </div>
+    <div class="warn-item level-info">
+      <div class="warn-icon">ℹ️</div>
+      <div class="warn-text">
+        <strong>부다페스트 — Budapest-Déli 역 하차</strong>
+        <span>RegioJet 빈→부다페스트 편은 Keleti가 아닌 Déli 역 도착. 지하철 M2선 연결.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 07 · LEDGER (가계부)
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-ledger">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">가계부</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- 총 경비 요약 방정식 -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-body">
+      <div class="ledger-equation">
+        <div class="leq-block">
+          <div class="leq-label">사전결제</div>
+          <div class="leq-val" style="color:#166534;" id="led-prepaid-eq">6,628,287원</div>
+        </div>
+        <div class="leq-op">+</div>
+        <div class="leq-block">
+          <div class="leq-label">현장경비</div>
+          <div class="leq-val" style="color:#78350f;" id="led-onsite-eq">0원</div>
+        </div>
+        <div class="leq-eq">=</div>
+        <div class="leq-block">
+          <div class="leq-label">총 여행경비</div>
+          <div class="leq-result" id="led-grand-eq">6,628,287원</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 요약 카드 3종 -->
+  <div class="ledger-summary-grid">
+    <div class="ledger-summary-card prepaid">
+      <div class="lsc-label">사전결제 합계</div>
+      <div class="lsc-amount" id="led-prepaid-total">6,628,287원</div>
+      <div class="lsc-sub">항공·숙소·교통 포함</div>
+    </div>
+    <div class="ledger-summary-card onsite">
+      <div class="lsc-label">현장경비 합계</div>
+      <div class="lsc-amount" id="led-onsite-total">0원</div>
+      <div class="lsc-sub" id="led-onsite-sub">경비 탭 입력 기준</div>
+    </div>
+    <div class="ledger-summary-card grand">
+      <div class="lsc-label">여행 총 경비</div>
+      <div class="lsc-amount" id="led-grand-total">6,628,287원</div>
+      <div class="lsc-sub">사전결제 + 현장경비</div>
+    </div>
+  </div>
+
+  <!-- 사전결제 내역 -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-header">
+      <div class="ledger-section-title" style="margin-bottom:0;">사전결제 내역 (고정)</div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <div class="scrollable-table-wrap">
+        <table class="prepaid-table">
+          <tbody>
+            <tr><td>항공 (3인)</td><td>3,305,080원</td></tr>
+            <tr><td>프라하 숙소 3박 (리멤버프라하)</td><td>837,720원</td></tr>
+            <tr><td>바트고이저른 숙소 2박 (에어비앤비)</td><td>517,877원</td></tr>
+            <tr><td>비엔나 숙소 2박 (아디나)</td><td>483,871원</td></tr>
+            <tr><td>부다페스트 숙소 2박 (에어비앤비)</td><td>456,829원</td></tr>
+            <tr><td>체스키 숙소 1박 (빌라 베티카)</td><td>324,378원</td></tr>
+            <tr><td>RegioJet 버스 (프라하→체스키)</td><td>34,994원</td></tr>
+            <tr><td>FlixBus (체스키→린츠, €23.46)</td><td>41,055원</td></tr>
+            <tr><td>렌트카 2박 3일 (잘츠캄머구트)</td><td>421,736원</td></tr>
+            <tr><td>ÖBB 열차 (린츠→빈)</td><td>66,423원</td></tr>
+            <tr><td>RegioJet 열차 (빈→부다페스트)</td><td>138,324원</td></tr>
+            <tr><td style="font-weight:800;">사전결제 소계</td><td style="font-weight:800;font-size:15px;">6,628,287원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 일별 경비 테이블 -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-header">
+      <div class="ledger-section-title" style="margin-bottom:0;">
+        <span>일별 현장경비</span>
+        <button class="ledger-refresh-btn" onclick="updateLedger()">새로고침</button>
+      </div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <div class="scrollable-table-wrap">
+        <table class="ledger-table" id="ledger-daily-table">
+          <thead>
+            <tr>
+              <th>날짜</th>
+              <th>도시</th>
+              <th class="num">현금 (₩)</th>
+              <th class="num">카드 (₩)</th>
+              <th class="num">합계 (₩)</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-daily-body">
+            <tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">가계부 탭을 열면 자동으로 불러옵니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전체 내역 상세 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="ledger-section-title" style="margin-bottom:0;">전체 지출 내역</div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <div class="scrollable-table-wrap">
+        <table class="detail-table" id="ledger-detail-table">
+          <thead>
+            <tr>
+              <th>날짜</th>
+              <th>구분</th>
+              <th>내역</th>
+              <th>통화</th>
+              <th class="num">현지금액</th>
+              <th class="num">원화 (₩)</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-detail-body">
+            <tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">지출 내역이 없습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 08 · VOUCHER
+══════════════════════════════════════════════ -->
+<section class="section" id="sec-voucher">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-title">바우처</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- 1. 항공 -->
+  <div class="voucher-card" id="voucher-1">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-flight">항공</div>
+      <div class="voucher-title">아시아나항공 (3인)</div>
+      <div class="voucher-date">5/14~5/24</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-1">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(1, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(1)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 숙소 리멤버프라하 -->
+  <div class="voucher-card" id="voucher-2">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-hotel">숙소</div>
+      <div class="voucher-title">리멤버프라하 3박</div>
+      <div class="voucher-date">5/14~5/17</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-2">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(2, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(2)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 숙소 빌라 베티카 -->
+  <div class="voucher-card" id="voucher-3">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-hotel">숙소</div>
+      <div class="voucher-title">빌라 베티카 1박</div>
+      <div class="voucher-date">5/17~5/18</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-3">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(3, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(3)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 숙소 바트고이저른 에어비앤비 -->
+  <div class="voucher-card" id="voucher-4">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-hotel">숙소</div>
+      <div class="voucher-title">바트고이저른 에어비앤비 2박</div>
+      <div class="voucher-date">5/18~5/20</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-4">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(4, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(4)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 숙소 아디나 아파트먼트 -->
+  <div class="voucher-card" id="voucher-5">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-hotel">숙소</div>
+      <div class="voucher-title">아디나 아파트먼트 2박</div>
+      <div class="voucher-date">5/20~5/22</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-5">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(5, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(5)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 숙소 부다페스트 에어비앤비 -->
+  <div class="voucher-card" id="voucher-6">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-hotel">숙소</div>
+      <div class="voucher-title">부다페스트 에어비앤비 2박</div>
+      <div class="voucher-date">5/22~5/24</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-6">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(6, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(6)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 교통 RegioJet 프라하→체스키 -->
+  <div class="voucher-card" id="voucher-7">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-transport">교통</div>
+      <div class="voucher-title">RegioJet 프라하→체스키</div>
+      <div class="voucher-date">5/17</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-7">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(7, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(7)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. 교통 FlixBus 체스키→린츠 -->
+  <div class="voucher-card" id="voucher-8">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-transport">교통</div>
+      <div class="voucher-title">FlixBus 체스키→린츠</div>
+      <div class="voucher-date">5/18</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-8">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(8, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(8)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. 교통 렌트카 -->
+  <div class="voucher-card" id="voucher-9">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-transport">교통</div>
+      <div class="voucher-title">렌트카 (린츠)</div>
+      <div class="voucher-date">5/18~5/20</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-9">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(9, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(9)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. 교통 OBB 린츠→빈 -->
+  <div class="voucher-card" id="voucher-10">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-transport">교통</div>
+      <div class="voucher-title">OBB 린츠→빈</div>
+      <div class="voucher-date">5/20</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-10">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(10, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(10)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. 교통 RegioJet 빈→부다페스트 -->
+  <div class="voucher-card" id="voucher-11">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-transport">교통</div>
+      <div class="voucher-title">RegioJet 빈→부다페스트</div>
+      <div class="voucher-date">5/22</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-11">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(11, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(11)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. 관광 프라하 성 B코스 -->
+  <div class="voucher-card" id="voucher-12">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-tour">관광</div>
+      <div class="voucher-title">프라하 성 B코스</div>
+      <div class="voucher-date">5/15</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-12">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(12, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(12)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. 관광 쇤브룬궁전 -->
+  <div class="voucher-card" id="voucher-13">
+    <div class="voucher-header">
+      <div class="voucher-category voucher-cat-tour">관광</div>
+      <div class="voucher-title">쇤브룬궁전</div>
+      <div class="voucher-date">5/21</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-preview" id="voucher-preview-13">
+        <div class="voucher-empty">파일이 없습니다</div>
+      </div>
+      <div class="voucher-actions">
+        <label class="voucher-upload-btn">
+          📎 파일 첨부
+          <input type="file" accept="image/*,.pdf" multiple style="display:none" onchange="handleVoucherUpload(13, this.files)">
+        </label>
+        <button class="voucher-clear-btn" onclick="clearVoucher(13)">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+// ── Section navigation ──────────────────────────
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'ledger') updateLedger();
+  if (id === 'voucher') loadAllVouchers();
+}
+
+// ── Ledger (가계부) ──────────────────────────────
+const PREPAID_TOTAL = 6628287;
+
+const CITY_COLORS = {
+  prague: '#c0392b', cesky: '#8e44ad', salzk: '#27ae60',
+  vienna: '#2980b9', budapest: '#e67e22', travel: '#7f8c8d'
+};
+
+function updateLedger() {
+  const fmt = v => v === 0 ? '0원' : Math.round(v).toLocaleString() + '원';
+
+  // 일별 합산
+  const dailyRows = [];
+  const detailRows = [];
+  let totalCash = 0, totalCard = 0;
+
+  DAYS.forEach(d => {
+    const raw = localStorage.getItem(getExpenseKey(d.day));
+    const items = raw ? JSON.parse(raw) : [];
+    let dayCash = 0, dayCard = 0;
+
+    items.forEach(r => {
+      const krw = r.krw || r.amount || 0;
+      if (r.type === '현금') dayCash += krw;
+      else dayCard += krw;
+      detailRows.push({ day: d.day, date: d.date, city: d.city, cityKey: d.cityKey, type: r.type, desc: r.desc, currency: r.currency, amount: r.amount, krw });
+    });
+
+    totalCash += dayCash;
+    totalCard += dayCard;
+
+    if (items.length > 0) {
+      dailyRows.push({ day: d.day, date: d.date, city: d.city, cityKey: d.cityKey, cash: dayCash, card: dayCard, sum: dayCash + dayCard });
+    }
+  });
+
+  const onsiteTotal = totalCash + totalCard;
+  const grandTotal = PREPAID_TOTAL + onsiteTotal;
+
+  // 요약 카드 업데이트
+  document.getElementById('led-prepaid-total').textContent = fmt(PREPAID_TOTAL);
+  document.getElementById('led-onsite-total').textContent = fmt(onsiteTotal);
+  document.getElementById('led-grand-total').textContent = fmt(grandTotal);
+  document.getElementById('led-prepaid-eq').textContent = fmt(PREPAID_TOTAL);
+  document.getElementById('led-onsite-eq').textContent = fmt(onsiteTotal);
+  document.getElementById('led-grand-eq').textContent = fmt(grandTotal);
+
+  if (onsiteTotal > 0) {
+    document.getElementById('led-onsite-sub').textContent = '현금 ' + fmt(totalCash) + ' / 카드 ' + fmt(totalCard);
+  } else {
+    document.getElementById('led-onsite-sub').textContent = '경비 탭 입력 기준';
+  }
+
+  // 일별 테이블
+  const tbody = document.getElementById('ledger-daily-body');
+  if (dailyRows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">아직 입력된 경비가 없습니다.</td></tr>';
+  } else {
+    let html = dailyRows.map(r => {
+      const color = CITY_COLORS[r.cityKey] || '#888';
+      return `<tr>
+        <td><span class="ledger-city-dot" style="background:${color}"></span>${r.date}</td>
+        <td>${r.city}</td>
+        <td class="num" style="color:var(--prague);">${r.cash > 0 ? fmt(r.cash) : '—'}</td>
+        <td class="num" style="color:var(--vienna);">${r.card > 0 ? fmt(r.card) : '—'}</td>
+        <td class="num" style="color:var(--olive-dark);">${fmt(r.sum)}</td>
+      </tr>`;
+    }).join('');
+    html += `<tr class="total-row">
+      <td colspan="2" style="font-weight:800;">합계</td>
+      <td class="num" style="color:var(--prague);">${totalCash > 0 ? fmt(totalCash) : '—'}</td>
+      <td class="num" style="color:var(--vienna);">${totalCard > 0 ? fmt(totalCard) : '—'}</td>
+      <td class="num">${fmt(onsiteTotal)}</td>
+    </tr>`;
+    tbody.innerHTML = html;
+  }
+
+  // 상세 내역 테이블
+  const dtbody = document.getElementById('ledger-detail-body');
+  if (detailRows.length === 0) {
+    dtbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">지출 내역이 없습니다.</td></tr>';
+  } else {
+    dtbody.innerHTML = detailRows.map(r => {
+      const color = CITY_COLORS[r.cityKey] || '#888';
+      const amtText = r.currency === 'KRW' ? '—' : (r.amount ? r.amount.toLocaleString() + ' ' + r.currency : '—');
+      return `<tr>
+        <td><span class="ledger-city-dot" style="background:${color}"></span>${r.date}</td>
+        <td>${r.type}</td>
+        <td>${r.desc || '—'}</td>
+        <td>${r.currency}</td>
+        <td class="num">${amtText}</td>
+        <td class="num" style="color:var(--olive-dark);">${r.krw > 0 ? fmt(r.krw) : '—'}</td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+// ── Exchange rate ────────────────────────────────
+const EX_RATES = { CZK: 70, EUR: 1750, HUF: 4.5 };
+const EX_NAMES = { CZK: 'CZK', EUR: 'EUR', HUF: 'HUF' };
+const EX_NOTES = {
+  CZK: '기준: 1 CZK ≈ 70원 (2026.4 기준, 참고용)',
+  EUR: '기준: 1 EUR ≈ 1,750원 (2026.4 기준, 참고용)',
+  HUF: '기준: 1 HUF ≈ 4.5원 (2026.4 기준, 참고용)'
+};
+let currentCurrency = 'CZK';
+
+function setExCurrency(cur, btn) {
+  currentCurrency = cur;
+  document.querySelectorAll('.ex-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('exUnit').textContent = EX_NAMES[cur];
+  document.getElementById('exRateNote').textContent = EX_NOTES[cur];
+  calcExchange();
+  updateQuickLabels();
+}
+
+function calcExchange() {
+  const krw = parseFloat(document.getElementById('krwInput').value) || 0;
+  const rate = EX_RATES[currentCurrency];
+  const result = krw / rate;
+  const el = document.getElementById('exResult');
+  if (krw === 0) { el.textContent = '—'; return; }
+  if (currentCurrency === 'CZK' || currentCurrency === 'HUF') {
+    el.textContent = Math.round(result).toLocaleString();
+  } else {
+    el.textContent = result.toFixed(2);
+  }
+}
+
+function setKrw(val) {
+  document.getElementById('krwInput').value = val;
+  calcExchange();
+}
+
+function convertForQuick(krw) {
+  const rate = EX_RATES[currentCurrency];
+  const result = krw / rate;
+  if (currentCurrency === 'CZK' || currentCurrency === 'HUF') {
+    return Math.round(result).toLocaleString() + ' ' + currentCurrency;
+  }
+  return result.toFixed(2) + ' ' + currentCurrency;
+}
+
+function updateQuickLabels() {
+  document.getElementById('q1').textContent = convertForQuick(10000);
+  document.getElementById('q2').textContent = convertForQuick(30000);
+  document.getElementById('q3').textContent = convertForQuick(50000);
+  document.getElementById('q4').textContent = convertForQuick(100000);
+}
+
+updateQuickLabels();
+
+// ── Itinerary data ───────────────────────────────
+const DAYS = [
+  {
+    day: 1, date: '5/14 (목)', city: '프라하 도착', color: 'prague', cityKey: 'prague',
+    schedule: [
+      { time: '17:00', act: '프라하 공항 도착', note: '입국심사', maps: 'https://www.google.com/maps/search/?api=1&query=Prague+Airport+PRG' },
+      { time: '17:40', act: '공항 → 숙소 이동', note: 'Bolt / Uber (약 400~600 CZK)' },
+      { time: '18:30', act: '리멤버프라하 체크인', note: 'Spálená 106/47', maps: 'https://www.google.com/maps/search/?api=1&query=Spálená+106+Prague' },
+      { time: '19:00', act: '저녁식사', note: 'U Glaubiců or 코즐로브나', maps: 'https://www.google.com/maps/search/?api=1&query=U+Glaubicu+Prague' },
+      { time: '20:30', act: '바츨라프 광장 산책', note: '도보 5분', maps: 'https://www.google.com/maps/search/?api=1&query=Wenceslas+Square+Prague' },
+      { time: '21:00', act: '숙소 복귀', note: '시차 적응' },
+    ]
+  },
+  {
+    day: 2, date: '5/15 (금)', city: '스트라호프 + 프라하 성', color: 'prague', cityKey: 'prague',
+    schedule: [
+      { time: '08:30', act: '조식' },
+      { time: '09:40', act: 'Národní třída 메트로역', note: '메트로 B선 탑승 → Můstek역 환승 A선 → Malostranská역 하차', maps: 'https://www.google.com/maps/search/?api=1&query=Národní+třída+metro+Prague' },
+      { time: '10:00', act: '트램 22번 탑승', note: 'Bílá Hora 방면 탑승, 2정거장 (약 10분)' },
+      { time: '10:10', act: 'Pohořelec 하차', note: '하차 후 도보 5분 → 스트라호프', maps: 'https://www.google.com/maps/search/?api=1&query=Pohořelec+Prague' },
+      { time: '10:15', act: '스트라호프 도서관', note: '190 CZK/인', maps: 'https://www.google.com/maps/search/?api=1&query=Strahov+Library+Prague' },
+      { time: '11:00', act: '수도원 정원 산책', note: '시내 전경 포토스팟' },
+      { time: '12:00', act: '스트라호프 양조장 점심', note: '예약 추천', maps: 'https://www.google.com/maps/search/?api=1&query=Strahov+Monastery+Brewery+Prague' },
+      { time: '14:00', act: '프라하 성 B코스', note: '350 CZK/인', warn: '사전예약 필수', maps: 'https://www.google.com/maps/search/?api=1&query=Prague+Castle' },
+      { time: '15:30', act: '관람 종료' },
+      { time: '15:40', act: '프라하 성 스타벅스', note: '성벽 뷰', maps: 'https://www.google.com/maps/search/?api=1&query=Starbucks+Prague+Castle' },
+      { time: '16:15', act: '말라스트라나 광장', maps: 'https://www.google.com/maps/search/?api=1&query=Malostranské+náměstí+Prague' },
+      { time: '16:30', act: '레넌 벽', maps: 'https://www.google.com/maps/search/?api=1&query=Lennon+Wall+Prague' },
+      { time: '16:45', act: '캄파섬', maps: 'https://www.google.com/maps/search/?api=1&query=Kampa+Island+Prague' },
+      { time: '17:00', act: '까를교 산책', note: '석양', maps: 'https://www.google.com/maps/search/?api=1&query=Charles+Bridge+Prague' },
+      { time: '18:30', act: '포크스(Forks) 저녁', booked: true, maps: 'https://www.google.com/maps/search/?api=1&query=Forks+Restaurant+Prague' },
+      { time: '20:00', act: '까를교 야경 or 숙소 복귀' },
+    ]
+  },
+  {
+    day: 3, date: '5/16 (토)', city: '프라하 시내 + 토요시장', color: 'prague', cityKey: 'prague',
+    schedule: [
+      { time: '08:30', act: '조식' },
+      { time: '09:30', act: "Farmers' Saturday Market", warn: '토요일만 운영!', maps: 'https://www.google.com/maps/search/?api=1&query=Farmers+Market+Náplavka+Prague' },
+      { time: '10:30', act: '카페 루브르 브런치', maps: 'https://www.google.com/maps/search/?api=1&query=Café+Louvre+Prague' },
+      { time: '11:30', act: '댄싱하우스', note: '외관', maps: 'https://www.google.com/maps/search/?api=1&query=Dancing+House+Prague' },
+      { time: '12:00', act: '바츨라프 광장' },
+      { time: '12:30', act: '화약탑', note: 'Litacka 24h권 #2', maps: 'https://www.google.com/maps/search/?api=1&query=Powder+Tower+Prague' },
+      { time: '13:00', act: '구시가지 광장 + 천문시계', note: '정각 사도행렬', maps: 'https://www.google.com/maps/search/?api=1&query=Old+Town+Square+Prague' },
+      { time: '13:30', act: '점심', note: '나세마소 · Pork\'s Mostecka' },
+      { time: '14:30', act: '하벨시장 기념품', maps: 'https://www.google.com/maps/search/?api=1&query=Havelské+tržiště+Prague' },
+      { time: '15:00', act: 'Rámování-Hračky', note: '페트와매트 키링' },
+      { time: '16:00', act: '마트 쇼핑' },
+      { time: '17:00', act: '저녁', note: '코젤로브나 or SmetanaQ' },
+      { time: '21:15', act: '레두타 재즈 클럽', note: '선택 사항', maps: 'https://www.google.com/maps/search/?api=1&query=Reduta+Jazz+Club+Prague' },
+    ]
+  },
+  {
+    day: 4, date: '5/17 (일)', city: '프라하 → 체스키크룸로프', color: 'cesky', cityKey: 'cesky',
+    schedule: [
+      { time: '08:30', act: '조식 + 체크아웃' },
+      { time: '09:10', act: 'Národní třída 메트로역', note: '메트로 B선 → Anděl역 하차 (1정거장)', maps: 'https://www.google.com/maps/search/?api=1&query=Národní+třída+metro+Prague' },
+      { time: '09:25', act: 'Na Knížecí 버스터미널', note: 'Anděl역에서 도보 3분, 터미널 도착 후 대기', maps: 'https://www.google.com/maps/search/?api=1&query=Na+Knížecí+bus+station+Prague' },
+      { time: '10:00', act: 'RegioJet 버스 출발', booked: true, note: '34,994원 · 2h 40m' },
+      { time: '12:40', act: 'Český Krumlov 도착', maps: 'https://www.google.com/maps/search/?api=1&query=Český+Krumlov+bus+station' },
+      { time: '13:00', act: '빌라 베티카 짐 맡기기', maps: 'https://www.google.com/maps/search/?api=1&query=Boutique+Hotel+Villa+Beatika+Cesky+Krumlov' },
+      { time: '13:15', act: '칸티나 점심', maps: 'https://www.google.com/maps/search/?api=1&query=Kantina+Cesky+Krumlov' },
+      { time: '14:00', act: '체스키 성 + 타워', warn: '16:30 마감!', maps: 'https://www.google.com/maps/search/?api=1&query=Český+Krumlov+Castle' },
+      { time: '15:30', act: '성에서 내려오며 관광' },
+      { time: '16:00', act: '에곤 실레 미술관', maps: 'https://www.google.com/maps/search/?api=1&query=Egon+Schiele+Art+Centrum+Cesky+Krumlov' },
+      { time: '17:00', act: '호텔 체크인' },
+      { time: '18:00', act: 'Krčma Šatlava 동굴식당', booked: true, maps: 'https://www.google.com/maps/search/?api=1&query=Krčma+Šatlava+Cesky+Krumlov' },
+      { time: '19:30', act: '체스키 야경 산책' },
+    ]
+  },
+  {
+    day: 5, date: '5/18 (월)', city: '체스키 → 린츠 → 할슈타트', color: 'salzk', cityKey: 'salzk',
+    schedule: [
+      { time: '08:00', act: '조식 + 체크아웃' },
+      { time: '--', act: 'FlixBus 체스키 → 린츠', booked: true, note: '€23.46' },
+      { time: '--', act: '렌트카 픽업', warn: '보증금 €300 현장결제 필수' },
+      { time: '--', act: '린츠 → Bad Goisern', note: '렌트카 1시간' },
+      { time: '--', act: '에어비앤비 체크인', maps: 'https://www.google.com/maps/search/?api=1&query=Obere+Marktstraße+26+Bad+Goisern' },
+      { time: '오후', act: '할슈타트 마을', note: '렌트카 15분 · P1 주차장', maps: 'https://www.google.com/maps/search/?api=1&query=Hallstatt+Austria' },
+      { time: '--', act: '뼈의 교회 Beinhaus', warn: '11:30~15:30만 개방!', maps: 'https://www.google.com/maps/search/?api=1&query=Beinhaus+Hallstatt' },
+      { time: '--', act: '마을 산책 + 보트 투어', note: '~€10' },
+      { time: '저녁', act: '할슈타트 or 숙소 근처 저녁' },
+    ]
+  },
+  {
+    day: 6, date: '5/19 (화)', city: '산악열차 + 고사우 호수', color: 'salzk', cityKey: 'salzk',
+    schedule: [
+      { time: '08:00', act: '조식' },
+      { time: '08:30', act: 'Bad Goisern → St. Wolfgang', note: '렌트카 40분' },
+      { time: '09:00', act: '샤프베르크 산악열차', note: '왕복 2~3시간', maps: 'https://www.google.com/maps/search/?api=1&query=SchafbergBahn+St+Wolfgang' },
+      { time: '12:00', act: 'St. Wolfgang 점심', maps: 'https://www.google.com/maps/search/?api=1&query=St.+Wolfgang+Austria' },
+      { time: '13:30', act: '→ 고사우 호수', note: '렌트카 40분', maps: 'https://www.google.com/maps/search/?api=1&query=Gosausee+Austria' },
+      { time: '14:00', act: '호수 산책', note: '1바퀴 1.5시간 · 무료' },
+      { time: '15:30', act: '숙소 복귀' },
+      { time: '18:00', act: '저녁' },
+    ]
+  },
+  {
+    day: 7, date: '5/20 (수)', city: '잘츠캄머구트 → 빈', color: 'vienna', cityKey: 'vienna',
+    schedule: [
+      { time: '08:00', act: '조식 + 체크아웃' },
+      { time: '08:30', act: 'Bad Goisern → 린츠', note: '렌트카 1시간' },
+      { time: '09:30', act: '렌트카 반납' },
+      { time: '--', act: 'ÖBB 열차 린츠 → 빈', booked: true, note: '66,423원' },
+      { time: '--', act: 'Wien Hbf 도착 → 숙소 이동', note: 'Vienna City Card 48h 활성화. U1 메트로 or 택시', maps: 'https://www.google.com/maps/search/?api=1&query=Wien+Hauptbahnhof' },
+      { time: '--', act: '아디나 아파트먼트 체크인' },
+      { time: '15:00', act: '카페 자허', note: '대기 30분+ 예상', maps: 'https://www.google.com/maps/search/?api=1&query=Café+Sacher+Wien' },
+      { time: '16:00', act: '슈테판 대성당 산책' },
+      { time: '17:30', act: '피그뮐러 1호점 저녁', booked: true, maps: 'https://www.google.com/maps/search/?api=1&query=Figlmüller+Bäckerstraße+Wien' },
+      { time: '19:00', act: '빈 야경', note: '오페라극장' },
+    ]
+  },
+  {
+    day: 8, date: '5/21 (목)', city: '쇤브룬 + 벨베데레', color: 'vienna', cityKey: 'vienna',
+    schedule: [
+      { time: '08:00', act: '조식 (든든하게)' },
+      { time: '09:20', act: 'U4 → Schönbrunn역', note: 'U4 메트로 Schönbrunn역 하차 (궁전 바로 앞)' },
+      { time: '09:30', act: '쇤브룬궁전', warn: '사전예약 필수 €22~29/인', maps: 'https://www.google.com/maps/search/?api=1&query=Schönbrunn+Palace+Vienna' },
+      { time: '11:30', act: '쇤브룬 정원', note: '무료' },
+      { time: '12:00', act: '시내 복귀 → 점심', note: 'U4 → Karlsplatz 환승 → 시내' },
+      { time: '13:30', act: '벨베데레 궁전', note: "클림트 '키스'", maps: 'https://www.google.com/maps/search/?api=1&query=Belvedere+Palace+Vienna' },
+      { time: '15:00', act: '슈테판 대성당', maps: 'https://www.google.com/maps/search/?api=1&query=St+Stephens+Cathedral+Vienna' },
+      { time: '15:30', act: '호프부르크 왕궁', note: '외관', maps: 'https://www.google.com/maps/search/?api=1&query=Hofburg+Palace+Vienna' },
+      { time: '15:45', act: '오페라극장', note: '외관', maps: 'https://www.google.com/maps/search/?api=1&query=Vienna+State+Opera' },
+      { time: '16:00', act: '카페 데멜', maps: 'https://www.google.com/maps/search/?api=1&query=Café+Demel+Vienna' },
+      { time: '17:00', act: '립스 오브 비엔나', booked: true, maps: 'https://www.google.com/maps/search/?api=1&query=Ribs+of+Vienna' },
+    ]
+  },
+  {
+    day: 9, date: '5/22 (금)', city: '빈 → 부다페스트', color: 'budapest', cityKey: 'budapest',
+    schedule: [
+      { time: '09:00', act: '조식 + 체크아웃' },
+      { time: '10:30', act: '빈 마지막 쇼핑' },
+      { time: '12:00', act: '점심' },
+      { time: '13:27', act: 'RegioJet 열차 출발', booked: true, note: '138,324원' },
+      { time: '15:58', act: 'Budapest-Déli역 도착', warn: 'Keleti역 아님!', maps: 'https://www.google.com/maps/search/?api=1&query=Budapest+Déli+pályaudvar' },
+      { time: '16:10', act: '숙소 이동', note: 'BKK 자판기에서 48h 카드 구매. M2 메트로 Déli역→숙소 or 택시' },
+      { time: '16:30', act: '에어비앤비 체크인', note: '엘리베이터 없음', maps: 'https://www.google.com/maps/search/?api=1&query=Rumbach+Sebestyén+utca+7+Budapest' },
+      { time: '17:00', act: '유대인 지구 산책' },
+      { time: '18:30', act: '저녁', note: 'Retro Lángos · Retek Bisztro' },
+      { time: '20:00', act: '다뉴브 강변 야경' },
+    ]
+  },
+  {
+    day: 10, date: '5/23 (토)', city: '부다페스트 풀데이', color: 'budapest', cityKey: 'budapest',
+    schedule: [
+      { time: '08:00', act: '아침', note: 'VAJ Sas Pékség' },
+      { time: '08:45', act: '어부의 요새', warn: '09:00 전 무료!', note: '숙소→M2 메트로 Batthyány tér역→도보 10분 올라가기. 09시 전 무료!', maps: 'https://www.google.com/maps/search/?api=1&query=Fishermans+Bastion+Budapest' },
+      { time: '09:15', act: '부다 성 외관', maps: 'https://www.google.com/maps/search/?api=1&query=Buda+Castle+Budapest' },
+      { time: '09:45', act: '세체니 다리 도보', note: '20분', maps: 'https://www.google.com/maps/search/?api=1&query=Széchenyi+Chain+Bridge+Budapest' },
+      { time: '10:15', act: '성 이슈트반 대성당', note: '무료', maps: 'https://www.google.com/maps/search/?api=1&query=St+Stephens+Basilica+Budapest' },
+      { time: '11:00', act: '중앙시장', warn: '토요일 15:00 마감!', maps: 'https://www.google.com/maps/search/?api=1&query=Great+Market+Hall+Budapest' },
+      { time: '12:00', act: '중앙시장 내 점심' },
+      { time: '13:30', act: '세체니 온천', note: 'M1 메트로 Széchenyi fürdő역 하차 (온천 바로 앞)', maps: 'https://www.google.com/maps/search/?api=1&query=Széchenyi+thermal+bath+Budapest' },
+      { time: '16:00', act: '온천 나옴' },
+      { time: '16:30', act: '뉴욕 카페 or 카페 제르보', maps: 'https://www.google.com/maps/search/?api=1&query=New+York+Café+Budapest' },
+      { time: '17:30', act: '국회의사당 외관', note: '트램 2번 도나우 강변 노선 (경치 좋음)', maps: 'https://www.google.com/maps/search/?api=1&query=Hungarian+Parliament+Budapest' },
+      { time: '17:40', act: '다뉴브 강가의 신발들', maps: 'https://www.google.com/maps/search/?api=1&query=Shoes+on+the+Danube+Bank+Budapest' },
+      { time: '19:00', act: '저녁', note: '멘자 / 게토 구야시 / Parasztkonyha' },
+      { time: '21:00', act: '국회의사당 야경' },
+    ]
+  },
+  {
+    day: 11, date: '5/24 (일)', city: '부다페스트 출발', color: 'travel', cityKey: 'travel',
+    schedule: [
+      { time: '07:00', act: '기상 + 짐 정리' },
+      { time: '07:30', act: '체크아웃' },
+      { time: '--', act: '→ Deák Ferenc tér', note: 'M1/M2/M3 환승역, 100E 버스 탑승점', maps: 'https://www.google.com/maps/search/?api=1&query=Deák+Ferenc+tér+Budapest' },
+      { time: '--', act: '100E 공항버스 탑승', warn: '별도 2,200 HUF (48h 카드 불가)', note: '매 7~10분 간격. 35~40분 소요. BKK 자판기에서 1회권 구매' },
+      { time: '--', act: '공항 이동', note: '35~40분', maps: 'https://www.google.com/maps/search/?api=1&query=Budapest+Airport+BUD' },
+      { time: '--', act: '체크인 & 출국' },
+      { time: '--', act: '인천으로 출발 ✈' },
+    ]
+  },
+];
+
+const COLOR_MAP = {
+  prague: '#c0392b', cesky: '#8e44ad', salzk: '#27ae60',
+  vienna: '#2980b9', budapest: '#e67e22', travel: '#7f8c8d'
+};
+
+// Build day cards
+function buildDayCards() {
+  const container = document.getElementById('day-cards-container');
+  container.innerHTML = '';
+  DAYS.forEach(d => {
+    const color = COLOR_MAP[d.cityKey] || '#888';
+    const cardEl = document.createElement('div');
+    cardEl.className = 'day-card';
+    cardEl.id = 'day-' + d.day;
+
+    cardEl.innerHTML = `
+      <div class="day-card-header" onclick="toggleDay(${d.day})">
+        <div class="day-num-badge" style="background:${color}">
+          <span class="day-n">DAY</span>
+          <span class="day-v">${d.day}</span>
+        </div>
+        <div class="day-info">
+          <div class="day-title">${d.date}</div>
+          <div class="day-subtitle">${d.city}</div>
+        </div>
+        <div class="day-city-tag" style="background:${color}">${cityLabel(d.cityKey)}</div>
+        <div class="day-chevron">▶</div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-inner">
+          <div class="day-tabs">
+            <button class="day-tab active" onclick="switchDayTab(${d.day},'schedule',this)">일정</button>
+            <button class="day-tab" onclick="switchDayTab(${d.day},'expense',this)">경비</button>
+          </div>
+
+          <!-- Schedule tab -->
+          <div class="day-tab-content active" id="tab-${d.day}-schedule">
+            <div class="timeline">
+              ${buildTimeline(d.schedule)}
+            </div>
+          </div>
+
+          <!-- Expense tab -->
+          <div class="day-tab-content" id="tab-${d.day}-expense">
+            <div class="expense-section">
+              <table class="expense-table" id="exp-table-${d.day}">
+                <thead>
+                  <tr>
+                    <th style="width:60px">구분</th>
+                    <th>내역</th>
+                    <th style="width:65px">통화</th>
+                    <th style="width:85px">현지금액</th>
+                    <th style="width:90px">원화(₩)</th>
+                    <th style="width:26px"></th>
+                  </tr>
+                </thead>
+                <tbody id="exp-body-${d.day}">
+                </tbody>
+              </table>
+              <button class="add-expense-btn" onclick="addExpenseRow(${d.day})">+ 경비 추가</button>
+              <div class="expense-total-grid" id="exp-total-${d.day}">
+                <div class="expense-total-item">
+                  <div class="etl">현금</div>
+                  <div class="etv col-prague" id="exp-cash-${d.day}">0원</div>
+                </div>
+                <div class="expense-total-item">
+                  <div class="etl">카드</div>
+                  <div class="etv col-vienna" id="exp-card-${d.day}">0원</div>
+                </div>
+                <div class="expense-total-item">
+                  <div class="etl">합계</div>
+                  <div class="etv col-salzk" id="exp-sum-${d.day}">0원</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diary tab removed -->
+        </div>
+      </div>
+    `;
+    container.appendChild(cardEl);
+    loadExpenses(d.day);
+  });
+}
+
+function cityLabel(key) {
+  const L = { prague: '프라하', cesky: '체스키', salzk: '잘츠캄머구트', vienna: '비엔나', budapest: '부다페스트', travel: '출발' };
+  return L[key] || key;
+}
+
+function buildTimeline(schedule) {
+  return schedule.map(item => {
+    let badges = '';
+    if (item.booked) badges += '<div class="booked-badge">✓ 예약완료</div>';
+    if (item.warn) badges += `<div class="warn-badge">⚠ ${item.warn}</div>`;
+    const actText = item.maps
+      ? `<a href="${item.maps}" target="_blank" rel="noopener noreferrer">${item.act}</a>`
+      : item.act;
+    return `
+      <div class="timeline-item">
+        <div class="timeline-time">${item.time || '--'}</div>
+        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-activity timeline-act">${actText}</div>
+          ${item.note ? `<div class="timeline-note">${item.note}</div>` : ''}
+          ${badges}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleDay(day) {
+  const card = document.getElementById('day-' + day);
+  card.classList.toggle('open');
+}
+
+function switchDayTab(day, tab, btn) {
+  event.stopPropagation();
+  const card = document.getElementById('day-' + day);
+  card.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+  card.querySelectorAll('.day-tab-content').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`tab-${day}-${tab}`).classList.add('active');
+}
+
+// ── Expense tracking ─────────────────────────────
+function getExpenseKey(day) { return `travel2026_expense_day${day}`; }
+
+function loadExpenses(day) {
+  const raw = localStorage.getItem(getExpenseKey(day));
+  if (!raw) { recalcExpense(day); return; }
+  const rows = JSON.parse(raw);
+  rows.forEach(r => addExpenseRow(day, r));
+  recalcExpense(day);
+}
+
+const RATES = { KRW: 1, CZK: 70, EUR: 1750, HUF: 4.5 };
+const DAY_CURRENCY = {};
+DAYS.forEach(d => {
+  if (['prague','cesky'].includes(d.city)) DAY_CURRENCY[d.day] = 'CZK';
+  else if (['salzk','vienna'].includes(d.city)) DAY_CURRENCY[d.day] = 'EUR';
+  else if (d.city === 'budapest') DAY_CURRENCY[d.day] = 'HUF';
+  else DAY_CURRENCY[d.day] = 'EUR';
+});
+
+function convertToKRW(amount, currency) {
+  if (!amount || !currency) return 0;
+  return Math.round(amount * RATES[currency]);
+}
+
+function addExpenseRow(day, preset) {
+  const tbody = document.getElementById(`exp-body-${day}`);
+  const idx = Date.now() + Math.random();
+  const tr = document.createElement('tr');
+  tr.dataset.idx = idx;
+  const defCur = preset ? preset.currency : (DAY_CURRENCY[day] || 'EUR');
+  const krwVal = preset ? (preset.krw || convertToKRW(preset.amount, preset.currency)) : '';
+  tr.innerHTML = `
+    <td>
+      <select onchange="saveExpenses(${day})">
+        <option value="현금" ${preset && preset.type === '현금' ? 'selected' : ''}>현금</option>
+        <option value="카드" ${preset && preset.type === '카드' ? 'selected' : ''}>카드</option>
+      </select>
+    </td>
+    <td><input type="text" placeholder="내역" value="${preset ? preset.desc : ''}" oninput="saveExpenses(${day})"></td>
+    <td>
+      <select onchange="autoConvert(this, ${day})">
+        <option value="KRW" ${defCur==='KRW'?'selected':''}>₩</option>
+        <option value="CZK" ${defCur==='CZK'?'selected':''}>CZK</option>
+        <option value="EUR" ${defCur==='EUR'?'selected':''}>EUR</option>
+        <option value="HUF" ${defCur==='HUF'?'selected':''}>HUF</option>
+      </select>
+    </td>
+    <td><input type="number" placeholder="0" value="${preset ? preset.amount : ''}" oninput="autoConvert(this, ${day})" data-field="local"></td>
+    <td><input type="number" placeholder="0" value="${krwVal}" oninput="saveExpenses(${day}); recalcExpense(${day})" data-field="krw" style="background:#fffbe6;"></td>
+    <td><button class="del-btn" onclick="deleteExpenseRow(this, ${day})">×</button></td>
+  `;
+  tbody.appendChild(tr);
+  recalcExpense(day);
+}
+
+function autoConvert(el, day) {
+  const tr = el.closest('tr');
+  const currency = tr.querySelectorAll('select')[1].value;
+  const localInput = tr.querySelector('input[data-field="local"]');
+  const krwInput = tr.querySelector('input[data-field="krw"]');
+  const localAmt = parseFloat(localInput.value) || 0;
+  if (currency === 'KRW') {
+    krwInput.value = localAmt || '';
+  } else {
+    krwInput.value = localAmt ? convertToKRW(localAmt, currency) : '';
+  }
+  saveExpenses(day);
+  recalcExpense(day);
+}
+
+function deleteExpenseRow(btn, day) {
+  btn.closest('tr').remove();
+  saveExpenses(day);
+  recalcExpense(day);
+}
+
+function saveExpenses(day) {
+  const tbody = document.getElementById(`exp-body-${day}`);
+  const rows = [];
+  tbody.querySelectorAll('tr').forEach(tr => {
+    const selects = tr.querySelectorAll('select');
+    const type = selects[0].value;
+    const desc = tr.querySelector('input[type="text"]').value;
+    const currency = selects[1].value;
+    const amount = parseFloat(tr.querySelector('input[data-field="local"]').value) || 0;
+    const krw = parseFloat(tr.querySelector('input[data-field="krw"]').value) || 0;
+    rows.push({ type, desc, currency, amount, krw });
+  });
+  localStorage.setItem(getExpenseKey(day), JSON.stringify(rows));
+  recalcExpense(day);
+  updateRunningTotal();
+}
+
+function recalcExpense(day) {
+  const tbody = document.getElementById(`exp-body-${day}`);
+  if (!tbody) return;
+  let cash = 0, card = 0;
+  tbody.querySelectorAll('tr').forEach(tr => {
+    const type = tr.querySelector('select') ? tr.querySelector('select').value : '';
+    const krwInput = tr.querySelector('input[data-field="krw"]');
+    const amount = parseFloat(krwInput ? krwInput.value : 0) || 0;
+    if (type === '현금') cash += amount;
+    else card += amount;
+  });
+  const sum = cash + card;
+  const fmt = v => v === 0 ? '0원' : v.toLocaleString() + '원';
+  const cashEl = document.getElementById(`exp-cash-${day}`);
+  const cardEl = document.getElementById(`exp-card-${day}`);
+  const sumEl = document.getElementById(`exp-sum-${day}`);
+  if (cashEl) cashEl.textContent = fmt(cash);
+  if (cardEl) cardEl.textContent = fmt(card);
+  if (sumEl) sumEl.textContent = fmt(sum);
+}
+
+function updateRunningTotal() {
+  let totalCash = 0, totalCard = 0;
+  DAYS.forEach(d => {
+    const raw = localStorage.getItem(getExpenseKey(d.day));
+    if (!raw) return;
+    JSON.parse(raw).forEach(r => {
+      if (r.type === '현금') totalCash += (r.krw || r.amount || 0);
+      else totalCard += (r.krw || r.amount || 0);
+    });
+  });
+  const fmt = v => v === 0 ? '0원' : v.toLocaleString() + '원';
+  document.getElementById('rt-cash').textContent = fmt(totalCash);
+  document.getElementById('rt-card').textContent = fmt(totalCard);
+  document.getElementById('rt-total').textContent = fmt(totalCash + totalCard);
+}
+
+// ── Voucher (IndexedDB) ──────────────────────────
+const VOUCHER_DB_NAME = 'travel2026_vouchers';
+const VOUCHER_STORE = 'files';
+
+function openVoucherDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(VOUCHER_DB_NAME, 1);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(VOUCHER_STORE)) {
+        db.createObjectStore(VOUCHER_STORE, { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = (e) => resolve(e.target.result);
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function handleVoucherUpload(index, files) {
+  const db = await openVoucherDB();
+  const existing = await getVoucherFiles(index);
+
+  for (const file of files) {
+    const reader = new FileReader();
+    const dataUrl = await new Promise((resolve) => {
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsDataURL(file);
+    });
+    existing.push({
+      name: file.name,
+      type: file.type,
+      data: dataUrl,
+      uploadedAt: new Date().toISOString()
+    });
+  }
+
+  const tx = db.transaction(VOUCHER_STORE, 'readwrite');
+  tx.objectStore(VOUCHER_STORE).put({ id: `voucher_${index}`, files: existing });
+  await new Promise((resolve, reject) => {
+    tx.oncomplete = resolve;
+    tx.onerror = reject;
+  });
+
+  renderVoucherPreview(index);
+}
+
+async function getVoucherFiles(index) {
+  const db = await openVoucherDB();
+  return new Promise((resolve) => {
+    const tx = db.transaction(VOUCHER_STORE, 'readonly');
+    const req = tx.objectStore(VOUCHER_STORE).get(`voucher_${index}`);
+    req.onsuccess = (e) => resolve(e.target.result ? e.target.result.files : []);
+    req.onerror = () => resolve([]);
+  });
+}
+
+async function renderVoucherPreview(index) {
+  const files = await getVoucherFiles(index);
+  const container = document.getElementById(`voucher-preview-${index}`);
+  if (!container) return;
+
+  if (files.length === 0) {
+    container.innerHTML = '<div class="voucher-empty">파일이 없습니다</div>';
+    return;
+  }
+
+  let html = '';
+  files.forEach((f) => {
+    if (f.type.startsWith('image/')) {
+      html += `<img src="${f.data}" alt="${f.name}" onclick="window.open(this.src, '_blank')" title="클릭하면 크게 보기">`;
+    } else {
+      html += `<a class="voucher-pdf-link" href="${f.data}" download="${f.name}" target="_blank">📄 ${f.name}</a><br>`;
+    }
+  });
+  html += `<div style="font-size:11px; color:var(--text-muted); margin-top:8px;">${files.length}개 파일 저장됨</div>`;
+  container.innerHTML = html;
+}
+
+async function clearVoucher(index) {
+  if (!confirm('이 항목의 모든 파일을 삭제하시겠습니까?')) return;
+  const db = await openVoucherDB();
+  const tx = db.transaction(VOUCHER_STORE, 'readwrite');
+  tx.objectStore(VOUCHER_STORE).delete(`voucher_${index}`);
+  await new Promise((resolve) => { tx.oncomplete = resolve; });
+  renderVoucherPreview(index);
+}
+
+function loadAllVouchers() {
+  for (let i = 1; i <= 13; i++) {
+    renderVoucherPreview(i);
+  }
+}
+
+// ── Init ─────────────────────────────────────────
+buildDayCards();
+updateRunningTotal();
+
+// Re-calc on expense input (event delegation)
+document.getElementById('day-cards-container').addEventListener('input', function(e) {
+  const tr = e.target.closest('tr');
+  if (!tr) return;
+  const tbody = tr.closest('tbody');
+  if (!tbody) return;
+  const m = tbody.id.match(/exp-body-(\d+)/);
+  if (!m) return;
+  recalcExpense(parseInt(m[1]));
+  updateRunningTotal();
+});
+</script>
+</body>
+</html>
