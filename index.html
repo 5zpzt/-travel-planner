@@ -1241,11 +1241,17 @@ function loadWallet() {
   try {
     const ex = localStorage.getItem('eu-trip-wallet-exchanges');
     const sp = localStorage.getItem('eu-trip-wallet-spending');
-    const parsedEx = ex ? JSON.parse(ex) : [];
-    walletData.exchanges = parsedEx.length > 0 ? parsedEx : EXCHANGE_PRESETS.map(p => ({...p}));
-    const parsedSp = sp ? JSON.parse(sp) : [];
-    walletData.spending = parsedSp.length > 0 ? parsedSp : SPENDING_PRESETS.map(p => ({...p}));
-    if (parsedEx.length === 0 || parsedSp.length === 0) saveWallet();
+    const WALLET_VERSION = 3;
+    const savedVer = parseInt(localStorage.getItem('eu-trip-wallet-version')) || 0;
+    if (savedVer < WALLET_VERSION) {
+      walletData.exchanges = EXCHANGE_PRESETS.map(p => ({...p}));
+      walletData.spending = SPENDING_PRESETS.map(p => ({...p}));
+      localStorage.setItem('eu-trip-wallet-version', WALLET_VERSION);
+      saveWallet();
+    } else {
+      walletData.exchanges = ex ? JSON.parse(ex) : EXCHANGE_PRESETS.map(p => ({...p}));
+      walletData.spending = sp ? JSON.parse(sp) : SPENDING_PRESETS.map(p => ({...p}));
+    }
   } catch(e) {
     walletData = { exchanges: [], spending: [] };
   }
