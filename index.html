@@ -1174,12 +1174,8 @@
             <tr><td>비엔나 숙소 2박 (아디나)</td><td>483,871원</td></tr>
             <tr><td>부다페스트 숙소 2박 (에어비앤비)</td><td>456,829원</td></tr>
             <tr><td>체스키 숙소 1박 (빌라 베티카)</td><td>324,378원</td></tr>
-            <tr><td>RegioJet 버스 (프라하→체스키)</td><td>34,994원</td></tr>
-            <tr><td>FlixBus (체스키→린츠, €23.46)</td><td>41,055원</td></tr>
             <tr><td>렌트카 2박 3일 (잘츠캄머구트)</td><td>421,736원</td></tr>
-            <tr><td>ÖBB 열차 (린츠→빈)</td><td>66,423원</td></tr>
-            <tr><td>RegioJet 열차 (빈→부다페스트)</td><td>138,324원</td></tr>
-            <tr><td style="font-weight:800;">사전결제 소계</td><td style="font-weight:800;font-size:15px;">6,628,287원</td></tr>
+            <tr><td style="font-weight:800;">사전결제 소계 (원화결제)</td><td style="font-weight:800;font-size:15px;">6,347,491원</td></tr>
           </tbody>
         </table>
       </div>
@@ -1226,7 +1222,7 @@ function showSection(id, btn) {
 }
 
 // ── Wallet (환전지갑) ────────────────────────────
-const PREPAID_TOTAL = 6628287;
+const PREPAID_TOTAL = 6347491;
 const CURRENCIES = ['CZK', 'EUR', 'HUF'];
 
 // wallet state: { exchanges: [{src, krw, local, cur}], spending: [{cur, amount, memo}] }
@@ -1238,8 +1234,9 @@ function loadWallet() {
     const sp = localStorage.getItem('eu-trip-wallet-spending');
     const parsedEx = ex ? JSON.parse(ex) : [];
     walletData.exchanges = parsedEx.length > 0 ? parsedEx : EXCHANGE_PRESETS.map(p => ({...p}));
-    walletData.spending = sp ? JSON.parse(sp) : [];
-    if (parsedEx.length === 0) saveWallet();
+    const parsedSp = sp ? JSON.parse(sp) : [];
+    walletData.spending = parsedSp.length > 0 ? parsedSp : SPENDING_PRESETS.map(p => ({...p}));
+    if (parsedEx.length === 0 || parsedSp.length === 0) saveWallet();
   } catch(e) {
     walletData = { exchanges: [], spending: [] };
   }
@@ -1266,6 +1263,13 @@ const EXCHANGE_PRESETS = [
   { src: '트래블월렛', krw: 71700, local: 1000, cur: 'CZK' },
   { src: '트래블월렛', krw: 215130, local: 3000, cur: 'CZK' },
   { src: '트래블월렛', krw: 225500, local: 50000, cur: 'HUF' },
+];
+
+const SPENDING_PRESETS = [
+  { cur: 'CZK', amount: 497, memo: 'RegioJet 프라하→체스키' },
+  { cur: 'EUR', amount: 23.46, memo: 'FlixBus 체스키→린츠' },
+  { cur: 'EUR', amount: 38.7, memo: 'OBB 린츠→빈' },
+  { cur: 'CZK', amount: 1971, memo: 'RegioJet 빈→부다페스트' },
 ];
 
 function addExchange(preset) {
