@@ -198,6 +198,22 @@
   .exchange-result-amount { font-size: 36px; font-weight: 800; color: var(--gold-light); line-height: 1; }
   .exchange-result-unit { font-size: 14px; color: rgba(255,255,255,0.75); margin-top: 4px; }
   .exchange-rate-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 16px; }
+  .my-rate-box {
+    background: #f9f6ef; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 14px 16px; margin-bottom: 20px;
+  }
+  .my-rate-title { font-size: 12px; font-weight: 700; color: var(--olive-dark); margin-bottom: 10px; }
+  .my-rate-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .my-rate-row:last-child { margin-bottom: 0; }
+  .my-rate-label { font-size: 12px; font-weight: 600; color: var(--text-muted); min-width: 36px; }
+  .my-rate-input {
+    width: 100px; padding: 6px 10px; border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+    font-size: 14px; font-weight: 700; color: var(--olive-dark); background: #fff; outline: none;
+    text-align: right;
+  }
+  .my-rate-input:focus { border-color: var(--gold); }
+  .my-rate-unit { font-size: 11px; color: var(--text-muted); }
+  .my-rate-saved { font-size: 11px; color: var(--olive-dark); font-weight: 600; opacity: 0; transition: opacity 0.3s; margin-left: auto; }
   .quick-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .quick-btn {
     padding: 10px 4px; border-radius: var(--radius-sm); border: 1.5px solid var(--border);
@@ -940,6 +956,29 @@
         <div class="exchange-result-unit" id="exUnit">CZK</div>
       </div>
       <div class="exchange-rate-note" id="exRateNote">기준: 1 CZK ≈ 70원 (2026.4 기준, 실제 환율과 다를 수 있음)</div>
+
+      <div class="my-rate-box">
+        <div class="my-rate-title">내 환전 환율 (가계부 환산에 적용)</div>
+        <div class="my-rate-row">
+          <span class="my-rate-label">CZK</span>
+          <span class="my-rate-unit">1 CZK =</span>
+          <input type="number" class="my-rate-input" id="myRate-CZK" placeholder="70" oninput="saveMyRate()">
+          <span class="my-rate-unit">원</span>
+          <span class="my-rate-saved" id="myRateSaved">저장됨</span>
+        </div>
+        <div class="my-rate-row">
+          <span class="my-rate-label">EUR</span>
+          <span class="my-rate-unit">1 EUR =</span>
+          <input type="number" class="my-rate-input" id="myRate-EUR" placeholder="1750" oninput="saveMyRate()">
+          <span class="my-rate-unit">원</span>
+        </div>
+        <div class="my-rate-row">
+          <span class="my-rate-label">HUF</span>
+          <span class="my-rate-unit">1 HUF =</span>
+          <input type="number" class="my-rate-input" id="myRate-HUF" placeholder="4.5" oninput="saveMyRate()">
+          <span class="my-rate-unit">원</span>
+        </div>
+      </div>
 
       <div class="quick-amounts">
         <button class="quick-btn" onclick="setKrw(10000)">
@@ -1877,7 +1916,38 @@ function loadExpenses(day) {
   recalcExpense(day);
 }
 
-const RATES = { KRW: 1, CZK: 70, EUR: 1750, HUF: 4.5 };
+const DEFAULT_RATES = { KRW: 1, CZK: 70, EUR: 1750, HUF: 4.5 };
+const RATES = Object.assign({}, DEFAULT_RATES);
+
+function loadMyRates() {
+  const saved = localStorage.getItem('eu-trip-my-rates');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    ['CZK','EUR','HUF'].forEach(c => {
+      if (parsed[c]) { RATES[c] = parsed[c]; }
+    });
+  }
+  ['CZK','EUR','HUF'].forEach(c => {
+    const el = document.getElementById('myRate-' + c);
+    if (el) el.value = RATES[c];
+  });
+}
+
+function saveMyRate() {
+  ['CZK','EUR','HUF'].forEach(c => {
+    const val = parseFloat(document.getElementById('myRate-' + c).value);
+    if (val > 0) RATES[c] = val;
+  });
+  localStorage.setItem('eu-trip-my-rates', JSON.stringify({ CZK: RATES.CZK, EUR: RATES.EUR, HUF: RATES.HUF }));
+  const badge = document.getElementById('myRateSaved');
+  if (badge) { badge.style.opacity = '1'; setTimeout(() => badge.style.opacity = '0', 1500); }
+  document.querySelectorAll('.exp-row').forEach(row => {
+    const cur = row.querySelector('.exp-cur');
+    if (cur) { const ev = new Event('change'); cur.dispatchEvent(ev); }
+  });
+}
+
+loadMyRates();
 const DAY_CURRENCY = {};
 DAYS.forEach(d => {
   if (['prague','cesky'].includes(d.city)) DAY_CURRENCY[d.day] = 'CZK';
