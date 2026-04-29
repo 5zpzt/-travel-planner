@@ -338,12 +338,19 @@
   .wallet-balance-remain.positive { color: #4ade80; }
   .wallet-balance-remain.negative { color: #f87171; }
   .wallet-balance-remain.zero { color: rgba(255,255,255,0.5); }
-  .wallet-krw-total {
-    text-align: center; padding-top: 14px; margin-top: 14px;
+  .wallet-krw-summary {
+    padding-top: 14px; margin-top: 14px;
     border-top: 1px solid rgba(255,255,255,0.15);
   }
-  .wallet-krw-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 1px; margin-bottom: 4px; }
-  .wallet-krw-value { font-size: 20px; font-weight: 800; color: var(--gold-light); }
+  .wallet-krw-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 4px 0;
+  }
+  .wallet-krw-row.total { padding-top: 8px; }
+  .wallet-krw-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.55); }
+  .wallet-krw-value { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.75); }
+  .wallet-krw-row.total .wallet-krw-label { font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.85); }
+  .wallet-krw-row.total .wallet-krw-value { font-size: 20px; font-weight: 800; color: var(--gold-light); }
+  .wallet-krw-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 6px 0; }
 
   .wallet-row {
     display: flex; gap: 8px; align-items: center;
@@ -355,8 +362,10 @@
     font-size: 14px; background: #fff; color: var(--text);
   }
   .wallet-row select:focus, .wallet-row input:focus { border-color: var(--gold); outline: none; }
-  .wallet-row .w-src { width: 80px; flex-shrink: 0; }
-  .wallet-row .w-krw { flex: 1; min-width: 0; }
+  .wallet-row .w-src { width: 100px; flex-shrink: 0; }
+  .wallet-row .w-krw-wrap { flex: 1; min-width: 0; position: relative; }
+  .wallet-row .w-krw { width: 100%; padding-right: 28px; text-align: right; }
+  .wallet-row .w-krw-unit { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--text-muted); pointer-events: none; }
   .wallet-row .w-arrow { color: var(--gold); font-size: 14px; font-weight: 700; flex-shrink: 0; }
   .wallet-row .w-local { flex: 1; min-width: 0; }
   .wallet-row .w-cur { width: 76px; flex-shrink: 0; }
@@ -1132,9 +1141,20 @@
           <div class="wallet-balance-remain zero" id="wb-rem-HUF">0</div>
         </div>
       </div>
-      <div class="wallet-krw-total">
-        <div class="wallet-krw-label">총 환전 원화</div>
-        <div class="wallet-krw-value" id="wb-krw-total">0원</div>
+      <div class="wallet-krw-summary">
+        <div class="wallet-krw-row">
+          <span class="wallet-krw-label">환전 합계</span>
+          <span class="wallet-krw-value" id="wb-krw-exchange">0원</span>
+        </div>
+        <div class="wallet-krw-row">
+          <span class="wallet-krw-label">사전결제</span>
+          <span class="wallet-krw-value" id="wb-krw-prepaid">6,628,287원</span>
+        </div>
+        <div class="wallet-krw-divider"></div>
+        <div class="wallet-krw-row total">
+          <span class="wallet-krw-label">총 지출 원화</span>
+          <span class="wallet-krw-value" id="wb-krw-total">6,628,287원</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1283,7 +1303,7 @@ function collectExchangeFields() {
   container.querySelectorAll('.wallet-row').forEach((row, idx) => {
     if (walletData.exchanges[idx] !== undefined) {
       walletData.exchanges[idx].src = row.querySelector('.w-src').value;
-      walletData.exchanges[idx].krw = parseFloat(row.querySelector('.w-krw').value) || '';
+      walletData.exchanges[idx].krw = parseFloat(row.querySelector('.w-krw').value.replace(/,/g, '')) || '';
       walletData.exchanges[idx].local = parseFloat(row.querySelector('.w-local').value) || '';
       walletData.exchanges[idx].cur = row.querySelector('.w-cur').value;
     }
@@ -1300,6 +1320,17 @@ function collectSpendFields() {
       walletData.spending[idx].memo = row.querySelector('.w-memo').value;
     }
   });
+}
+
+function formatKrwInput(el) {
+  const raw = el.value.replace(/,/g, '').replace(/[^0-9]/g, '');
+  const num = parseInt(raw, 10);
+  if (isNaN(num)) { el.value = ''; return; }
+  const cursor = el.selectionStart;
+  const prevLen = el.value.length;
+  el.value = num.toLocaleString();
+  const diff = el.value.length - prevLen;
+  el.setSelectionRange(cursor + diff, cursor + diff);
 }
 
 function onExchangeInput() {
@@ -1325,7 +1356,10 @@ function renderExchangeRows() {
         <option value="토스" ${ex.src === '토스' ? 'selected' : ''}>토스</option>
         <option value="현금" ${ex.src === '현금' ? 'selected' : ''}>현금</option>
       </select>
-      <input type="number" class="w-krw" placeholder="원화" value="${ex.krw}" oninput="onExchangeInput()" style="min-width:0;">
+      <div class="w-krw-wrap">
+        <input type="text" class="w-krw" placeholder="원화" value="${ex.krw ? Math.round(ex.krw).toLocaleString() : ''}" oninput="formatKrwInput(this); onExchangeInput()">
+        <span class="w-krw-unit">원</span>
+      </div>
       <span class="w-arrow">→</span>
       <input type="number" class="w-local" placeholder="현지화폐" value="${ex.local}" oninput="onExchangeInput()" style="min-width:0;">
       <select class="w-cur" oninput="onExchangeInput()">
@@ -1393,8 +1427,13 @@ function updateWalletBalance() {
     remEl.className = 'wallet-balance-remain ' + (rem > 0 ? 'positive' : rem < 0 ? 'negative' : 'zero');
   });
 
-  const krwEl = document.getElementById('wb-krw-total');
-  if (krwEl) krwEl.textContent = totalKrw > 0 ? Math.round(totalKrw).toLocaleString() + '원' : '0원';
+  const fmtKrw = v => v > 0 ? Math.round(v).toLocaleString() + '원' : '0원';
+  const exEl2 = document.getElementById('wb-krw-exchange');
+  const ppEl = document.getElementById('wb-krw-prepaid');
+  const totalEl = document.getElementById('wb-krw-total');
+  if (exEl2) exEl2.textContent = fmtKrw(totalKrw);
+  if (ppEl) ppEl.textContent = fmtKrw(PREPAID_TOTAL);
+  if (totalEl) totalEl.textContent = fmtKrw(totalKrw + PREPAID_TOTAL);
 }
 
 // ── Exchange rate ────────────────────────────────
