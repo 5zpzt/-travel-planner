@@ -1551,12 +1551,15 @@ const DAYS = [
     ]
   },
   {
-    day: 5, date: '5/18 (월)', city: '체스키 → 린츠 → 할슈타트', color: 'salzk', cityKey: 'salzk',
+    day: 5, date: '5/18 (월)', city: '체스키 → 린츠 → 잘츠캄머구트', color: 'salzk', cityKey: 'salzk',
     schedule: [
       { time: '08:00', act: '조식 + 체크아웃' },
       { time: '--', act: 'FlixBus 체스키 → 린츠', booked: true, note: '€23.46' },
       { time: '--', act: '렌트카 픽업', warn: '보증금 €300 현장결제 필수' },
-      { time: '--', act: '린츠 → Bad Goisern', note: '렌트카 1시간' },
+      { time: '--', act: '렌트카로 바트이슐(Bad Ischl) 이동', note: '린츠에서 약 50분', maps: 'https://www.google.com/maps/search/?api=1&query=Bad+Ischl+Austria' },
+      { time: '--', act: '바트이슐 점심', note: '식당 후보: Goldener Ochs / Zauner / Gasthaus Wesn', maps: 'https://www.google.com/maps/search/?api=1&query=Goldener+Ochs+Bad+Ischl' },
+      { time: '--', act: '카이저빌라 (여유 시)', note: '프란츠 요제프 황제 여름 별장, ~€18/인', maps: 'https://www.google.com/maps/search/?api=1&query=Kaiservilla+Bad+Ischl' },
+      { time: '--', act: 'Bad Ischl → Bad Goisern', note: '렌트카 15분' },
       { time: '--', act: '에어비앤비 체크인', maps: 'https://www.google.com/maps/search/?api=1&query=Obere+Marktstraße+26+Bad+Goisern' },
       { time: '오후', act: '할슈타트 마을', note: '렌트카 15분 · P1 주차장', maps: 'https://www.google.com/maps/search/?api=1&query=Hallstatt+Austria' },
       { time: '--', act: '뼈의 교회 Beinhaus', warn: '11:30~15:30만 개방!', maps: 'https://www.google.com/maps/search/?api=1&query=Beinhaus+Hallstatt' },
@@ -1568,13 +1571,13 @@ const DAYS = [
     day: 6, date: '5/19 (화)', city: '산악열차 + 고사우 호수', color: 'salzk', cityKey: 'salzk',
     schedule: [
       { time: '08:00', act: '조식' },
-      { time: '08:30', act: 'Bad Goisern → St. Wolfgang', note: '렌트카 40분' },
-      { time: '09:00', act: '샤프베르크 산악열차', note: '왕복 2~3시간', maps: 'https://www.google.com/maps/search/?api=1&query=SchafbergBahn+St+Wolfgang' },
-      { time: '12:00', act: 'St. Wolfgang 점심', maps: 'https://www.google.com/maps/search/?api=1&query=St.+Wolfgang+Austria' },
+      { time: '08:30', act: 'Bad Goisern → St. Wolfgang', note: '렌트카 40분', maps: 'https://www.google.com/maps/search/?api=1&query=St.+Wolfgang+Austria' },
+      { time: '09:00', act: '샤프베르크 산악열차', note: '왕복 2~3시간 · 증기기관차 · 해발 1,783m', maps: 'https://www.google.com/maps/search/?api=1&query=SchafbergBahn+St+Wolfgang' },
+      { time: '12:00', act: 'St. Wolfgang 마을 산책 + 점심' },
       { time: '13:30', act: '→ 고사우 호수', note: '렌트카 40분', maps: 'https://www.google.com/maps/search/?api=1&query=Gosausee+Austria' },
-      { time: '14:00', act: '호수 산책', note: '1바퀴 1.5시간 · 무료' },
-      { time: '15:30', act: '숙소 복귀' },
-      { time: '18:00', act: '저녁' },
+      { time: '14:00', act: '고사우 호수 산책', note: '1바퀴 1.5시간 · Dachstein 빙하 뷰 · 무료' },
+      { time: '15:30', act: '숙소 복귀 + 휴식', note: '내일 체크아웃 준비' },
+      { time: '18:00', act: '저녁 (Bad Goisern 근처)' },
     ]
   },
   {
