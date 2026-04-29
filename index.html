@@ -310,25 +310,103 @@
   .warn-badge { display: inline-flex; align-items: center; gap: 3px; background: #fff8e1; color: #f57f17; border-radius: 8px; padding: 2px 7px; font-size: 10px; font-weight: 700; margin-top: 4px; }
 
   /* Expense tab */
-  .expense-section { padding: 20px; }
-  .expense-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
-  .expense-table th { font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
-  .expense-table td { padding: 6px 4px; vertical-align: middle; }
-  .expense-table input, .expense-table select {
-    width: 100%; border: 1.5px solid var(--border); border-radius: 6px; padding: 6px 8px;
-    font-size: 13px; background: #fdfbf7; outline: none; transition: border-color 0.15s;
-    font-family: inherit;
+  .expense-section { padding: 16px; }
+  .exp-rows { margin-bottom: 12px; }
+  .exp-row {
+    background: #faf8f4;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    margin-bottom: 8px;
   }
-  .expense-table input:focus, .expense-table select:focus { border-color: var(--gold); }
-  .expense-table .del-btn {
-    width: 26px; height: 26px; border-radius: 6px; border: none; background: #fee2e2; color: #dc2626;
-    font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  .exp-row-top {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+    align-items: center;
   }
-  .expense-table .del-btn:hover { background: #dc2626; color: #fff; }
+  .exp-row-top .exp-type {
+    width: 70px;
+    flex-shrink: 0;
+    padding: 6px 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    background: #fff;
+  }
+  .exp-row-top .exp-desc {
+    flex: 1;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    background: #fff;
+  }
+  .exp-row-top .exp-del {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #999;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .exp-row-top .exp-del:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+  .exp-row-bottom {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .exp-row-bottom .exp-cur {
+    width: 70px;
+    flex-shrink: 0;
+    padding: 6px 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    background: #fff;
+  }
+  .exp-row-bottom .exp-local {
+    flex: 1;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    background: #fff;
+  }
+  .exp-row-bottom .exp-arrow {
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .exp-row-bottom .exp-krw {
+    flex: 1;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    background: #fffbe6;
+  }
+  .exp-row-bottom input:focus, .exp-row-top input:focus,
+  .exp-row-bottom select:focus, .exp-row-top select:focus { border-color: var(--gold); outline: none; }
   .add-expense-btn {
-    padding: 9px 16px; border-radius: var(--radius-sm); border: 2px dashed var(--gold);
-    background: #fef9ee; color: var(--olive); font-size: 12px; font-weight: 700; cursor: pointer;
-    width: 100%; margin-bottom: 16px; transition: all 0.15s;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 16px;
   }
   .add-expense-btn:hover { background: var(--gold); color: #fff; border-style: solid; }
   .expense-total { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border-radius: var(--radius-sm); padding: 12px 16px; }
@@ -1752,20 +1830,7 @@ function buildDayCards() {
           <!-- Expense tab -->
           <div class="day-tab-content" id="tab-${d.day}-expense">
             <div class="expense-section">
-              <table class="expense-table" id="exp-table-${d.day}">
-                <thead>
-                  <tr>
-                    <th style="width:60px">구분</th>
-                    <th>내역</th>
-                    <th style="width:65px">통화</th>
-                    <th style="width:85px">현지금액</th>
-                    <th style="width:90px">원화(₩)</th>
-                    <th style="width:26px"></th>
-                  </tr>
-                </thead>
-                <tbody id="exp-body-${d.day}">
-                </tbody>
-              </table>
+              <div class="exp-rows" id="exp-body-${d.day}"></div>
               <button class="add-expense-btn" onclick="addExpenseRow(${d.day})">+ 경비 추가</button>
               <div class="expense-total-grid" id="exp-total-${d.day}">
                 <div class="expense-total-item">
@@ -1860,41 +1925,42 @@ function convertToKRW(amount, currency) {
 }
 
 function addExpenseRow(day, preset) {
-  const tbody = document.getElementById(`exp-body-${day}`);
-  const idx = Date.now() + Math.random();
-  const tr = document.createElement('tr');
-  tr.dataset.idx = idx;
+  const container = document.getElementById('exp-body-' + day);
   const defCur = preset ? preset.currency : (DAY_CURRENCY[day] || 'EUR');
   const krwVal = preset ? (preset.krw || convertToKRW(preset.amount, preset.currency)) : '';
-  tr.innerHTML = `
-    <td>
-      <select onchange="saveExpenses(${day})">
+
+  const row = document.createElement('div');
+  row.className = 'exp-row';
+  row.innerHTML = `
+    <div class="exp-row-top">
+      <select class="exp-type" onchange="saveExpenses(${day})">
         <option value="현금" ${preset && preset.type === '현금' ? 'selected' : ''}>현금</option>
         <option value="카드" ${preset && preset.type === '카드' ? 'selected' : ''}>카드</option>
       </select>
-    </td>
-    <td><input type="text" placeholder="내역" value="${preset ? preset.desc : ''}" oninput="saveExpenses(${day})"></td>
-    <td>
-      <select onchange="autoConvert(this, ${day})">
-        <option value="KRW" ${defCur==='KRW'?'selected':''}>₩</option>
+      <input type="text" class="exp-desc" placeholder="내역" value="${preset ? preset.desc : ''}" oninput="saveExpenses(${day})">
+      <button class="exp-del" onclick="deleteExpenseRow(this, ${day})">×</button>
+    </div>
+    <div class="exp-row-bottom">
+      <select class="exp-cur" onchange="autoConvert(this, ${day})">
+        <option value="KRW" ${defCur==='KRW'?'selected':''}>₩ 원</option>
         <option value="CZK" ${defCur==='CZK'?'selected':''}>CZK</option>
         <option value="EUR" ${defCur==='EUR'?'selected':''}>EUR</option>
         <option value="HUF" ${defCur==='HUF'?'selected':''}>HUF</option>
       </select>
-    </td>
-    <td><input type="number" placeholder="0" value="${preset ? preset.amount : ''}" oninput="autoConvert(this, ${day})" data-field="local"></td>
-    <td><input type="number" placeholder="0" value="${krwVal}" oninput="saveExpenses(${day}); recalcExpense(${day})" data-field="krw" style="background:#fffbe6;"></td>
-    <td><button class="del-btn" onclick="deleteExpenseRow(this, ${day})">×</button></td>
+      <input type="number" class="exp-local" placeholder="현지금액" value="${preset ? preset.amount : ''}" oninput="autoConvert(this, ${day})" data-field="local">
+      <span class="exp-arrow">→</span>
+      <input type="number" class="exp-krw" placeholder="원화" value="${krwVal}" oninput="saveExpenses(${day}); recalcExpense(${day})" data-field="krw">
+    </div>
   `;
-  tbody.appendChild(tr);
+  container.appendChild(row);
   recalcExpense(day);
 }
 
 function autoConvert(el, day) {
-  const tr = el.closest('tr');
-  const currency = tr.querySelectorAll('select')[1].value;
-  const localInput = tr.querySelector('input[data-field="local"]');
-  const krwInput = tr.querySelector('input[data-field="krw"]');
+  const row = el.closest('.exp-row');
+  const currency = row.querySelector('.exp-cur').value;
+  const localInput = row.querySelector('.exp-local');
+  const krwInput = row.querySelector('.exp-krw');
   const localAmt = parseFloat(localInput.value) || 0;
   if (currency === 'KRW') {
     krwInput.value = localAmt || '';
@@ -1906,21 +1972,20 @@ function autoConvert(el, day) {
 }
 
 function deleteExpenseRow(btn, day) {
-  btn.closest('tr').remove();
+  btn.closest('.exp-row').remove();
   saveExpenses(day);
   recalcExpense(day);
 }
 
 function saveExpenses(day) {
-  const tbody = document.getElementById(`exp-body-${day}`);
+  const container = document.getElementById('exp-body-' + day);
   const rows = [];
-  tbody.querySelectorAll('tr').forEach(tr => {
-    const selects = tr.querySelectorAll('select');
-    const type = selects[0].value;
-    const desc = tr.querySelector('input[type="text"]').value;
-    const currency = selects[1].value;
-    const amount = parseFloat(tr.querySelector('input[data-field="local"]').value) || 0;
-    const krw = parseFloat(tr.querySelector('input[data-field="krw"]').value) || 0;
+  container.querySelectorAll('.exp-row').forEach(row => {
+    const type = row.querySelector('.exp-type').value;
+    const desc = row.querySelector('.exp-desc').value;
+    const currency = row.querySelector('.exp-cur').value;
+    const amount = parseFloat(row.querySelector('.exp-local').value) || 0;
+    const krw = parseFloat(row.querySelector('.exp-krw').value) || 0;
     rows.push({ type, desc, currency, amount, krw });
   });
   localStorage.setItem(getExpenseKey(day), JSON.stringify(rows));
@@ -1929,21 +1994,20 @@ function saveExpenses(day) {
 }
 
 function recalcExpense(day) {
-  const tbody = document.getElementById(`exp-body-${day}`);
-  if (!tbody) return;
+  const container = document.getElementById('exp-body-' + day);
+  if (!container) return;
   let cash = 0, card = 0;
-  tbody.querySelectorAll('tr').forEach(tr => {
-    const type = tr.querySelector('select') ? tr.querySelector('select').value : '';
-    const krwInput = tr.querySelector('input[data-field="krw"]');
-    const amount = parseFloat(krwInput ? krwInput.value : 0) || 0;
-    if (type === '현금') cash += amount;
-    else card += amount;
+  container.querySelectorAll('.exp-row').forEach(row => {
+    const type = row.querySelector('.exp-type') ? row.querySelector('.exp-type').value : '';
+    const krw = parseFloat(row.querySelector('.exp-krw') ? row.querySelector('.exp-krw').value : 0) || 0;
+    if (type === '현금') cash += krw;
+    else card += krw;
   });
   const sum = cash + card;
   const fmt = v => v === 0 ? '0원' : v.toLocaleString() + '원';
-  const cashEl = document.getElementById(`exp-cash-${day}`);
-  const cardEl = document.getElementById(`exp-card-${day}`);
-  const sumEl = document.getElementById(`exp-sum-${day}`);
+  const cashEl = document.getElementById('exp-cash-' + day);
+  const cardEl = document.getElementById('exp-card-' + day);
+  const sumEl = document.getElementById('exp-sum-' + day);
   if (cashEl) cashEl.textContent = fmt(cash);
   if (cardEl) cardEl.textContent = fmt(card);
   if (sumEl) sumEl.textContent = fmt(sum);
@@ -2125,11 +2189,11 @@ buildVoucherList();
 
 // Re-calc on expense input (event delegation)
 document.getElementById('day-cards-container').addEventListener('input', function(e) {
-  const tr = e.target.closest('tr');
-  if (!tr) return;
-  const tbody = tr.closest('tbody');
-  if (!tbody) return;
-  const m = tbody.id.match(/exp-body-(\d+)/);
+  const row = e.target.closest('.exp-row');
+  if (!row) return;
+  const container = row.closest('.exp-rows');
+  if (!container) return;
+  const m = container.id.match(/exp-body-(\d+)/);
   if (!m) return;
   recalcExpense(parseInt(m[1]));
   updateRunningTotal();
