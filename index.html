@@ -325,115 +325,55 @@
   .booked-badge { display: inline-flex; align-items: center; gap: 3px; background: #e8f5e9; color: #2e7d32; border-radius: 8px; padding: 2px 7px; font-size: 10px; font-weight: 700; margin-top: 4px; }
   .warn-badge { display: inline-flex; align-items: center; gap: 3px; background: #fff8e1; color: #f57f17; border-radius: 8px; padding: 2px 7px; font-size: 10px; font-weight: 700; margin-top: 4px; }
 
-  /* Expense tab */
-  .expense-section { padding: 16px; }
-  .exp-rows { margin-bottom: 12px; }
-  .exp-row {
-    background: #faf8f4;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px;
-    margin-bottom: 8px;
+  /* ── WALLET (환전지갑) ── */
+  .wallet-balance-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 6px;
   }
-  .exp-row-top {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 6px;
-    align-items: center;
+  @media(max-width:480px){ .wallet-balance-grid { grid-template-columns: 1fr; } }
+  .wallet-balance-item { text-align: center; }
+  .wallet-balance-cur { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
+  .wallet-balance-exchanged { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 2px; }
+  .wallet-balance-spent { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+  .wallet-balance-remain { font-size: 22px; font-weight: 800; }
+  .wallet-balance-remain.positive { color: #4ade80; }
+  .wallet-balance-remain.negative { color: #f87171; }
+  .wallet-balance-remain.zero { color: rgba(255,255,255,0.5); }
+  .wallet-krw-total {
+    text-align: center; padding-top: 14px; margin-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.15);
   }
-  .exp-row-top .exp-type {
-    width: 70px;
-    flex-shrink: 0;
-    padding: 6px 4px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 12px;
-    background: #fff;
+  .wallet-krw-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 1px; margin-bottom: 4px; }
+  .wallet-krw-value { font-size: 20px; font-weight: 800; color: var(--gold-light); }
+
+  .wallet-row {
+    display: flex; gap: 8px; align-items: center;
+    background: #faf8f4; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px; margin-bottom: 8px;
   }
-  .exp-row-top .exp-desc {
-    flex: 1;
-    padding: 6px 8px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 13px;
-    background: #fff;
+  .wallet-row select, .wallet-row input {
+    padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 14px; background: #fff; color: var(--text);
   }
-  .exp-row-top .exp-del {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #999;
-    font-size: 14px;
-    cursor: pointer;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .wallet-row select:focus, .wallet-row input:focus { border-color: var(--gold); outline: none; }
+  .wallet-row .w-src { width: 80px; flex-shrink: 0; }
+  .wallet-row .w-krw { flex: 1; min-width: 0; }
+  .wallet-row .w-arrow { color: var(--gold); font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .wallet-row .w-local { flex: 1; min-width: 0; }
+  .wallet-row .w-cur { width: 76px; flex-shrink: 0; }
+  .wallet-row .w-memo { flex: 1; min-width: 0; }
+  .wallet-row .w-del {
+    width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd;
+    background: #fff; color: #999; font-size: 16px; cursor: pointer;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
   }
-  .exp-row-top .exp-del:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
-  .exp-row-bottom {
-    display: flex;
-    gap: 6px;
-    align-items: center;
+  .wallet-row .w-del:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+  .wallet-add-btn {
+    display: block; width: 100%; padding: 11px;
+    border: 2px dashed var(--border); border-radius: var(--radius-sm);
+    background: none; color: var(--text-muted); font-size: 13px; font-weight: 600;
+    cursor: pointer; margin-top: 4px;
   }
-  .exp-row-bottom .exp-cur {
-    width: 70px;
-    flex-shrink: 0;
-    padding: 6px 4px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 12px;
-    background: #fff;
-  }
-  .exp-row-bottom .exp-local {
-    flex: 1;
-    padding: 6px 8px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 13px;
-    background: #fff;
-  }
-  .exp-row-bottom .exp-arrow {
-    color: var(--gold);
-    font-size: 14px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .exp-row-bottom .exp-krw {
-    flex: 1;
-    padding: 6px 8px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 13px;
-    background: #fffbe6;
-  }
-  .exp-row-bottom input:focus, .exp-row-top input:focus,
-  .exp-row-bottom select:focus, .exp-row-top select:focus { border-color: var(--gold); outline: none; }
-  .add-expense-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: 2px dashed var(--border);
-    border-radius: var(--radius-sm);
-    background: none;
-    color: var(--text-muted);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 16px;
-  }
-  .add-expense-btn:hover { background: var(--gold); color: #fff; border-style: solid; }
-  .expense-total { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border-radius: var(--radius-sm); padding: 12px 16px; }
-  .expense-total-label { font-size: 12px; font-weight: 700; color: var(--text-muted); }
-  .expense-total-cash { font-size: 15px; font-weight: 800; color: var(--prague); }
-  .expense-total-card { font-size: 15px; font-weight: 800; color: var(--vienna); }
-  .expense-total-sum { font-size: 15px; font-weight: 800; color: var(--olive-dark); }
-  .expense-total-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; background: var(--bg); border-radius: var(--radius-sm); padding: 14px; }
-  .expense-total-item { text-align: center; }
-  .expense-total-item .etl { font-size: 10px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 3px; }
-  .expense-total-item .etv { font-size: 16px; font-weight: 800; }
+  .wallet-add-btn:hover { background: var(--gold); color: #fff; border-style: solid; }
 
   /* ── WARNINGS ── */
   .warn-list { display: flex; flex-direction: column; gap: 12px; }
@@ -489,95 +429,11 @@
   .accom-name a:hover { color: var(--gold); }
   .accom-name a::after { content: ' 📍'; font-size: 11px; opacity: 0.5; }
 
-  /* ── LEDGER (가계부) ── */
-  .ledger-summary-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;
-  }
-  @media(max-width:560px){ .ledger-summary-grid { grid-template-columns: 1fr; } }
-
-  .ledger-summary-card {
-    border-radius: var(--radius); padding: 20px; text-align: center;
-    border: 1px solid var(--border); box-shadow: var(--shadow);
-  }
-  .ledger-summary-card.prepaid { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: #86efac; }
-  .ledger-summary-card.onsite { background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); border-color: #fde047; }
-  .ledger-summary-card.grand { background: linear-gradient(135deg, var(--olive-dark) 0%, #4a5e44 100%); border-color: transparent; }
-
-  .lsc-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
-  .ledger-summary-card.prepaid .lsc-label { color: #15803d; }
-  .ledger-summary-card.onsite .lsc-label { color: #92400e; }
-  .ledger-summary-card.grand .lsc-label { color: rgba(255,255,255,0.7); }
-
-  .lsc-amount { font-size: 22px; font-weight: 800; line-height: 1.1; }
-  .ledger-summary-card.prepaid .lsc-amount { color: #166534; }
-  .ledger-summary-card.onsite .lsc-amount { color: #78350f; }
-  .ledger-summary-card.grand .lsc-amount { color: var(--gold-light); }
-
-  .lsc-sub { font-size: 11px; margin-top: 4px; }
-  .ledger-summary-card.prepaid .lsc-sub { color: #4ade80; }
-  .ledger-summary-card.onsite .lsc-sub { color: #d97706; }
-  .ledger-summary-card.grand .lsc-sub { color: rgba(255,255,255,0.5); }
-
-  .ledger-section-title {
-    font-size: 13px; font-weight: 700; color: var(--olive-dark);
-    margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
-  }
-  .ledger-refresh-btn {
-    padding: 6px 14px; border-radius: var(--radius-sm); border: 1.5px solid var(--gold);
-    background: #fef9ee; color: var(--olive); font-size: 12px; font-weight: 700; cursor: pointer;
-    transition: all 0.15s;
-  }
-  .ledger-refresh-btn:hover { background: var(--gold); color: #fff; }
-
-  .ledger-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .ledger-table th {
-    text-align: left; padding: 9px 12px; font-size: 11px; font-weight: 700;
-    color: var(--text-muted); border-bottom: 2px solid var(--border);
-    background: #fdf9f2; text-transform: uppercase; letter-spacing: 0.8px;
-  }
-  .ledger-table th.num { text-align: right; }
-  .ledger-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-  .ledger-table td.num { text-align: right; font-weight: 600; }
-  .ledger-table tr:last-child td { border-bottom: none; }
-  .ledger-table tr:hover td { background: #fdf9f2; }
-  .ledger-table tr.total-row td {
-    font-weight: 800; background: var(--bg); border-top: 2px solid var(--border);
-    border-bottom: none; font-size: 14px;
-  }
-  .ledger-table tr.total-row td.num { color: var(--olive-dark); }
-
-  .ledger-city-dot {
-    display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle;
-  }
-
+  /* ── PREPAID TABLE ── */
   .prepaid-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .prepaid-table td { padding: 9px 12px; border-bottom: 1px solid #d1fae5; vertical-align: middle; }
   .prepaid-table td:last-child { text-align: right; font-weight: 700; color: #166534; }
   .prepaid-table tr:last-child td { border-bottom: none; font-weight: 800; font-size: 14px; background: #dcfce7; }
-  .prepaid-table .item-pending { color: var(--text-muted); font-style: italic; }
-
-  .detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .detail-table th {
-    text-align: left; padding: 8px 10px; font-size: 10px; font-weight: 700;
-    color: var(--text-muted); border-bottom: 2px solid var(--border);
-    background: #fdf9f2; text-transform: uppercase; letter-spacing: 0.8px;
-  }
-  .detail-table th.num { text-align: right; }
-  .detail-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
-  .detail-table td.num { text-align: right; font-weight: 600; }
-  .detail-table tr:last-child td { border-bottom: none; }
-  .detail-table tr:hover td { background: #fdf9f2; }
-
-  .ledger-equation {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    padding: 20px; flex-wrap: wrap;
-  }
-  .leq-block { text-align: center; }
-  .leq-label { font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 4px; }
-  .leq-val { font-size: 18px; font-weight: 800; }
-  .leq-op { font-size: 24px; color: var(--text-muted); font-weight: 300; }
-  .leq-eq { font-size: 24px; color: var(--gold); font-weight: 700; }
-  .leq-result { font-size: 22px; font-weight: 800; color: var(--olive-dark); }
 
   /* ── VOUCHER (inline in booking) ── */
   .voucher-list {}
@@ -695,7 +551,7 @@
     <button class="nav-tab" onclick="showSection('booking', this)">📋 예약</button>
     <button class="nav-tab" onclick="showSection('exchange', this)">💱 환율</button>
     <button class="nav-tab" onclick="showSection('warnings', this)">⚠ 주의</button>
-    <button class="nav-tab" onclick="showSection('ledger', this)">📊 가계부</button>
+    <button class="nav-tab" onclick="showSection('ledger', this)">💰 환전지갑</button>
   </div>
 </nav>
 
@@ -958,7 +814,7 @@
       <div class="exchange-rate-note" id="exRateNote">기준: 1 CZK ≈ 70원 (2026.4 기준, 실제 환율과 다를 수 있음)</div>
 
       <div class="my-rate-box">
-        <div class="my-rate-title">내 환전 환율 (가계부 환산에 적용)</div>
+        <div class="my-rate-title">내 환전 환율 (참고용)</div>
         <div class="my-rate-row">
           <span class="my-rate-label">CZK</span>
           <span class="my-rate-unit">1 CZK =</span>
@@ -1240,60 +1096,53 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     SECTION 07 · LEDGER (가계부)
+     SECTION 07 · WALLET (환전지갑)
 ══════════════════════════════════════════════ -->
 <section class="section" id="sec-ledger">
   <div class="section-header">
     <span class="section-num">07</span>
-    <span class="section-title">가계부</span>
+    <span class="section-title">환전지갑</span>
   </div>
   <div class="section-divider"></div>
 
-  <!-- 총 경비 요약 방정식 -->
-  <div class="card" style="margin-bottom:24px;">
+  <!-- 잔액 요약 (최상단, 눈에 띄는 카드) -->
+  <div class="card" style="background:linear-gradient(135deg,var(--olive-dark) 0%,#4a5e44 100%);border-color:transparent;margin-bottom:20px;">
+    <div class="card-header" style="border-bottom-color:rgba(255,255,255,0.15);">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);">현지화폐 잔액</div>
+    </div>
     <div class="card-body">
-      <div class="ledger-equation">
-        <div class="leq-block">
-          <div class="leq-label">사전결제</div>
-          <div class="leq-val" style="color:#166534;" id="led-prepaid-eq">6,628,287원</div>
+      <div class="wallet-balance-grid" id="wallet-balance-grid">
+        <!-- JS로 렌더 -->
+        <div class="wallet-balance-item">
+          <div class="wallet-balance-cur">CZK</div>
+          <div class="wallet-balance-exchanged" id="wb-ex-CZK">환전 0</div>
+          <div class="wallet-balance-spent" id="wb-sp-CZK">지출 0</div>
+          <div class="wallet-balance-remain zero" id="wb-rem-CZK">0</div>
         </div>
-        <div class="leq-op">+</div>
-        <div class="leq-block">
-          <div class="leq-label">현장경비</div>
-          <div class="leq-val" style="color:#78350f;" id="led-onsite-eq">0원</div>
+        <div class="wallet-balance-item">
+          <div class="wallet-balance-cur">EUR</div>
+          <div class="wallet-balance-exchanged" id="wb-ex-EUR">환전 0</div>
+          <div class="wallet-balance-spent" id="wb-sp-EUR">지출 0</div>
+          <div class="wallet-balance-remain zero" id="wb-rem-EUR">0</div>
         </div>
-        <div class="leq-eq">=</div>
-        <div class="leq-block">
-          <div class="leq-label">총 여행경비</div>
-          <div class="leq-result" id="led-grand-eq">6,628,287원</div>
+        <div class="wallet-balance-item">
+          <div class="wallet-balance-cur">HUF</div>
+          <div class="wallet-balance-exchanged" id="wb-ex-HUF">환전 0</div>
+          <div class="wallet-balance-spent" id="wb-sp-HUF">지출 0</div>
+          <div class="wallet-balance-remain zero" id="wb-rem-HUF">0</div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- 요약 카드 3종 -->
-  <div class="ledger-summary-grid">
-    <div class="ledger-summary-card prepaid">
-      <div class="lsc-label">사전결제 합계</div>
-      <div class="lsc-amount" id="led-prepaid-total">6,628,287원</div>
-      <div class="lsc-sub">항공·숙소·교통 포함</div>
-    </div>
-    <div class="ledger-summary-card onsite">
-      <div class="lsc-label">현장경비 합계</div>
-      <div class="lsc-amount" id="led-onsite-total">0원</div>
-      <div class="lsc-sub" id="led-onsite-sub">경비 탭 입력 기준</div>
-    </div>
-    <div class="ledger-summary-card grand">
-      <div class="lsc-label">여행 총 경비</div>
-      <div class="lsc-amount" id="led-grand-total">6,628,287원</div>
-      <div class="lsc-sub">사전결제 + 현장경비</div>
+      <div class="wallet-krw-total">
+        <div class="wallet-krw-label">총 환전 원화</div>
+        <div class="wallet-krw-value" id="wb-krw-total">0원</div>
+      </div>
     </div>
   </div>
 
   <!-- 사전결제 내역 -->
   <div class="card" style="margin-bottom:20px;">
     <div class="card-header">
-      <div class="ledger-section-title" style="margin-bottom:0;">사전결제 내역 (고정)</div>
+      <div style="font-size:13px;font-weight:700;color:var(--olive-dark);">사전결제 내역 (고정)</div>
     </div>
     <div class="card-body" style="padding:0;">
       <div class="scrollable-table-wrap">
@@ -1317,57 +1166,25 @@
     </div>
   </div>
 
-  <!-- 일별 경비 테이블 -->
+  <!-- 환전 기록 -->
   <div class="card" style="margin-bottom:20px;">
     <div class="card-header">
-      <div class="ledger-section-title" style="margin-bottom:0;">
-        <span>일별 현장경비</span>
-        <button class="ledger-refresh-btn" onclick="updateLedger()">새로고침</button>
-      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--olive-dark);">환전 기록</div>
     </div>
-    <div class="card-body" style="padding:0;">
-      <div class="scrollable-table-wrap">
-        <table class="ledger-table" id="ledger-daily-table">
-          <thead>
-            <tr>
-              <th>날짜</th>
-              <th>도시</th>
-              <th class="num">현금 (₩)</th>
-              <th class="num">카드 (₩)</th>
-              <th class="num">합계 (₩)</th>
-            </tr>
-          </thead>
-          <tbody id="ledger-daily-body">
-            <tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">가계부 탭을 열면 자동으로 불러옵니다.</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="card-body">
+      <div id="wallet-exchange-rows"></div>
+      <button class="wallet-add-btn" onclick="addExchange()">+ 환전 추가</button>
     </div>
   </div>
 
-  <!-- 전체 내역 상세 -->
+  <!-- 지출 기록 -->
   <div class="card">
     <div class="card-header">
-      <div class="ledger-section-title" style="margin-bottom:0;">전체 지출 내역</div>
+      <div style="font-size:13px;font-weight:700;color:var(--olive-dark);">지출 기록</div>
     </div>
-    <div class="card-body" style="padding:0;">
-      <div class="scrollable-table-wrap">
-        <table class="detail-table" id="ledger-detail-table">
-          <thead>
-            <tr>
-              <th>날짜</th>
-              <th>구분</th>
-              <th>내역</th>
-              <th>통화</th>
-              <th class="num">현지금액</th>
-              <th class="num">원화 (₩)</th>
-            </tr>
-          </thead>
-          <tbody id="ledger-detail-body">
-            <tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">지출 내역이 없습니다.</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="card-body">
+      <div id="wallet-spend-rows"></div>
+      <button class="wallet-add-btn" onclick="addSpending()">+ 지출 추가</button>
     </div>
   </div>
 </section>
@@ -1385,104 +1202,182 @@ function showSection(id, btn) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
   btn.classList.add('active');
-  if (id === 'ledger') updateLedger();
+  if (id === 'ledger') loadWallet();
 }
 
-// ── Ledger (가계부) ──────────────────────────────
+// ── Wallet (환전지갑) ────────────────────────────
 const PREPAID_TOTAL = 6628287;
+const CURRENCIES = ['CZK', 'EUR', 'HUF'];
 
-const CITY_COLORS = {
-  prague: '#c0392b', cesky: '#8e44ad', salzk: '#27ae60',
-  vienna: '#2980b9', budapest: '#e67e22', travel: '#7f8c8d'
-};
+// wallet state: { exchanges: [{src, krw, local, cur}], spending: [{cur, amount, memo}] }
+let walletData = { exchanges: [], spending: [] };
 
-function updateLedger() {
-  const fmt = v => v === 0 ? '0원' : Math.round(v).toLocaleString() + '원';
+function loadWallet() {
+  try {
+    const ex = localStorage.getItem('eu-trip-wallet-exchanges');
+    const sp = localStorage.getItem('eu-trip-wallet-spending');
+    walletData.exchanges = ex ? JSON.parse(ex) : [];
+    walletData.spending = sp ? JSON.parse(sp) : [];
+  } catch(e) {
+    walletData = { exchanges: [], spending: [] };
+  }
+  renderExchangeRows();
+  renderSpendRows();
+  updateWalletBalance();
+}
 
-  // 일별 합산
-  const dailyRows = [];
-  const detailRows = [];
-  let totalCash = 0, totalCard = 0;
+function saveWallet() {
+  localStorage.setItem('eu-trip-wallet-exchanges', JSON.stringify(walletData.exchanges));
+  localStorage.setItem('eu-trip-wallet-spending', JSON.stringify(walletData.spending));
+  updateWalletBalance();
+}
 
-  DAYS.forEach(d => {
-    const raw = localStorage.getItem(getExpenseKey(d.day));
-    const items = raw ? JSON.parse(raw) : [];
-    let dayCash = 0, dayCard = 0;
+function addExchange(preset) {
+  const idx = walletData.exchanges.length;
+  walletData.exchanges.push(preset || { src: '카드환전', krw: '', local: '', cur: 'EUR' });
+  saveWallet();
+  renderExchangeRows();
+  updateWalletBalance();
+}
 
-    items.forEach(r => {
-      const krw = r.krw || r.amount || 0;
-      if (r.type === '현금') dayCash += krw;
-      else dayCard += krw;
-      detailRows.push({ day: d.day, date: d.date, city: d.city, cityKey: d.cityKey, type: r.type, desc: r.desc, currency: r.currency, amount: r.amount, krw });
-    });
+function deleteExchange(idx) {
+  walletData.exchanges.splice(idx, 1);
+  saveWallet();
+  renderExchangeRows();
+  updateWalletBalance();
+}
 
-    totalCash += dayCash;
-    totalCard += dayCard;
+function addSpending(preset) {
+  walletData.spending.push(preset || { cur: 'EUR', amount: '', memo: '' });
+  saveWallet();
+  renderSpendRows();
+  updateWalletBalance();
+}
 
-    if (items.length > 0) {
-      dailyRows.push({ day: d.day, date: d.date, city: d.city, cityKey: d.cityKey, cash: dayCash, card: dayCard, sum: dayCash + dayCard });
+function deleteSpending(idx) {
+  walletData.spending.splice(idx, 1);
+  saveWallet();
+  renderSpendRows();
+  updateWalletBalance();
+}
+
+function collectExchangeFields() {
+  const container = document.getElementById('wallet-exchange-rows');
+  if (!container) return;
+  container.querySelectorAll('.wallet-row').forEach((row, idx) => {
+    if (walletData.exchanges[idx] !== undefined) {
+      walletData.exchanges[idx].src = row.querySelector('.w-src').value;
+      walletData.exchanges[idx].krw = parseFloat(row.querySelector('.w-krw').value) || '';
+      walletData.exchanges[idx].local = parseFloat(row.querySelector('.w-local').value) || '';
+      walletData.exchanges[idx].cur = row.querySelector('.w-cur').value;
     }
   });
+}
 
-  const onsiteTotal = totalCash + totalCard;
-  const grandTotal = PREPAID_TOTAL + onsiteTotal;
+function collectSpendFields() {
+  const container = document.getElementById('wallet-spend-rows');
+  if (!container) return;
+  container.querySelectorAll('.wallet-row').forEach((row, idx) => {
+    if (walletData.spending[idx] !== undefined) {
+      walletData.spending[idx].cur = row.querySelector('.w-cur').value;
+      walletData.spending[idx].amount = parseFloat(row.querySelector('.w-amount').value) || '';
+      walletData.spending[idx].memo = row.querySelector('.w-memo').value;
+    }
+  });
+}
 
-  // 요약 카드 업데이트
-  document.getElementById('led-prepaid-total').textContent = fmt(PREPAID_TOTAL);
-  document.getElementById('led-onsite-total').textContent = fmt(onsiteTotal);
-  document.getElementById('led-grand-total').textContent = fmt(grandTotal);
-  document.getElementById('led-prepaid-eq').textContent = fmt(PREPAID_TOTAL);
-  document.getElementById('led-onsite-eq').textContent = fmt(onsiteTotal);
-  document.getElementById('led-grand-eq').textContent = fmt(grandTotal);
+function onExchangeInput() {
+  collectExchangeFields();
+  saveWallet();
+}
 
-  if (onsiteTotal > 0) {
-    document.getElementById('led-onsite-sub').textContent = '현금 ' + fmt(totalCash) + ' / 카드 ' + fmt(totalCard);
-  } else {
-    document.getElementById('led-onsite-sub').textContent = '경비 탭 입력 기준';
-  }
+function onSpendInput() {
+  collectSpendFields();
+  saveWallet();
+}
 
-  // 일별 테이블
-  const tbody = document.getElementById('ledger-daily-body');
-  if (dailyRows.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">아직 입력된 경비가 없습니다.</td></tr>';
-  } else {
-    let html = dailyRows.map(r => {
-      const color = CITY_COLORS[r.cityKey] || '#888';
-      return `<tr>
-        <td><span class="ledger-city-dot" style="background:${color}"></span>${r.date}</td>
-        <td>${r.city}</td>
-        <td class="num" style="color:var(--prague);">${r.cash > 0 ? fmt(r.cash) : '—'}</td>
-        <td class="num" style="color:var(--vienna);">${r.card > 0 ? fmt(r.card) : '—'}</td>
-        <td class="num" style="color:var(--olive-dark);">${fmt(r.sum)}</td>
-      </tr>`;
-    }).join('');
-    html += `<tr class="total-row">
-      <td colspan="2" style="font-weight:800;">합계</td>
-      <td class="num" style="color:var(--prague);">${totalCash > 0 ? fmt(totalCash) : '—'}</td>
-      <td class="num" style="color:var(--vienna);">${totalCard > 0 ? fmt(totalCard) : '—'}</td>
-      <td class="num">${fmt(onsiteTotal)}</td>
-    </tr>`;
-    tbody.innerHTML = html;
-  }
+function renderExchangeRows() {
+  const container = document.getElementById('wallet-exchange-rows');
+  if (!container) return;
+  container.innerHTML = '';
+  walletData.exchanges.forEach((ex, idx) => {
+    const row = document.createElement('div');
+    row.className = 'wallet-row';
+    row.innerHTML = `
+      <select class="w-src" oninput="onExchangeInput()">
+        <option value="카드환전" ${ex.src === '카드환전' ? 'selected' : ''}>카드환전</option>
+        <option value="현금환전" ${ex.src === '현금환전' ? 'selected' : ''}>현금환전</option>
+      </select>
+      <input type="number" class="w-krw" placeholder="원화" value="${ex.krw}" oninput="onExchangeInput()" style="min-width:0;">
+      <span class="w-arrow">→</span>
+      <input type="number" class="w-local" placeholder="현지화폐" value="${ex.local}" oninput="onExchangeInput()" style="min-width:0;">
+      <select class="w-cur" oninput="onExchangeInput()">
+        ${CURRENCIES.map(c => `<option value="${c}" ${ex.cur === c ? 'selected' : ''}>${c}</option>`).join('')}
+      </select>
+      <button class="w-del" onclick="deleteExchange(${idx})">×</button>
+    `;
+    container.appendChild(row);
+  });
+}
 
-  // 상세 내역 테이블
-  const dtbody = document.getElementById('ledger-detail-body');
-  if (detailRows.length === 0) {
-    dtbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">지출 내역이 없습니다.</td></tr>';
-  } else {
-    dtbody.innerHTML = detailRows.map(r => {
-      const color = CITY_COLORS[r.cityKey] || '#888';
-      const amtText = r.currency === 'KRW' ? '—' : (r.amount ? r.amount.toLocaleString() + ' ' + r.currency : '—');
-      return `<tr>
-        <td><span class="ledger-city-dot" style="background:${color}"></span>${r.date}</td>
-        <td>${r.type}</td>
-        <td>${r.desc || '—'}</td>
-        <td>${r.currency}</td>
-        <td class="num">${amtText}</td>
-        <td class="num" style="color:var(--olive-dark);">${r.krw > 0 ? fmt(r.krw) : '—'}</td>
-      </tr>`;
-    }).join('');
-  }
+function renderSpendRows() {
+  const container = document.getElementById('wallet-spend-rows');
+  if (!container) return;
+  container.innerHTML = '';
+  walletData.spending.forEach((sp, idx) => {
+    const row = document.createElement('div');
+    row.className = 'wallet-row';
+    row.innerHTML = `
+      <select class="w-cur" oninput="onSpendInput()">
+        ${CURRENCIES.map(c => `<option value="${c}" ${sp.cur === c ? 'selected' : ''}>${c}</option>`).join('')}
+      </select>
+      <input type="number" class="w-amount" placeholder="금액" value="${sp.amount}" oninput="onSpendInput()" style="min-width:0;flex:1;">
+      <input type="text" class="w-memo" placeholder="메모" value="${sp.memo}" oninput="onSpendInput()" style="min-width:0;flex:1;">
+      <button class="w-del" onclick="deleteSpending(${idx})">×</button>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function updateWalletBalance() {
+  const exByCur = { CZK: 0, EUR: 0, HUF: 0 };
+  const spByCur = { CZK: 0, EUR: 0, HUF: 0 };
+  let totalKrw = 0;
+
+  walletData.exchanges.forEach(ex => {
+    const local = parseFloat(ex.local) || 0;
+    const krw = parseFloat(ex.krw) || 0;
+    if (CURRENCIES.includes(ex.cur)) exByCur[ex.cur] += local;
+    totalKrw += krw;
+  });
+
+  walletData.spending.forEach(sp => {
+    const amt = parseFloat(sp.amount) || 0;
+    if (CURRENCIES.includes(sp.cur)) spByCur[sp.cur] += amt;
+  });
+
+  const fmtLocal = (v, cur) => {
+    if (cur === 'HUF') return Math.round(v).toLocaleString();
+    if (cur === 'EUR') return v.toFixed(2);
+    return Math.round(v).toLocaleString();
+  };
+
+  CURRENCIES.forEach(cur => {
+    const ex = exByCur[cur];
+    const sp = spByCur[cur];
+    const rem = ex - sp;
+    const remEl = document.getElementById('wb-rem-' + cur);
+    const exEl = document.getElementById('wb-ex-' + cur);
+    const spEl = document.getElementById('wb-sp-' + cur);
+    if (!remEl) return;
+    exEl.textContent = '환전 ' + fmtLocal(ex, cur) + ' ' + cur;
+    spEl.textContent = '지출 ' + fmtLocal(sp, cur) + ' ' + cur;
+    remEl.textContent = fmtLocal(rem, cur) + ' ' + cur;
+    remEl.className = 'wallet-balance-remain ' + (rem > 0 ? 'positive' : rem < 0 ? 'negative' : 'zero');
+  });
+
+  const krwEl = document.getElementById('wb-krw-total');
+  if (krwEl) krwEl.textContent = totalKrw > 0 ? Math.round(totalKrw).toLocaleString() + '원' : '0원';
 }
 
 // ── Exchange rate ────────────────────────────────
@@ -1821,46 +1716,13 @@ function buildDayCards() {
       </div>
       <div class="day-card-body">
         <div class="day-inner">
-          <div class="day-tabs">
-            <button class="day-tab active" onclick="switchDayTab(${d.day},'schedule',this)">일정</button>
-            <button class="day-tab" onclick="switchDayTab(${d.day},'expense',this)">경비</button>
+          <div class="timeline">
+            ${buildTimeline(d.schedule)}
           </div>
-
-          <!-- Schedule tab -->
-          <div class="day-tab-content active" id="tab-${d.day}-schedule">
-            <div class="timeline">
-              ${buildTimeline(d.schedule)}
-            </div>
-          </div>
-
-          <!-- Expense tab -->
-          <div class="day-tab-content" id="tab-${d.day}-expense">
-            <div class="expense-section">
-              <div class="exp-rows" id="exp-body-${d.day}"></div>
-              <button class="add-expense-btn" onclick="addExpenseRow(${d.day})">+ 경비 추가</button>
-              <div class="expense-total-grid" id="exp-total-${d.day}">
-                <div class="expense-total-item">
-                  <div class="etl">현금</div>
-                  <div class="etv col-prague" id="exp-cash-${d.day}">0원</div>
-                </div>
-                <div class="expense-total-item">
-                  <div class="etl">카드</div>
-                  <div class="etv col-vienna" id="exp-card-${d.day}">0원</div>
-                </div>
-                <div class="expense-total-item">
-                  <div class="etl">합계</div>
-                  <div class="etv col-salzk" id="exp-sum-${d.day}">0원</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Diary tab removed -->
         </div>
       </div>
     `;
     container.appendChild(cardEl);
-    loadExpenses(d.day);
   });
 }
 
@@ -1896,25 +1758,6 @@ function toggleDay(day) {
   card.classList.toggle('open');
 }
 
-function switchDayTab(day, tab, btn) {
-  event.stopPropagation();
-  const card = document.getElementById('day-' + day);
-  card.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-  card.querySelectorAll('.day-tab-content').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById(`tab-${day}-${tab}`).classList.add('active');
-}
-
-// ── Expense tracking ─────────────────────────────
-function getExpenseKey(day) { return `travel2026_expense_day${day}`; }
-
-function loadExpenses(day) {
-  const raw = localStorage.getItem(getExpenseKey(day));
-  if (!raw) { recalcExpense(day); return; }
-  const rows = JSON.parse(raw);
-  rows.forEach(r => addExpenseRow(day, r));
-  recalcExpense(day);
-}
 
 const DEFAULT_RATES = { KRW: 1, CZK: 70, EUR: 1750, HUF: 4.5 };
 const RATES = Object.assign({}, DEFAULT_RATES);
@@ -1941,126 +1784,13 @@ function saveMyRate() {
   localStorage.setItem('eu-trip-my-rates', JSON.stringify({ CZK: RATES.CZK, EUR: RATES.EUR, HUF: RATES.HUF }));
   const badge = document.getElementById('myRateSaved');
   if (badge) { badge.style.opacity = '1'; setTimeout(() => badge.style.opacity = '0', 1500); }
-  document.querySelectorAll('.exp-row').forEach(row => {
-    const cur = row.querySelector('.exp-cur');
-    if (cur) { const ev = new Event('change'); cur.dispatchEvent(ev); }
-  });
 }
 
 loadMyRates();
-const DAY_CURRENCY = {};
-DAYS.forEach(d => {
-  if (['prague','cesky'].includes(d.city)) DAY_CURRENCY[d.day] = 'CZK';
-  else if (['salzk','vienna'].includes(d.city)) DAY_CURRENCY[d.day] = 'EUR';
-  else if (d.city === 'budapest') DAY_CURRENCY[d.day] = 'HUF';
-  else DAY_CURRENCY[d.day] = 'EUR';
-});
 
 function convertToKRW(amount, currency) {
   if (!amount || !currency) return 0;
   return Math.round(amount * RATES[currency]);
-}
-
-function addExpenseRow(day, preset) {
-  const container = document.getElementById('exp-body-' + day);
-  const defCur = preset ? preset.currency : (DAY_CURRENCY[day] || 'EUR');
-  const krwVal = preset ? (preset.krw || convertToKRW(preset.amount, preset.currency)) : '';
-
-  const row = document.createElement('div');
-  row.className = 'exp-row';
-  row.innerHTML = `
-    <div class="exp-row-top">
-      <select class="exp-type" onchange="saveExpenses(${day})">
-        <option value="현금" ${preset && preset.type === '현금' ? 'selected' : ''}>현금</option>
-        <option value="카드" ${preset && preset.type === '카드' ? 'selected' : ''}>카드</option>
-      </select>
-      <input type="text" class="exp-desc" placeholder="내역" value="${preset ? preset.desc : ''}" oninput="saveExpenses(${day})">
-      <button class="exp-del" onclick="deleteExpenseRow(this, ${day})">×</button>
-    </div>
-    <div class="exp-row-bottom">
-      <select class="exp-cur" onchange="autoConvert(this, ${day})">
-        <option value="KRW" ${defCur==='KRW'?'selected':''}>₩ 원</option>
-        <option value="CZK" ${defCur==='CZK'?'selected':''}>CZK</option>
-        <option value="EUR" ${defCur==='EUR'?'selected':''}>EUR</option>
-        <option value="HUF" ${defCur==='HUF'?'selected':''}>HUF</option>
-      </select>
-      <input type="number" class="exp-local" placeholder="현지금액" value="${preset ? preset.amount : ''}" oninput="autoConvert(this, ${day})" data-field="local">
-      <span class="exp-arrow">→</span>
-      <input type="number" class="exp-krw" placeholder="원화" value="${krwVal}" oninput="saveExpenses(${day}); recalcExpense(${day})" data-field="krw">
-    </div>
-  `;
-  container.appendChild(row);
-  recalcExpense(day);
-}
-
-function autoConvert(el, day) {
-  const row = el.closest('.exp-row');
-  const currency = row.querySelector('.exp-cur').value;
-  const localInput = row.querySelector('.exp-local');
-  const krwInput = row.querySelector('.exp-krw');
-  const localAmt = parseFloat(localInput.value) || 0;
-  if (currency === 'KRW') {
-    krwInput.value = localAmt || '';
-  } else {
-    krwInput.value = localAmt ? convertToKRW(localAmt, currency) : '';
-  }
-  saveExpenses(day);
-  recalcExpense(day);
-}
-
-function deleteExpenseRow(btn, day) {
-  btn.closest('.exp-row').remove();
-  saveExpenses(day);
-  recalcExpense(day);
-}
-
-function saveExpenses(day) {
-  const container = document.getElementById('exp-body-' + day);
-  const rows = [];
-  container.querySelectorAll('.exp-row').forEach(row => {
-    const type = row.querySelector('.exp-type').value;
-    const desc = row.querySelector('.exp-desc').value;
-    const currency = row.querySelector('.exp-cur').value;
-    const amount = parseFloat(row.querySelector('.exp-local').value) || 0;
-    const krw = parseFloat(row.querySelector('.exp-krw').value) || 0;
-    rows.push({ type, desc, currency, amount, krw });
-  });
-  localStorage.setItem(getExpenseKey(day), JSON.stringify(rows));
-  recalcExpense(day);
-  updateRunningTotal();
-}
-
-function recalcExpense(day) {
-  const container = document.getElementById('exp-body-' + day);
-  if (!container) return;
-  let cash = 0, card = 0;
-  container.querySelectorAll('.exp-row').forEach(row => {
-    const type = row.querySelector('.exp-type') ? row.querySelector('.exp-type').value : '';
-    const krw = parseFloat(row.querySelector('.exp-krw') ? row.querySelector('.exp-krw').value : 0) || 0;
-    if (type === '현금') cash += krw;
-    else card += krw;
-  });
-  const sum = cash + card;
-  const fmt = v => v === 0 ? '0원' : v.toLocaleString() + '원';
-  const cashEl = document.getElementById('exp-cash-' + day);
-  const cardEl = document.getElementById('exp-card-' + day);
-  const sumEl = document.getElementById('exp-sum-' + day);
-  if (cashEl) cashEl.textContent = fmt(cash);
-  if (cardEl) cardEl.textContent = fmt(card);
-  if (sumEl) sumEl.textContent = fmt(sum);
-}
-
-function updateRunningTotal() {
-  let totalCash = 0, totalCard = 0;
-  DAYS.forEach(d => {
-    const raw = localStorage.getItem(getExpenseKey(d.day));
-    if (!raw) return;
-    JSON.parse(raw).forEach(r => {
-      if (r.type === '현금') totalCash += (r.krw || r.amount || 0);
-      else totalCard += (r.krw || r.amount || 0);
-    });
-  });
-  const fmt = v => v === 0 ? '0원' : v.toLocaleString() + '원';
 }
 
 // ── Voucher (localStorage + image compression) ───
@@ -2218,20 +1948,7 @@ function buildVoucherList() {
 
 // ── Init ─────────────────────────────────────────
 buildDayCards();
-updateRunningTotal();
 buildVoucherList();
-
-// Re-calc on expense input (event delegation)
-document.getElementById('day-cards-container').addEventListener('input', function(e) {
-  const row = e.target.closest('.exp-row');
-  if (!row) return;
-  const container = row.closest('.exp-rows');
-  if (!container) return;
-  const m = container.id.match(/exp-body-(\d+)/);
-  if (!m) return;
-  recalcExpense(parseInt(m[1]));
-  updateRunningTotal();
-});
 </script>
 </body>
 </html>
