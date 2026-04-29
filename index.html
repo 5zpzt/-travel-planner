@@ -383,6 +383,13 @@
     cursor: pointer; margin-top: 4px;
   }
   .wallet-add-btn:hover { background: var(--gold); color: #fff; border-style: solid; }
+  .wallet-subtotal {
+    background: var(--bg); border-radius: var(--radius-sm); padding: 10px 14px;
+    margin-top: 8px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    font-size: 12px; color: var(--text-muted);
+  }
+  .wallet-subtotal:empty { display: none; }
+  .wallet-subtotal .wst-item { font-weight: 700; color: var(--olive-dark); }
 
   /* ── WARNINGS ── */
   .warn-list { display: flex; flex-direction: column; gap: 12px; }
@@ -1189,6 +1196,7 @@
     </div>
     <div class="card-body">
       <div id="wallet-exchange-rows"></div>
+      <div class="wallet-subtotal" id="wallet-exchange-subtotal"></div>
       <button class="wallet-add-btn" onclick="addExchange()">+ 환전 추가</button>
     </div>
   </div>
@@ -1200,6 +1208,7 @@
     </div>
     <div class="card-body">
       <div id="wallet-spend-rows"></div>
+      <div class="wallet-subtotal" id="wallet-spend-subtotal"></div>
       <button class="wallet-add-btn" onclick="addSpending()">+ 지출 추가</button>
     </div>
   </div>
@@ -1438,6 +1447,23 @@ function updateWalletBalance() {
   if (exEl2) exEl2.textContent = fmtKrw(totalKrw);
   if (ppEl) ppEl.textContent = fmtKrw(PREPAID_TOTAL);
   if (totalEl) totalEl.textContent = fmtKrw(totalKrw + PREPAID_TOTAL);
+
+  const exSub = document.getElementById('wallet-exchange-subtotal');
+  if (exSub) {
+    const parts = CURRENCIES.filter(c => exByCur[c] > 0).map(c =>
+      `<span class="wst-item">${fmtLocal(exByCur[c], c)} ${c}</span>`
+    );
+    parts.push(`<span class="wst-item">${fmtKrw(totalKrw)}</span>`);
+    exSub.innerHTML = '소계: ' + parts.join(' / ');
+  }
+
+  const spSub = document.getElementById('wallet-spend-subtotal');
+  if (spSub) {
+    const parts = CURRENCIES.filter(c => spByCur[c] > 0).map(c =>
+      `<span class="wst-item">${fmtLocal(spByCur[c], c)} ${c}</span>`
+    );
+    spSub.innerHTML = parts.length > 0 ? '소계: ' + parts.join(' / ') : '';
+  }
 }
 
 // ── Exchange rate ────────────────────────────────
