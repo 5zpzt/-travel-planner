@@ -1216,8 +1216,9 @@ function loadWallet() {
   try {
     const ex = localStorage.getItem('eu-trip-wallet-exchanges');
     const sp = localStorage.getItem('eu-trip-wallet-spending');
-    walletData.exchanges = ex ? JSON.parse(ex) : [];
+    walletData.exchanges = ex ? JSON.parse(ex) : EXCHANGE_PRESETS.map(p => ({...p}));
     walletData.spending = sp ? JSON.parse(sp) : [];
+    if (!ex) saveWallet();
   } catch(e) {
     walletData = { exchanges: [], spending: [] };
   }
@@ -1232,9 +1233,23 @@ function saveWallet() {
   updateWalletBalance();
 }
 
+const EXCHANGE_PRESETS = [
+  { src: '트래블월렛', krw: 252764, local: 150, cur: 'EUR' },
+  { src: '트래블월렛', krw: 170048, local: 100, cur: 'EUR' },
+  { src: '토스', krw: 343094, local: 200, cur: 'EUR' },
+  { src: '토스', krw: 511344, local: 300, cur: 'EUR' },
+  { src: '토스', krw: 170001, local: 100, cur: 'EUR' },
+  { src: '토스', krw: 338372, local: 200, cur: 'EUR' },
+  { src: '토스', krw: 337226, local: 200, cur: 'EUR' },
+  { src: '토스', krw: 299997, local: 178.23, cur: 'EUR' },
+  { src: '트래블월렛', krw: 71700, local: 1000, cur: 'CZK' },
+  { src: '트래블월렛', krw: 215130, local: 3000, cur: 'CZK' },
+  { src: '트래블월렛', krw: 225500, local: 50000, cur: 'HUF' },
+];
+
 function addExchange(preset) {
   const idx = walletData.exchanges.length;
-  walletData.exchanges.push(preset || { src: '카드환전', krw: '', local: '', cur: 'EUR' });
+  walletData.exchanges.push(preset || { src: '트래블월렛', krw: '', local: '', cur: 'EUR' });
   saveWallet();
   renderExchangeRows();
   updateWalletBalance();
@@ -1305,8 +1320,9 @@ function renderExchangeRows() {
     row.className = 'wallet-row';
     row.innerHTML = `
       <select class="w-src" oninput="onExchangeInput()">
-        <option value="카드환전" ${ex.src === '카드환전' ? 'selected' : ''}>카드환전</option>
-        <option value="현금환전" ${ex.src === '현금환전' ? 'selected' : ''}>현금환전</option>
+        <option value="트래블월렛" ${ex.src === '트래블월렛' ? 'selected' : ''}>트래블월렛</option>
+        <option value="토스" ${ex.src === '토스' ? 'selected' : ''}>토스</option>
+        <option value="현금" ${ex.src === '현금' ? 'selected' : ''}>현금</option>
       </select>
       <input type="number" class="w-krw" placeholder="원화" value="${ex.krw}" oninput="onExchangeInput()" style="min-width:0;">
       <span class="w-arrow">→</span>
