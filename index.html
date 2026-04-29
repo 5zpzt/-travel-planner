@@ -457,21 +457,6 @@
   .col-budapest { color: var(--budapest) !important; }
   .col-travel { color: var(--travel) !important; }
 
-  /* Running total bar */
-  .running-total-bar {
-    background: linear-gradient(135deg, var(--olive-dark) 0%, #4a5e44 100%);
-    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 24px;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;
-  }
-  .rt-item .rt-label { font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
-  .rt-item .rt-val { font-size: 18px; font-weight: 800; color: var(--gold-light); }
-  .rt-item .rt-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; }
-  .rt-divider { height: 40px; width: 1px; background: rgba(255,255,255,0.15); margin: auto; }
-
-  @media(max-width:500px){
-    .running-total-bar { grid-template-columns: 1fr; }
-    .rt-divider { display: none; }
-  }
 
   /* ── City legend chips ── */
   .city-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
@@ -1017,24 +1002,6 @@
   </div>
   <div class="section-divider"></div>
 
-  <!-- Running total bar -->
-  <div class="running-total-bar">
-    <div class="rt-item">
-      <div class="rt-label">현금 누계</div>
-      <div class="rt-val" id="rt-cash">0원</div>
-      <div class="rt-sub">현장 지출 합계</div>
-    </div>
-    <div class="rt-item">
-      <div class="rt-label">카드 누계</div>
-      <div class="rt-val" id="rt-card">0원</div>
-      <div class="rt-sub">카드 지출 합계</div>
-    </div>
-    <div class="rt-item">
-      <div class="rt-label">총 경비 (현장)</div>
-      <div class="rt-val" id="rt-total">0원</div>
-      <div class="rt-sub">현금 + 카드</div>
-    </div>
-  </div>
 
   <!-- City legend -->
   <div class="city-legend">
@@ -2024,9 +1991,6 @@ function updateRunningTotal() {
     });
   });
   const fmt = v => v === 0 ? '0원' : v.toLocaleString() + '원';
-  document.getElementById('rt-cash').textContent = fmt(totalCash);
-  document.getElementById('rt-card').textContent = fmt(totalCard);
-  document.getElementById('rt-total').textContent = fmt(totalCash + totalCard);
 }
 
 // ── Voucher (localStorage + image compression) ───
