@@ -1216,9 +1216,10 @@ function loadWallet() {
   try {
     const ex = localStorage.getItem('eu-trip-wallet-exchanges');
     const sp = localStorage.getItem('eu-trip-wallet-spending');
-    walletData.exchanges = ex ? JSON.parse(ex) : EXCHANGE_PRESETS.map(p => ({...p}));
+    const parsedEx = ex ? JSON.parse(ex) : [];
+    walletData.exchanges = parsedEx.length > 0 ? parsedEx : EXCHANGE_PRESETS.map(p => ({...p}));
     walletData.spending = sp ? JSON.parse(sp) : [];
-    if (!ex) saveWallet();
+    if (parsedEx.length === 0) saveWallet();
   } catch(e) {
     walletData = { exchanges: [], spending: [] };
   }
