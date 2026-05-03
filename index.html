@@ -1166,26 +1166,15 @@
     </div>
   </div>
 
-  <!-- 사전결제 내역 -->
+  <!-- 원화결제 내역 -->
   <div class="card" style="margin-bottom:20px;">
     <div class="card-header">
-      <div style="font-size:13px;font-weight:700;color:var(--olive-dark);">사전결제 내역 (고정)</div>
+      <div style="font-size:13px;font-weight:700;color:var(--olive-dark);">원화결제 내역</div>
     </div>
-    <div class="card-body" style="padding:0;">
-      <div class="scrollable-table-wrap">
-        <table class="prepaid-table">
-          <tbody>
-            <tr><td>항공 (3인)</td><td>3,305,080원</td></tr>
-            <tr><td>프라하 숙소 3박 (리멤버프라하)</td><td>837,720원</td></tr>
-            <tr><td>바트고이저른 숙소 2박 (에어비앤비)</td><td>517,877원</td></tr>
-            <tr><td>비엔나 숙소 2박 (아디나)</td><td>483,871원</td></tr>
-            <tr><td>부다페스트 숙소 2박 (에어비앤비)</td><td>456,829원</td></tr>
-            <tr><td>체스키 숙소 1박 (빌라 베티카)</td><td>324,378원</td></tr>
-            <tr><td>렌트카 2박 3일 (잘츠캄머구트)</td><td>421,736원</td></tr>
-            <tr><td style="font-weight:800;">사전결제 소계 (원화결제)</td><td style="font-weight:800;font-size:15px;">6,347,491원</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="card-body">
+      <div id="wallet-prepaid-rows"></div>
+      <div class="wallet-subtotal" id="wallet-prepaid-subtotal"></div>
+      <button class="wallet-add-btn" onclick="addPrepaid()">+ 원화결제 추가</button>
     </div>
   </div>
 
@@ -1231,30 +1220,42 @@ function showSection(id, btn) {
 }
 
 // ── Wallet (환전지갑) ────────────────────────────
-const PREPAID_TOTAL = 6347491;
 const CURRENCIES = ['CZK', 'EUR', 'HUF'];
 
-// wallet state: { exchanges: [{src, krw, local, cur}], spending: [{cur, amount, memo}] }
-let walletData = { exchanges: [], spending: [] };
+const PREPAID_PRESETS = [
+  { desc: '항공 (3인)', krw: 3305080 },
+  { desc: '프라하 숙소 3박 (리멤버프라하)', krw: 837720 },
+  { desc: '바트고이저른 숙소 2박 (에어비앤비)', krw: 517877 },
+  { desc: '비엔나 숙소 2박 (아디나)', krw: 483871 },
+  { desc: '부다페스트 숙소 2박 (에어비앤비)', krw: 456829 },
+  { desc: '체스키 숙소 1박 (빌라 베티카)', krw: 324378 },
+  { desc: '렌트카 2박 3일 (잘츠캄머구트)', krw: 421736 },
+];
+
+let walletData = { exchanges: [], spending: [], prepaid: [] };
 
 function loadWallet() {
   try {
     const ex = localStorage.getItem('eu-trip-wallet-exchanges');
     const sp = localStorage.getItem('eu-trip-wallet-spending');
-    const WALLET_VERSION = 3;
+    const pp = localStorage.getItem('eu-trip-wallet-prepaid');
+    const WALLET_VERSION = 4;
     const savedVer = parseInt(localStorage.getItem('eu-trip-wallet-version')) || 0;
     if (savedVer < WALLET_VERSION) {
       walletData.exchanges = EXCHANGE_PRESETS.map(p => ({...p}));
       walletData.spending = SPENDING_PRESETS.map(p => ({...p}));
+      walletData.prepaid = PREPAID_PRESETS.map(p => ({...p}));
       localStorage.setItem('eu-trip-wallet-version', WALLET_VERSION);
       saveWallet();
     } else {
       walletData.exchanges = ex ? JSON.parse(ex) : EXCHANGE_PRESETS.map(p => ({...p}));
       walletData.spending = sp ? JSON.parse(sp) : SPENDING_PRESETS.map(p => ({...p}));
+      walletData.prepaid = pp ? JSON.parse(pp) : PREPAID_PRESETS.map(p => ({...p}));
     }
   } catch(e) {
-    walletData = { exchanges: [], spending: [] };
+    walletData = { exchanges: [], spending: [], prepaid: [] };
   }
+  renderPrepaidRows();
   renderExchangeRows();
   renderSpendRows();
   updateWalletBalance();
@@ -1263,6 +1264,7 @@ function loadWallet() {
 function saveWallet() {
   localStorage.setItem('eu-trip-wallet-exchanges', JSON.stringify(walletData.exchanges));
   localStorage.setItem('eu-trip-wallet-spending', JSON.stringify(walletData.spending));
+  localStorage.setItem('eu-trip-wallet-prepaid', JSON.stringify(walletData.prepaid));
   updateWalletBalance();
 }
 
@@ -1390,6 +1392,51 @@ function renderExchangeRows() {
   });
 }
 
+function addPrepaid(preset) {
+  walletData.prepaid.push(preset || { desc: '', krw: '' });
+  saveWallet();
+  renderPrepaidRows();
+  updateWalletBalance();
+}
+
+function deletePrepaid(idx) {
+  walletData.prepaid.splice(idx, 1);
+  saveWallet();
+  renderPrepaidRows();
+  updateWalletBalance();
+}
+
+function onPrepaidInput() {
+  const container = document.getElementById('wallet-prepaid-rows');
+  if (!container) return;
+  container.querySelectorAll('.wallet-row').forEach((row, idx) => {
+    if (walletData.prepaid[idx] !== undefined) {
+      walletData.prepaid[idx].desc = row.querySelector('.w-pp-desc').value;
+      walletData.prepaid[idx].krw = parseFloat(row.querySelector('.w-krw').value.replace(/,/g, '')) || '';
+    }
+  });
+  saveWallet();
+}
+
+function renderPrepaidRows() {
+  const container = document.getElementById('wallet-prepaid-rows');
+  if (!container) return;
+  container.innerHTML = '';
+  walletData.prepaid.forEach((pp, idx) => {
+    const row = document.createElement('div');
+    row.className = 'wallet-row';
+    row.innerHTML = `
+      <input type="text" class="w-pp-desc" placeholder="내역" value="${pp.desc}" oninput="onPrepaidInput()" style="flex:2;min-width:0;">
+      <div class="w-krw-wrap">
+        <input type="text" class="w-krw" placeholder="금액" value="${pp.krw ? Math.round(pp.krw).toLocaleString() : ''}" oninput="formatKrwInput(this); onPrepaidInput()">
+        <span class="w-krw-unit">원</span>
+      </div>
+      <button class="w-del" onclick="deletePrepaid(${idx})">×</button>
+    `;
+    container.appendChild(row);
+  });
+}
+
 function renderSpendRows() {
   const container = document.getElementById('wallet-spend-rows');
   if (!container) return;
@@ -1446,13 +1493,21 @@ function updateWalletBalance() {
     remEl.className = 'wallet-balance-remain ' + (rem > 0 ? 'positive' : rem < 0 ? 'negative' : 'zero');
   });
 
+  let prepaidTotal = 0;
+  walletData.prepaid.forEach(pp => { prepaidTotal += (parseFloat(pp.krw) || 0); });
+
   const fmtKrw = v => v > 0 ? Math.round(v).toLocaleString() + '원' : '0원';
   const exEl2 = document.getElementById('wb-krw-exchange');
   const ppEl = document.getElementById('wb-krw-prepaid');
   const totalEl = document.getElementById('wb-krw-total');
   if (exEl2) exEl2.textContent = fmtKrw(totalKrw);
-  if (ppEl) ppEl.textContent = fmtKrw(PREPAID_TOTAL);
-  if (totalEl) totalEl.textContent = fmtKrw(totalKrw + PREPAID_TOTAL);
+  if (ppEl) ppEl.textContent = fmtKrw(prepaidTotal);
+  if (totalEl) totalEl.textContent = fmtKrw(totalKrw + prepaidTotal);
+
+  const ppSub = document.getElementById('wallet-prepaid-subtotal');
+  if (ppSub) {
+    ppSub.innerHTML = prepaidTotal > 0 ? '소계: <span class="wst-item">' + fmtKrw(prepaidTotal) + '</span>' : '';
+  }
 
   const exSub = document.getElementById('wallet-exchange-subtotal');
   if (exSub) {
